@@ -6,7 +6,34 @@
  */
 
 const puppeteer = require('puppeteer');
-const chalk = require('chalk');
+// Handle different versions of chalk
+const chalk = (() => {
+  try {
+    const chalkModule = require('chalk');
+    // Check if it's chalk v4 or earlier (direct functions) or chalk v5+ (needs to create a new instance)
+    if (typeof chalkModule.blue === 'function') {
+      return chalkModule;
+    }
+    // For ESM or chalk v5+
+    return {
+      blue: (text) => `\x1b[34m${text}\x1b[0m`,
+      green: (text) => `\x1b[32m${text}\x1b[0m`,
+      red: (text) => `\x1b[31m${text}\x1b[0m`,
+      yellow: (text) => `\x1b[33m${text}\x1b[0m`,
+      gray: (text) => `\x1b[90m${text}\x1b[0m`
+    };
+  } catch (error) {
+    // Fallback if chalk is not available
+    console.error('Chalk not available, using basic logging');
+    return {
+      blue: (text) => text,
+      green: (text) => text,
+      red: (text) => text,
+      yellow: (text) => text,
+      gray: (text) => text
+    };
+  }
+})();
 const fs = require('fs');
 const path = require('path');
 
