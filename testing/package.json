@@ -1,0 +1,15 @@
+{
+  "name": "rnc-testing",
+  "version": "1.0.0",
+  "description": "Testing utilities for the RNC application",
+  "main": "run-tests.js",
+  "scripts": {
+    "test": "node run-tests.js",
+    "test:unit": "cd ../client && npm test",
+    "test:all": "npm run test:unit && npm test"
+  },
+  "dependencies": {
+    "chalk": "^4.1.2",
+    "puppeteer": "^20.7.4"
+  }
+}
