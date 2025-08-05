@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>RNC Logo Generator</title>
+</head>
+<body>
+    <canvas id="logoCanvas" width="90" height="90" style="border: 1px solid #ccc;"></canvas>
+    <br><br>
+    <button onclick="downloadLogo()">Download Logo</button>
+    
+    <script>
+        const canvas = document.getElementById('logoCanvas');
+        const ctx = canvas.getContext('2d');
+        
+        // Create a professional RNC logo
+        function createLogo() {
+            // Clear canvas
+            ctx.clearRect(0, 0, 90, 90);
+            
+            // Background circle
+            ctx.fillStyle = '#2E7D32'; // Green color
+            ctx.beginPath();
+            ctx.arc(45, 45, 40, 0, 2 * Math.PI);
+            ctx.fill();
+            
+            // Inner circle
+            ctx.fillStyle = '#4CAF50'; // Lighter green
+            ctx.beginPath();
+            ctx.arc(45, 45, 32, 0, 2 * Math.PI);
+            ctx.fill();
+            
+            // RNC Text
+            ctx.fillStyle = 'white';
+            ctx.font = 'bold 16px Arial';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText('RNC', 45, 45);
+            
+            // Small subtitle
+            ctx.font = '8px Arial';
+            ctx.fillText('Network', 45, 58);
+        }
+        
+        function downloadLogo() {
+            const link = document.createElement('a');
+            link.download = 'rnc-logo-90x90.png';
+            link.href = canvas.toDataURL();
+            link.click();
+        }
+        
+        // Create the logo when page loads
+        createLogo();
+    </script>
+</body>
+</html>

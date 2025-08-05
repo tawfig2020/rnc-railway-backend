@@ -1,6 +1,6 @@
 [
   {
-    "_id": "60d0fe4f5311236168a109ca",
+
     "name": "Admin User",
     "email": "admin@refugeenetwork.com",
     "role": "admin",
@@ -12,7 +12,7 @@
     "interests": ["Education", "Technology", "Policy"]
   },
   {
-    "_id": "60d0fe4f5311236168a109cb",
+
     "name": "Fatima Al-Hariri",
     "email": "fatima@example.com",
     "role": "refugee",
@@ -24,7 +24,7 @@
     "interests": ["Education", "Entrepreneurship", "Arts"]
   },
   {
-    "_id": "60d0fe4f5311236168a109cc",
+
     "name": "Mohammed Khan",
     "email": "mohammed@example.com",
     "role": "refugee",
@@ -36,7 +36,7 @@
     "interests": ["Technology", "Education", "Community"]
   },
   {
-    "_id": "60d0fe4f5311236168a109cd",
+
     "name": "Sarah Williams",
     "email": "sarah@example.com",
     "role": "volunteer",
@@ -48,7 +48,7 @@
     "interests": ["Languages", "Cultural Exchange", "Education"]
   },
   {
-    "_id": "60d0fe4f5311236168a109ce",
+
     "name": "Dr. Emily Chen",
     "email": "emily@example.com",
     "role": "staff",

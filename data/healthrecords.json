@@ -1,0 +1,184 @@
+[
+  {
+    "medicalHistory": "Patient has history of asthma since childhood. Experienced increased symptoms during migration journey.",
+    "allergies": ["Penicillin", "Dust mites"],
+    "currentMedications": [
+      {
+        "name": "Albuterol",
+        "dosage": "2 puffs",
+        "frequency": "As needed",
+        "startDate": "2020-01-15"
+      },
+      {
+        "name": "Montelukast",
+        "dosage": "10mg",
+        "frequency": "Once daily",
+        "startDate": "2021-03-20"
+      }
+    ],
+    "immunizations": [
+      {
+        "name": "COVID-19 Vaccine",
+        "date": "2022-04-10",
+        "details": "Pfizer, second dose"
+      },
+      {
+        "name": "Tetanus",
+        "date": "2021-06-15",
+        "details": "Booster shot"
+      }
+    ],
+    "chronicConditions": [
+      {
+        "condition": "Asthma",
+        "diagnosedDate": "2015-06-15",
+        "treatmentPlan": "Daily inhaler and avoiding triggers"
+      }
+    ],
+    "vitalSigns": {
+      "bloodPressure": "120/80",
+      "heartRate": 75,
+      "respiratoryRate": 16,
+      "temperature": 36.7,
+      "height": 178,
+      "weight": 74,
+      "bmi": 23.4,
+      "lastUpdated": "2023-04-15"
+    },
+    "mentalHealth": {
+      "conditions": [],
+      "treatmentHistory": "",
+      "currentTreatment": ""
+    },
+    "primaryCareProvider": {
+      "name": "Dr. Sarah Johnson",
+      "contactInfo": "+1-555-123-4567",
+      "facility": "Community Health Clinic"
+    },
+    "emergencyContacts": [
+      {
+        "name": "Sarah Ahmed",
+        "relationship": "Spouse",
+        "phone": "+1-555-987-6543"
+      }
+    ],
+    "accessibilityNeeds": "",
+    "nutritionalStatus": "Good, no dietary restrictions",
+    "notes": "Patient managing asthma well with current medications. Should follow up in 6 months."
+  },
+  {
+    "medicalHistory": "No significant medical history prior to migration. Experienced minor dehydration during journey.",
+    "allergies": ["None known"],
+    "currentMedications": [],
+    "immunizations": [
+      {
+        "name": "COVID-19 Vaccine",
+        "date": "2023-02-05",
+        "details": "Johnson & Johnson, single dose"
+      }
+    ],
+    "chronicConditions": [],
+    "vitalSigns": {
+      "bloodPressure": "118/75",
+      "heartRate": 72,
+      "respiratoryRate": 14,
+      "temperature": 36.5,
+      "height": 170,
+      "weight": 65,
+      "bmi": 22.5,
+      "lastUpdated": "2023-03-30"
+    },
+    "mentalHealth": {
+      "conditions": ["Adjustment Disorder"],
+      "treatmentHistory": "Started counseling in March 2023",
+      "currentTreatment": "Weekly counseling sessions"
+    },
+    "primaryCareProvider": {
+      "name": "Dr. James Wilson",
+      "contactInfo": "+1-555-234-5678",
+      "facility": "Refugee Health Center"
+    },
+    "emergencyContacts": [
+      {
+        "name": "Fatima Ahmadi",
+        "relationship": "Spouse",
+        "phone": "+1-555-876-5432"
+      }
+    ],
+    "accessibilityNeeds": "",
+    "nutritionalStatus": "Good",
+    "notes": "Patient adjusting well. Continue with mental health support."
+  },
+  {
+    "medicalHistory": "Type 2 diabetes diagnosed 5 years ago. Managed with oral medications.",
+    "allergies": ["Sulfa drugs"],
+    "currentMedications": [
+      {
+        "name": "Metformin",
+        "dosage": "500mg",
+        "frequency": "Twice daily",
+        "startDate": "2018-07-10"
+      },
+      {
+        "name": "Glipizide",
+        "dosage": "5mg",
+        "frequency": "Once daily",
+        "startDate": "2020-11-15"
+      }
+    ],
+    "immunizations": [
+      {
+        "name": "COVID-19 Vaccine",
+        "date": "2022-01-20",
+        "details": "Moderna, second dose"
+      },
+      {
+        "name": "Influenza",
+        "date": "2022-10-05",
+        "details": "Annual flu shot"
+      }
+    ],
+    "chronicConditions": [
+      {
+        "condition": "Type 2 Diabetes",
+        "diagnosedDate": "2018-03-10",
+        "treatmentPlan": "Oral medication, diet control, and regular monitoring"
+      },
+      {
+        "condition": "Hypertension",
+        "diagnosedDate": "2020-01-25",
+        "treatmentPlan": "Blood pressure medication and reduced sodium intake"
+      }
+    ],
+    "vitalSigns": {
+      "bloodPressure": "135/85",
+      "heartRate": 78,
+      "respiratoryRate": 16,
+      "temperature": 36.6,
+      "height": 165,
+      "weight": 70,
+      "bmi": 25.7,
+      "lastUpdated": "2023-02-10"
+    },
+    "mentalHealth": {
+      "conditions": [],
+      "treatmentHistory": "",
+      "currentTreatment": ""
+    },
+    "primaryCareProvider": {
+      "name": "Dr. Emily Chen",
+      "contactInfo": "+1-555-345-6789",
+      "facility": "Diabetes Care Clinic"
+    },
+    "emergencyContacts": [
+      {
+        "name": "Min Thura",
+        "relationship": "Friend",
+        "phone": "+1-555-765-4321"
+      }
+    ],
+    "accessibilityNeeds": "",
+    "nutritionalStatus": "On diabetic diet, monitoring carbohydrate intake",
+    "notes": "Blood sugar generally well controlled. HbA1c 6.8% at last check. Continue current medications."
+  }
+]

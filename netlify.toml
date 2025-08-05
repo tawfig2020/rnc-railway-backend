@@ -6,7 +6,7 @@
 # Redirect API calls to your backend
 [[redirects]]
   from = "/api/*"
-  to = "https://your-backend-url.com/api/:splat"
+  to = "${REACT_APP_API_URL}/:splat"
   status = 200
   force = true
 

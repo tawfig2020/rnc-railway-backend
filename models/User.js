@@ -58,6 +58,56 @@ const UserSchema = new mongoose.Schema({
     type: Boolean,
     default: false
   },
+  // Privacy and consent related fields
+  privacySettings: {
+    profileVisibility: {
+      type: String,
+      enum: ['public', 'members_only', 'private'],
+      default: 'members_only'
+    },
+    dataRetention: {
+      type: Boolean,
+      default: true
+    },
+    communicationPreferences: {
+      email: {
+        type: Boolean,
+        default: true
+      },
+      sms: {
+        type: Boolean,
+        default: false
+      },
+      newsletter: {
+        type: Boolean,
+        default: false
+      }
+    }
+  },
+  dataProcessingAgreement: {
+    accepted: {
+      type: Boolean,
+      default: false
+    },
+    acceptedAt: Date,
+    version: {
+      type: String,
+      default: '1.0'
+    }
+  },
+  lastPrivacyPolicyAccepted: {
+    version: String,
+    acceptedAt: Date
+  },
+  accountDeletionRequest: {
+    requested: {
+      type: Boolean,
+      default: false
+    },
+    requestedAt: Date,
+    scheduledDeletionDate: Date,
+    reason: String
+  },
   createdAt: {
     type: Date,
     default: Date.now
@@ -74,11 +124,28 @@ UserSchema.pre('save', async function(next) {
   this.password = await bcrypt.hash(this.password, salt);
 });
 
-// Sign JWT and return
+// Sign JWT and return (access token with shorter expiration)
 UserSchema.methods.getSignedJwtToken = function() {
-  return jwt.sign({ id: this._id }, config.jwtSecret, {
-    expiresIn: config.jwtExpire
-  });
+  return jwt.sign(
+    { 
+      id: this._id,
+      role: this.role,
+      email: this.email
+    }, 
+    config.jwtSecret, 
+    {
+      expiresIn: config.jwtExpire
+    }
+  );
+};
+
+// Generate refresh token
+UserSchema.methods.getRefreshToken = function() {
+  return jwt.sign(
+    { id: this._id },
+    config.jwtRefreshSecret,
+    { expiresIn: config.jwtRefreshExpire }
+  );
 };
 
 // Match user entered password to hashed password in database

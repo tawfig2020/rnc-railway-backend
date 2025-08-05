@@ -1,0 +1,70 @@
+{
+  "backend": {
+    "policyEndpoint": {
+      "status": true,
+      "hasVersion": false,
+      "hasContent": false
+    },
+    "authProtection": true,
+    "userConsentModel": {
+      "exists": true,
+      "hasSchema": true,
+      "hasTimestamps": false,
+      "hasValidation": true
+    },
+    "routes": {
+      "/policy": true,
+      "/consent": true,
+      "/accept-policy": true,
+      "/data-export": true,
+      "/account-deletion": true
+    }
+  },
+  "frontend": {
+    "components": {
+      "ConsentManager": {
+        "exists": true,
+        "hasApiIntegration": true,
+        "hasErrorHandling": true,
+        "hasMaterialUI": true,
+        "hasStateManagement": true
+      },
+      "PrivacySettings": {
+        "exists": true,
+        "hasApiIntegration": true,
+        "hasErrorHandling": true,
+        "hasMaterialUI": true,
+        "hasStateManagement": true
+      },
+      "Privacy": {
+        "exists": true,
+        "hasApiIntegration": true,
+        "hasErrorHandling": true,
+        "hasMaterialUI": true,
+        "hasStateManagement": true
+      },
+      "CookieConsentBanner": {
+        "exists": true,
+        "hasApiIntegration": true,
+        "hasErrorHandling": true,
+        "hasMaterialUI": true,
+        "hasStateManagement": true
+      }
+    },
+    "appIntegration": {
+      "hasPrivacyRoute": true,
+      "hasPrivacySettingsRoute": true,
+      "hasCookieBanner": true,
+      "hasPrivacyImports": true
+    }
+  },
+  "integration": {},
+  "compliance": {
+    "consentManagement": true,
+    "dataExportRequest": true,
+    "accountDeletion": true,
+    "cookieConsent": true,
+    "privacyPolicy": true,
+    "userRights": true
+  }
+}

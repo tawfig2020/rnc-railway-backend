@@ -1,0 +1,22 @@
+{
+  "name": "rnc-backend-api",
+  "version": "1.0.0",
+  "description": "RNC Platform Backend API",
+  "main": "deploy-backend.js",
+  "scripts": {
+    "start": "node deploy-backend.js",
+    "dev": "nodemon deploy-backend.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "cors": "^2.8.5",
+    "bcryptjs": "^2.4.3",
+    "jsonwebtoken": "^9.0.2"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "keywords": ["refugee", "network", "community", "api"],
+  "author": "RNC Team",
+  "license": "MIT"
+}

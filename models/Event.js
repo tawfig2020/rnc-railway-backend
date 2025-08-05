@@ -92,18 +92,13 @@ EventSchema.virtual('remainingSpots').get(function() {
 });
 
 // Update event status based on current date
-EventSchema.pre('find', function() {
-  this.updateEventStatus();
-});
-
-EventSchema.pre('findOne', function() {
-  this.updateEventStatus();
-});
-
-EventSchema.methods.updateEventStatus = function() {
+EventSchema.pre('save', function(next) {
+  // Update event status based on current date
   const now = new Date();
   
-  if (this.status === 'cancelled') return;
+  if (this.status === 'cancelled') {
+    return next();
+  }
   
   if (now > this.endDate) {
     this.status = 'completed';
@@ -112,6 +107,10 @@ EventSchema.methods.updateEventStatus = function() {
   } else {
     this.status = 'upcoming';
   }
-};
+  
+  next();
+});
+
+// Remove pre-hooks that were causing errors
 
 module.exports = mongoose.model('Event', EventSchema);
