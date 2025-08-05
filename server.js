@@ -583,19 +583,22 @@ connectDB().then(result => {
   }
 });
 
+// Health check endpoint
+app.get('/health', (req, res) => {
+  res.json({ 
+    status: 'OK', 
+    message: 'RNC Backend is running',
+    timestamp: new Date().toISOString(),
+    environment: process.env.NODE_ENV || 'development'
+  });
+});
+
 // Ensure API routes are prioritized over static file serving
 // First handle all API routes defined above
 
-// Then serve static assets in production
-if (process.env.NODE_ENV === 'production') {
-  // Set static folder
-  app.use(express.static('client/build'));
-
-  // For any route that doesn't start with /api, serve the React app
-  app.get(/^\/(?!api).*/, (req, res) => {
-    res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
-  });
-}
+// Disable static file serving since frontend is deployed on Netlify
+// All frontend requests will be handled by the Netlify deployment
+// Backend only serves API endpoints
 
 // Error handling middleware (should be after all routes)
 app.use(errorHandler);
