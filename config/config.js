@@ -80,7 +80,7 @@ const config = {
   },
   production: {
     port: process.env.PORT || 5000,
-    mongoURI: getMongoURI(process.env.MONGODB_URI_PRODUCTION) || 'mongodb+srv://tawfig2020ifbp:bdLp5inJJ05ZcbFN@rncmalaysia.dfz2nfi.mongodb.net/refugee-network-prod',
+    mongoURI: process.env.MONGODB_URI_PRODUCTION || 'mongodb+srv://tawfig2020ifbp:bdLp5inJJ05ZcbFN@rncmalaysia.dfz2nfi.mongodb.net/refugee-network',
     jwtSecret: process.env.JWT_SECRET,
     jwtExpire: process.env.JWT_EXPIRE || '30d',
     frontendUrl: process.env.FRONTEND_URL || 'https://refugeenetwork.com',
