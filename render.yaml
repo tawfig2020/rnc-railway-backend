@@ -3,8 +3,10 @@ services:
     name: rnc-malaysia-api
     env: node
     plan: free
-    buildCommand: npm install
+    region: singapore
+    buildCommand: npm install --production
     startCommand: npm start
+    healthCheckPath: /health
     envVars:
       - key: NODE_ENV
         value: production
@@ -12,5 +14,18 @@ services:
         generateValue: true
       - key: JWT_REFRESH_SECRET
         generateValue: true
+      - key: JWT_EXPIRE
+        value: "1h"
+      - key: JWT_REFRESH_EXPIRE
+        value: "7d"
       - key: PORT
         value: 10000
+      - key: CORS_ORIGIN
+        value: "http://rncmalaysia.org,https://rncmalaysia.org"
+      - key: MONGODB_URI
+        sync: false
+        # You'll need to add this manually in Render dashboard
+      - key: RATE_LIMIT_WINDOW_MS
+        value: "900000"
+      - key: RATE_LIMIT_MAX_REQUESTS
+        value: "100"

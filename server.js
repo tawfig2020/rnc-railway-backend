@@ -33,8 +33,34 @@ require('./models/UserConsent');
 const app = express();
 
 // Middleware
+// CORS Configuration - supports both development and production
+const allowedOrigins = [
+  'http://localhost:3000',
+  'http://localhost:5000', 
+  'http://127.0.0.1:3000',
+  'http://rncmalaysia.org',
+  'https://rncmalaysia.org',
+  'https://www.rncmalaysia.org'
+];
+
+// Add environment-specific origins
+if (process.env.CORS_ORIGIN) {
+  const envOrigins = process.env.CORS_ORIGIN.split(',').map(origin => origin.trim());
+  allowedOrigins.push(...envOrigins);
+}
+
 app.use(cors({
-  origin: ['http://localhost:3000', 'http://localhost:5000', 'http://127.0.0.1:3000'],
+  origin: function (origin, callback) {
+    // Allow requests with no origin (like mobile apps or curl requests)
+    if (!origin) return callback(null, true);
+    
+    if (allowedOrigins.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      console.log('CORS blocked origin:', origin);
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   credentials: true,
   allowedHeaders: ['Content-Type', 'Authorization', 'x-auth-token', 'Accept']

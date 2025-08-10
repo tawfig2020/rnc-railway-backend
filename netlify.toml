@@ -3,19 +3,36 @@
   publish = "build/"
   command = "npm run build"
 
-# Redirect API calls to your backend
-[[redirects]]
-  from = "/api/*"
-  to = "${REACT_APP_API_URL}/:splat"
-  status = 200
-  force = true
+[build.environment]
+  NODE_VERSION = "18"
+  CI = "false"
+  REACT_APP_API_URL = "https://rnc-malaysia-api.onrender.com/api"
 
-# Handle client-side routing
+# Production environment
+[context.production.environment]
+  REACT_APP_API_URL = "https://rnc-malaysia-api.onrender.com/api"
+
+# Deploy preview environment
+[context.deploy-preview.environment]
+  REACT_APP_API_URL = "https://rnc-malaysia-api.onrender.com/api"
+
+# Branch deploy environment
+[context.branch-deploy.environment]
+  REACT_APP_API_URL = "https://rnc-malaysia-api.onrender.com/api"
+
+# Handle client-side routing (React Router)
 [[redirects]]
   from = "/*"
   to = "/index.html"
   status = 200
 
-[build.environment]
-  CI = "false"
+# Security headers
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-XSS-Protection = "1; mode=block"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' https://rnc-malaysia-api.onrender.com https://api.rncmalaysia.org;"
   NODE_VERSION = "16"
