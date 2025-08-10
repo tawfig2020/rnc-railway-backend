@@ -80,7 +80,7 @@ const config = {
   },
   production: {
     port: process.env.PORT || 5000,
-    mongoURI: getMongoURI(process.env.MONGODB_URI_PRODUCTION) || 'mongodb+srv://tawfig2020ifbp:bdLp5inJJ05ZcbFN@rncmalaysia.dfz2nfi.mongodb.net/refugee-network-prod',
+    mongoURI: process.env.MONGODB_URI_PRODUCTION || 'mongodb+srv://tawfig2020ifbp:bdLp5inJJ05ZcbFN@rncmalaysia.dfz2nfi.mongodb.net/refugee-network',
     jwtSecret: process.env.JWT_SECRET,
     jwtExpire: process.env.JWT_EXPIRE || '30d',
     frontendUrl: process.env.FRONTEND_URL || 'https://refugeenetwork.com',
@@ -92,6 +92,22 @@ const config = {
       secure: process.env.SMTP_SECURE === 'true',
       user: process.env.SMTP_USER || '',
       password: process.env.SMTP_PASSWORD || ''
+    },
+    // Rate limiting configuration for production
+    rateLimit: {
+      windowMs: parseInt(process.env.RATE_LIMIT_WINDOW_MS) || 15 * 60 * 1000, // 15 minutes
+      max: parseInt(process.env.RATE_LIMIT_MAX_REQUESTS) || 100, // Limit each IP to 100 requests per windowMs
+      standardHeaders: true,
+      legacyHeaders: false,
+      message: { error: 'Too many requests, please try again later' }
+    },
+    // Authentication rate limiting (more strict for production)
+    authRateLimit: {
+      windowMs: parseInt(process.env.AUTH_RATE_LIMIT_WINDOW_MS) || 15 * 60 * 1000, // 15 minutes
+      max: parseInt(process.env.AUTH_RATE_LIMIT_MAX_REQUESTS) || 5, // Limit each IP to 5 login attempts per windowMs
+      standardHeaders: true,
+      legacyHeaders: false,
+      message: { error: 'Too many login attempts, please try again later' }
     }
   }
 };

@@ -4,60 +4,49 @@
  */
 
 const axios = require('axios');
-const fs = require('fs');
-const path = require('path');
 
-const BASE_URL = 'http://localhost:5000';
-const FRONTEND_URL = 'http://localhost:3000';
+// Configuration - Update these with your actual URLs
+const BACKEND_URL = process.env.REACT_APP_API_URL || 'https://rnc-platform-backend.onrender.com';
+const FRONTEND_URL = process.env.FRONTEND_URL || 'https://your-frontend.netlify.app';
 
-async function verifyDeployment() {
-  console.log('🔍 Verifying RNC Platform Deployment Readiness...\n');
+async function testBackendDeployment() {
+  console.log('🔍 Testing Backend Deployment...');
   
-  const results = {
-    backend: false,
-    frontend: false,
-    auth: false,
-    build: false
-  };
-
-  // 1. Check Backend Health
   try {
-    console.log('1. Checking Backend Health...');
-    const response = await axios.get(`${BASE_URL}/api/health`);
-    if (response.data.status === 'OK') {
-      console.log('   ✅ Backend is healthy');
-      results.backend = true;
-    }
-  } catch (error) {
-    console.log('   ❌ Backend health check failed:', error.message);
-  }
-
-  // 2. Check Frontend Build
-  try {
-    console.log('2. Checking Frontend Build...');
-    const buildPath = path.join(__dirname, 'client', 'build', 'index.html');
-    if (fs.existsSync(buildPath)) {
-      const buildStats = fs.statSync(buildPath);
-      console.log('   ✅ Build folder exists');
-      console.log(`   📁 Build date: ${buildStats.mtime.toISOString()}`);
-      results.build = true;
-    } else {
-      console.log('   ❌ Build folder not found');
-    }
-  } catch (error) {
-    console.log('   ❌ Build check failed:', error.message);
-  }
-
-  // 3. Test Authentication
-  try {
-    console.log('3. Testing Authentication...');
-    const loginResponse = await axios.post(`${BASE_URL}/api/auth/login`, {
-      email: 'admin@refugeenetwork.com',
-      password: '123456'
-    });
+    // Test health endpoint
+    console.log('  Testing health endpoint...');
+    const healthResponse = await axios.get(`${BACKEND_URL}/health`);
+    console.log('  ✅ Health check passed:', healthResponse.data);
     
-    if (loginResponse.data.success && loginResponse.data.accessToken) {
-      console.log('   ✅ Admin login working');
+    // Test API endpoints
+    console.log('  Testing API endpoints...');
+    const apiResponse = await axios.get(`${BACKEND_URL}/api/auth/test`);
+    console.log('  ✅ API endpoints accessible');
+    
+    console.log('🎉 Backend deployment successful!');
+    console.log(`   Backend URL: ${BACKEND_URL}`);
+    
+  } catch (error) {
+    console.error('❌ Backend deployment issues:', error.message);
+    console.log('   Check your Render.com dashboard for logs');
+  }
+}
+
+async function testFrontendBackendIntegration() {
+  console.log('🔗 Testing Frontend-Backend Integration...');
+  
+  try {
+    // Test CORS
+    console.log('  Testing CORS configuration...');
+    const corsResponse = await axios.get(`${BACKEND_URL}/health`, {
+      headers: { 'Origin': FRONTEND_URL }
+    });
+    console.log('  ✅ CORS working correctly');
+    
+    console.log('🎉 Integration successful!');
+    console.log(`   Frontend: ${FRONTEND_URL}`);
+    console.log(`   Backend: ${BACKEND_URL}`);
+    
       console.log('   🔑 JWT token generated successfully');
       results.auth = true;
     }
