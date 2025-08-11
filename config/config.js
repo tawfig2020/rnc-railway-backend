@@ -26,8 +26,8 @@ const env = process.env.NODE_ENV || 'development';
 const config = {
   development: {
     port: process.env.PORT || 5000,
-    // Force Atlas connection - ignore local env vars that might point to localhost
-    mongoURI: 'mongodb+srv://tawfig2020ifbp:bdLp5inJJ05ZcbFN@rncmalaysia.dfz2nfi.mongodb.net/refugee-network',
+    // Try environment variable first, then fallback to local MongoDB, then hardcoded Atlas URI as last resort
+    mongoURI: getMongoURI(process.env.MONGODB_URI) || process.env.MONGODB_URI_LOCAL || 'mongodb+srv://tawfig2020ifbp:bdLp5inJJ05ZcbFN@rncmalaysia.dfz2nfi.mongodb.net/refugee-network',
     // Enhanced JWT security with shorter expiration
     jwtSecret: process.env.JWT_SECRET || 'dev_secret',
     jwtExpire: process.env.JWT_EXPIRE || '1h', // Reduced from 30d to 1h
