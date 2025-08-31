@@ -67,6 +67,9 @@ app.use(cors({
 }));
 app.use(express.json({ extended: false }));
 
+// Trust proxy for Render deployment (fixes rate limiting)
+app.set('trust proxy', true);
+
 // Add headers before the routes are defined
 app.use(function(req, res, next) {
   res.header('Access-Control-Allow-Origin', '*');
