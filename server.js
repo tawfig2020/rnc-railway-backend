@@ -147,6 +147,7 @@ connectDB().then(result => {
 // --- Real API Routes --- 
 const realApiRouter = express.Router();
 realApiRouter.use(standardLimiter); // Apply rate limiter to all real API routes
+realApiRouter.get('/', (req, res) => res.json({ message: 'Welcome to Refugee Network Centre API - Real Mode', status: 'connected', database: 'MongoDB Atlas' }));
 realApiRouter.use('/auth', require('./routes/auth'));
 realApiRouter.use('/refresh-token', require('./routes/refreshToken'));
 realApiRouter.use('/blogs', require('./routes/blogs'));
