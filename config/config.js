@@ -26,8 +26,8 @@ const env = process.env.NODE_ENV || 'development';
 const config = {
   development: {
     port: process.env.PORT || 5000,
-    // Try environment variable first, then fallback to local MongoDB, then hardcoded Atlas URI as last resort
-    mongoURI: getMongoURI(process.env.MONGODB_URI) || process.env.MONGODB_URI_LOCAL || 'mongodb+srv://tawfig2020ifbp:bdLp5inJJ05ZcbFN@rncmalaysia.dfz2nfi.mongodb.net/refugee-network',
+    // Use env, otherwise fall back to local Mongo in development only
+    mongoURI: getMongoURI(process.env.MONGODB_URI) || process.env.MONGODB_URI_LOCAL || 'mongodb://localhost:27017/rnc',
     // Enhanced JWT security with shorter expiration
     jwtSecret: process.env.JWT_SECRET || 'dev_secret',
     jwtExpire: process.env.JWT_EXPIRE || '1h', // Reduced from 30d to 1h
@@ -61,7 +61,8 @@ const config = {
   },
   test: {
     port: process.env.PORT || 5000,
-    mongoURI: process.env.MONGODB_URI_TEST || 'mongodb+srv://tawfig2020ifbp:bdLp5inJJ05ZcbFN@rncmalaysia.dfz2nfi.mongodb.net/refugee-network-test',
+    // Use env, otherwise fall back to local Mongo for tests
+    mongoURI: process.env.MONGODB_URI_TEST || process.env.MONGODB_URI_LOCAL || 'mongodb://localhost:27017/rnc-test',
     // Enhanced JWT security with shorter expiration
     jwtSecret: process.env.JWT_SECRET || 'test_secret',
     jwtExpire: process.env.JWT_EXPIRE || '1h', // Reduced from 30d to 1h
@@ -80,7 +81,8 @@ const config = {
   },
   production: {
     port: process.env.PORT || 5000,
-    mongoURI: process.env.MONGODB_URI_PRODUCTION || 'mongodb+srv://tawfig2020ifbp:bdLp5inJJ05ZcbFN@rncmalaysia.dfz2nfi.mongodb.net/refugee-network',
+    // In production, require env-provided URI (validated in server startup)
+    mongoURI: process.env.MONGODB_URI || process.env.MONGODB_URI_PRODUCTION,
     jwtSecret: process.env.JWT_SECRET,
     jwtExpire: process.env.JWT_EXPIRE || '30d',
     frontendUrl: process.env.FRONTEND_URL || 'https://refugeenetwork.com',

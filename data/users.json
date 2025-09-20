@@ -1,18 +1,6 @@
 [
   {
 
-    "name": "Admin User",
-    "email": "admin@refugeenetwork.com",
-    "role": "admin",
-    "password": "123456",
-    "location": "London, UK",
-    "languages": ["English", "Arabic", "French"],
-    "bio": "Platform administrator with experience in refugee support programs and digital services.",
-    "skills": ["Leadership", "Project Management", "Community Building"],
-    "interests": ["Education", "Technology", "Policy"]
-  },
-  {
-
     "name": "Fatima Al-Hariri",
     "email": "fatima@example.com",
     "role": "refugee",

@@ -40,7 +40,8 @@ const allowedOrigins = [
   'http://127.0.0.1:3000',
   'http://rncmalaysia.org',
   'https://rncmalaysia.org',
-  'https://www.rncmalaysia.org'
+  'https://www.rncmalaysia.org',
+  'https://rncplatform.netlify.app'
 ];
 
 // Add environment-specific origins
@@ -70,18 +71,9 @@ app.use(express.json({ extended: false }));
 // Trust proxy for Render deployment (fixes rate limiting)
 app.set('trust proxy', true);
 
-// Add headers before the routes are defined
-app.use(function(req, res, next) {
-  res.header('Access-Control-Allow-Origin', '*');
-  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, x-auth-token, Authorization');
-  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
-  
-  // Handle preflight requests
-  if (req.method === 'OPTIONS') {
-    return res.status(200).end();
-  }
-  next();
-});
+// Note: Avoid setting permissive wildcard CORS headers manually here.
+// The cors() middleware above already handles allowed origins and headers.
+// Adding '*' with credentials true breaks browsers; keep configuration centralized.
 
 // MongoDB Connection
 const connectDB = async () => {
@@ -190,10 +182,18 @@ mockApiRouter.get('/resources', (req, res) => res.json(mockData.resources));
 // This ensures that routes are registered immediately on startup.
 app.use('/api', (req, res, next) => {
   if (isDbConnected) {
-    realApiRouter(req, res, next);
-  } else {
-    mockApiRouter(req, res, next);
+    return realApiRouter(req, res, next);
   }
+  // In production, do NOT expose mock API/auth. Fail fast with 503.
+  if (process.env.NODE_ENV === 'production') {
+    console.error('Database not connected - refusing to serve mock API in production');
+    return res.status(503).json({
+      error: 'Service temporarily unavailable',
+      reason: 'Database not connected'
+    });
+  }
+  // Development fallback: allow mock API for local testing only
+  return mockApiRouter(req, res, next);
 });
 
 // Health check endpoint
@@ -217,6 +217,23 @@ app.get('/health', (req, res) => {
 app.use(errorHandler);
 
 const PORT = process.env.PORT || 5000;
+// Validate required environment in production before starting server
+function validateEnv() {
+  if (process.env.NODE_ENV === 'production') {
+    const missing = [];
+    if (!process.env.MONGODB_URI && !process.env.MONGODB_URI_PRODUCTION) missing.push('MONGODB_URI');
+    if (!process.env.JWT_SECRET) missing.push('JWT_SECRET');
+    // CORS_ORIGIN is recommended but not strictly required because we have defaults
+    if (missing.length) {
+      console.error('Missing required environment variables in production:', missing.join(', '));
+      process.exit(1);
+    }
+  }
+}
+
+validateEnv();
+
+console.log('Allowed CORS origins:', allowedOrigins);
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
