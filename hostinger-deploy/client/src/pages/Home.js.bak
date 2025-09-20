@@ -1,0 +1,1131 @@
+import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import {
+  Box, Container, Grid, Paper, Typography, Button, Card, CardContent, Divider,
+  Avatar, CardMedia, IconButton, useMediaQuery, useTheme, Skeleton, Chip, Zoom, Slide,
+  Tooltip, Badge, Fade, CardActionArea
+} from '@mui/material';
+import { alpha } from '@mui/material/styles';
+import {
+  Favorite, FavoriteBorder, School, LocalHospital, Work, People, 
+  SocialDistance, VolunteerActivism, Language, HealthAndSafety, BusinessCenter, Diversity3,
+  KeyboardArrowRight, AccessTime, Event, Place, Group, MedicalServices, SmartToy, Code,
+  EmojiEvents, TrendingUp, AutoAwesome, Storefront
+} from '@mui/icons-material';
+
+const Home = () => {
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+  const isMedium = useMediaQuery(theme.breakpoints.down('md'));
+  
+  // State for interactive elements
+  const [activeSection, setActiveSection] = useState('education');
+  const [loading, setLoading] = useState(false);
+  const [favorites, setFavorites] = useState([]);
+  const [showAnimation, setShowAnimation] = useState(false);
+  const [hoveredCard, setHoveredCard] = useState(null);
+  
+  // Animation effect for the vision/mission sections
+  useEffect(() => {
+    const visionElements = document.querySelectorAll('.vision-animate');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('animate-visible');
+        }
+      });
+    }, { threshold: 0.2 });
+    
+    visionElements.forEach(el => observer.observe(el));
+    
+    return () => {
+      visionElements.forEach(el => observer.unobserve(el));
+    };
+  }, []);
+  
+  // Set initial animation state
+  useEffect(() => {
+    setShowAnimation(true);
+  }, []);
+  
+  // Handle favorite toggle
+  const handleFavoriteToggle = (id) => {
+    if (favorites.includes(id)) {
+      setFavorites(favorites.filter(favId => favId !== id));
+    } else {
+      setFavorites([...favorites, id]);
+    }
+  };
+
+  // Cultural pattern backgrounds
+  const patterns = [
+    'radial-gradient(circle, rgba(42, 125, 111, 0.2) 10%, transparent 11%),radial-gradient(circle at 50% 50%, transparent 10%, rgba(42, 125, 111, 0.2) 11%)',
+    'linear-gradient(45deg, rgba(211, 97, 53, 0.1) 25%, transparent 25%, transparent 50%, rgba(211, 97, 53, 0.1) 50%, rgba(211, 97, 53, 0.1) 75%, transparent 75%, transparent)',
+    'radial-gradient(circle at 50% 0, rgba(121, 133, 78, 0.2), rgba(121, 133, 78, 0.1) 70%, transparent 1.5rem),radial-gradient(circle at 6.7% 75%, rgba(121, 133, 78, 0.15), transparent 1.5rem)',
+    'linear-gradient(135deg, rgba(139, 94, 131, 0.1) 25%, transparent 25%, transparent 50%, rgba(139, 94, 131, 0.1) 50%, rgba(139, 94, 131, 0.1) 75%, transparent 75%, transparent)'
+  ];
+
+  // Enhanced feature cards data
+  const featureCards = [
+    {
+      id: 'marketplace',
+      title: 'Community Marketplace',
+      description: 'Support refugee entrepreneurs by purchasing handcrafted products and services. Each purchase directly helps refugee families build sustainable livelihoods.',
+      icon: Storefront,
+      color: '#2A7D6F', // Deep teal
+      stats: {
+        products: 250,
+        sellers: 85,
+        categories: 12
+      },
+      features: ['Handcrafted Products', 'Digital Services', 'Cultural Goods', 'Fair Trade'],
+      categories: [
+        { name: 'Handmade & Artisan Products', count: 120, route: '/marketplace/handmade' },
+        { name: 'Digital Products & Services', count: 85, route: '/marketplace/digital' },
+        { name: 'Bakery & Cultural Foods', count: 45, route: '/marketplace/bakery' }
+      ],
+      pattern: patterns[0],
+      route: '/marketplace'
+    },
+    {
+      id: 'donate',
+      title: 'Support Our Mission',
+      description: 'Your donation helps provide education, career development, and community support to refugees building new lives. Every contribution makes a difference.',
+      icon: VolunteerActivism,
+      color: '#D36135', // Terracotta
+      stats: {
+        donors: 1250,
+        raised: '$85,000',
+        projects: 24
+      },
+      features: ['Education Support', 'Emergency Relief', 'Community Projects', 'Entrepreneurship Grants'],
+      impactAreas: [
+        { name: 'Education Access', amount: '$32,500', beneficiaries: 450 },
+        { name: 'Career Development', amount: '$28,750', beneficiaries: 325 },
+        { name: 'Community Programs', amount: '$23,750', beneficiaries: 1200 }
+      ],
+      pattern: patterns[1],
+      route: '/donate'
+    },
+    {
+      id: 'services',
+      title: 'Our Services',
+      description: 'Comprehensive support services designed to help refugees thrive in their new communities through education, career development, and community connections.',
+      icon: BusinessCenter,
+      color: '#79854E', // Olive green
+      stats: {
+        services: 35,
+        partners: 42,
+        beneficiaries: '5,800+'
+      },
+      features: ['Education Access', 'Career Development', 'Community Connection', 'Resource Navigation'],
+      keyServices: [
+        { name: 'Language Courses', users: 1450, satisfaction: 4.8 },
+        { name: 'Job Placement', users: 950, satisfaction: 4.7 },
+        { name: 'Community Events', users: 3400, satisfaction: 4.9 }
+      ],
+      pattern: patterns[2],
+      route: '/services'
+    }
+  ];
+
+  // Mock testimonials
+  const testimonials = [
+    {
+      name: 'Ahmed Hassan',
+      origin: 'Syria',
+      avatar: 'https://randomuser.me/api/portraits/men/32.jpg',
+      text: 'The language courses changed my life. I went from struggling to communicate to finding a job in just 8 months. The community here feels like family.',
+      joinedDate: 'Mar 2022',
+      services: ['education', 'career']
+    },
+    {
+      name: 'Fatima Ahmadi',
+      origin: 'Afghanistan',
+      avatar: 'https://randomuser.me/api/portraits/women/45.jpg',
+      text: 'The health resources connected me with culturally sensitive care for my family. I also found a supportive community of other mothers.',
+      joinedDate: 'Jun 2023',
+      services: ['healthcare', 'community']
+    },
+    {
+      name: 'Emmanuel Okoro',
+      origin: 'Nigeria',
+      avatar: 'https://randomuser.me/api/portraits/men/22.jpg',
+      text: 'Through the career development program, I was able to validate my engineering degree and find work in my field. This platform is truly life-changing.',
+      joinedDate: 'Sep 2022',
+      services: ['education', 'career']
+    }
+  ];
+  
+  // Upcoming events
+  const upcomingEvents = [
+    {
+      id: 'evt1',
+      title: 'Cultural Celebration Festival',
+      date: 'Oct 15, 2023',
+      location: 'Central Community Center',
+      description: 'Celebrate diversity with food, music, and performances from around the world. This event brings together various cultural traditions and creates opportunities for cross-cultural exchange.',
+      attendees: 187,
+      image: 'https://images.unsplash.com/photo-1511988617509-a57c8a288659?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80'
+    },
+    {
+      id: 'evt2',
+      title: 'Career Fair & Networking',
+      date: 'Nov 22, 2023',
+      location: 'Tech Innovation Hub',
+      description: 'Connect with employers and explore job opportunities across various industries. Resume help and interview workshops will also be available.',
+      attendees: 145,
+      image: 'https://images.unsplash.com/photo-1523580846011-d3a5bc25702b?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80'
+    },
+    {
+      id: 'evt3',
+      title: 'Language Exchange Meetup',
+      date: 'Dec 05, 2023',
+      location: 'Public Library - Meeting Room A',
+      description: 'Practice conversation skills in a supportive environment with native speakers. All language levels welcome, from beginner to advanced.',
+      attendees: 68,
+      image: 'https://images.unsplash.com/photo-1587825140708-dfaf72ae4b04?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80'
+    }
+  ];
+
+  return (
+    <Box sx={{ backgroundColor: theme.palette.background.default, minHeight: '100vh', pt: 4, pb: 8 }}>
+      {/* Hero Section */}
+      <Box 
+        sx={{
+          position: 'relative',
+          backgroundColor: '#2A7D6F', // Deep teal from the color palette
+          color: '#fff',
+          pt: 8,
+          pb: 10,
+          overflow: 'hidden'
+        }}
+      >
+        <Container maxWidth="lg">
+          <Grid container spacing={4} alignItems="center">
+            <Grid item xs={12} md={7}>
+              <Typography variant="h2" component="h1" sx={{ fontWeight: 700, mb: 3 }}>
+                Empowering Refugee Communities
+              </Typography>
+              <Typography variant="h5" sx={{ mb: 4, opacity: 0.9 }}>
+                Access education, healthcare, career support, and community connections in one place
+              </Typography>
+              <Button 
+                variant="contained" 
+                size="large" 
+                component={Link} 
+                to="/register" 
+                sx={{ 
+                  backgroundColor: '#D36135', // Terracotta from the color palette
+                  px: 4, 
+                  py: 1.5,
+                  '&:hover': { backgroundColor: '#b8512e' }
+                }}
+              >
+                Join Our Community
+              </Button>
+            </Grid>
+            <Grid item xs={12} md={5}>
+              <Box sx={{ position: 'relative', textAlign: 'center' }}>
+                <img 
+                  src="https://images.unsplash.com/photo-1531206715517-5c0ba140b2b8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" 
+                  alt="Diverse community"
+                  style={{ 
+                    maxWidth: '100%', 
+                    borderRadius: '12px', 
+                    boxShadow: '0 16px 32px rgba(0,0,0,0.15)' 
+                  }}
+                />
+              </Box>
+            </Grid>
+          </Grid>
+        </Container>
+      </Box>
+
+      {/* Vision and Mission Sections */}
+      <Box>
+        <Container maxWidth="lg" sx={{ mt: 12, mb: 8 }}>
+          <Typography 
+            variant="h4" 
+            align="center" 
+            sx={{ 
+              fontWeight: 700, 
+              mb: 6,
+              position: 'relative',
+              '&::after': {
+                content: '""',
+                position: 'absolute',
+                bottom: -16,
+                left: '50%',
+                transform: 'translateX(-50%)',
+                width: 80,
+                height: 4,
+                backgroundColor: '#2A7D6F', // Deep teal
+                borderRadius: 2
+              }
+            }}
+          >
+            Our Vision and Mission
+          </Typography>
+          
+          <Grid container spacing={6}>
+            <Grid item xs={12} md={6}>
+              <Paper 
+                elevation={3} 
+                sx={{ 
+                  p: 4, 
+                  height: '100%',
+                  borderRadius: 4,
+                  position: 'relative',
+                  overflow: 'hidden'
+                }}
+                className="vision-animate"
+              >
+                <Box 
+                  sx={{ 
+                    position: 'absolute', 
+                    top: 0, 
+                    left: 0, 
+                    right: 0, 
+                    bottom: 0, 
+                    backgroundImage: patterns[0],
+                    backgroundSize: '30px 30px',
+                    opacity: 0.2,
+                    zIndex: 0 
+                  }} 
+                />
+                <Box sx={{ position: 'relative', zIndex: 1 }}>
+                  <Typography variant="h5" gutterBottom sx={{ color: '#2A7D6F', fontWeight: 600 }}>
+                    Our Vision
+                  </Typography>
+                  <Typography paragraph>
+                    To create a world where refugees have the resources, support, and opportunities 
+                    to rebuild their lives with dignity, purpose, and belonging.
+                  </Typography>
+                  <Typography paragraph>
+                    We envision communities where refugees are valued for their contributions, 
+                    resilience, and cultural richness they bring to society.
+                  </Typography>
+                </Box>
+              </Paper>
+            </Grid>
+            
+            <Grid item xs={12} md={6}>
+              <Paper 
+                elevation={3} 
+                sx={{ 
+                  p: 4, 
+                  height: '100%',
+                  borderRadius: 4,
+                  position: 'relative',
+                  overflow: 'hidden'
+                }}
+                className="vision-animate"
+              >
+                <Box 
+                  sx={{ 
+                    position: 'absolute', 
+                    top: 0, 
+                    left: 0, 
+                    right: 0, 
+                    bottom: 0, 
+                    backgroundImage: patterns[1],
+                    backgroundSize: '30px 30px',
+                    opacity: 0.2,
+                    zIndex: 0 
+                  }} 
+                />
+                <Box sx={{ position: 'relative', zIndex: 1 }}>
+                  <Typography variant="h5" gutterBottom sx={{ color: '#D36135', fontWeight: 600 }}>
+                    Our Mission
+                  </Typography>
+                  <Typography paragraph>
+                    To provide a comprehensive platform that connects refugees with essential services, 
+                    learning opportunities, career pathways, and community support.
+                  </Typography>
+                  <Typography paragraph>
+                    Through culturally sensitive resources, multilingual access, and technology-enabled 
+                    solutions, we aim to empower refugees to navigate their new environments and thrive.
+                  </Typography>
+                </Box>
+              </Paper>
+            </Grid>
+          </Grid>
+        </Container>
+      </Box>
+
+      {/* Services Section */}
+      <Box sx={{ backgroundColor: '#F9F4EF', py: 10 }}> {/* Soft beige background */}
+        <Container maxWidth="lg">
+          <Typography 
+            variant="h4" 
+            align="center" 
+            sx={{ 
+              fontWeight: 700, 
+              mb: 6,
+              position: 'relative',
+              '&::after': {
+                content: '""',
+                position: 'absolute',
+                bottom: -16,
+                left: '50%',
+                transform: 'translateX(-50%)',
+                width: 80,
+                height: 4,
+                backgroundColor: '#79854E', // Olive green
+                borderRadius: 2
+              }
+            }}
+          >
+            Our Services
+          </Typography>
+          
+          <Grid container spacing={4}>
+            {/* Feature cards - 3 cards */}
+            {featureCards.map((card, index) => {
+              const Icon = card.icon;
+              return (
+                <Grid item xs={12} sm={6} md={4} key={card.id}>
+                  <Zoom in={showAnimation} style={{ transitionDelay: `${index * 150}ms` }}>
+                    <Card 
+                      sx={{ 
+                        height: '100%',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        borderRadius: 3,
+                        transition: 'all 0.3s ease',
+                        boxShadow: hoveredCard === card.id ? '0 10px 30px rgba(0,0,0,0.12)' : '0 4px 12px rgba(0,0,0,0.08)',
+                        transform: hoveredCard === card.id ? 'translateY(-12px)' : 'none',
+                        '&:hover': { transform: 'translateY(-8px)' },
+                        position: 'relative',
+                        overflow: 'hidden'
+                      }}
+                      onMouseEnter={() => setHoveredCard(card.id)}
+                      onMouseLeave={() => setHoveredCard(null)}
+                    >
+                      <Box sx={{ 
+                        position: 'absolute', 
+                        top: 0, 
+                        right: 0, 
+                        p: 1.5,
+                        zIndex: 10 
+                      }}>
+                        <Tooltip title={favorites.includes(card.id) ? "Remove from favorites" : "Add to favorites"}>
+                          <IconButton 
+                            size="small" 
+                            onClick={(e) => {
+                              e.preventDefault();
+                              handleFavoriteToggle(card.id);
+                            }}
+                            sx={{ 
+                              bgcolor: 'rgba(255,255,255,0.8)', 
+                              '&:hover': { bgcolor: 'rgba(255,255,255,0.95)' } 
+                            }}
+                          >
+                            <Favorite sx={{ 
+                              fontSize: 20, 
+                              color: favorites.includes(card.id) ? '#D36135' : 'rgba(0,0,0,0.3)' 
+                            }} />
+                          </IconButton>
+                        </Tooltip>
+                      </Box>
+                      
+                      <Box sx={{ position: 'relative', pt: '50%', overflow: 'hidden' }}>
+                        <Box
+                          sx={{
+                            position: 'absolute',
+                            top: 0,
+                            left: 0,
+                            width: '100%',
+                            height: '100%',
+                            backgroundColor: card.color,
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center'
+                          }}
+                        >
+                          <Box 
+                            sx={{ 
+                              position: 'absolute', 
+                              top: 0, 
+                              left: 0, 
+                              width: '100%', 
+                              height: '100%',
+                              backgroundImage: card.pattern,
+                              backgroundSize: '30px 30px',
+                              opacity: 0.3
+                            }} 
+                          />
+                          <Icon sx={{ fontSize: 80, color: '#fff', position: 'relative', zIndex: 1 }} />
+                        </Box>
+                      </Box>
+                      
+                      <Box sx={{ p: 3 }}>
+                        <Badge 
+                          badgeContent={Object.values(card.stats)[0]} 
+                          color={index === 0 ? 'primary' : index === 1 ? 'secondary' : 'success'}
+                          sx={{ position: 'absolute', top: '45%', right: 24 }}
+                        />
+                        <Typography variant="h4" component="h2" gutterBottom sx={{ fontWeight: 700, mb: 2 }}>
+                          {card.title}
+                        </Typography>
+                        <Typography variant="body1" color="text.secondary" paragraph sx={{ mb: 3 }}>
+                          {card.description}
+                        </Typography>
+                        
+                        <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1, mb: 3 }}>
+                          {card.features.map((feature, idx) => (
+                            <Chip 
+                              key={idx} 
+                              label={feature} 
+                              size="small" 
+                              sx={{ 
+                                bgcolor: alpha(card.color, 0.1), 
+                                color: card.color,
+                                fontWeight: 500 
+                              }} 
+                            />
+                          ))}
+                        </Box>
+                        
+                        <Divider sx={{ mb: 2 }} />
+                        
+                        {/* Marketplace Categories */}
+                        {card.id === 'marketplace' && (
+                          <Box sx={{ mb: 3 }}>
+                            <Typography variant="subtitle1" fontWeight={600} gutterBottom>
+                              Categories
+                            </Typography>
+                            {card.categories.map((category, idx) => (
+                              <Box key={idx} sx={{ display: 'flex', justifyContent: 'space-between', mb: 1 }}>
+                                <Typography variant="body2" component={Link} to={category.route} sx={{ color: 'text.primary', textDecoration: 'none', '&:hover': { color: card.color } }}>
+                                  {category.name}
+                                </Typography>
+                                <Typography variant="body2" color="text.secondary">
+                                  {category.count} items
+                                </Typography>
+                              </Box>
+                            ))}
+                          </Box>
+                        )}
+                            top: 0,
+                            left: 0,
+                            width: '100%',
+                            height: '100%',
+                            backgroundColor: service.color,
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center'
+                          }}
+                        >
+                          <Box 
+                            sx={{ 
+                              position: 'absolute', 
+                              top: 0, 
+                              left: 0, 
+                              width: '100%', 
+                              height: '100%',
+                              backgroundImage: service.pattern,
+                              backgroundSize: '30px 30px',
+                              opacity: 0.3
+                            }} 
+                          />
+                          <Icon sx={{ fontSize: 80, color: '#fff', position: 'relative', zIndex: 1 }} />
+                        </Box>
+                      </Box>
+                      
+                      <Box sx={{ p: 3 }}>
+                        <Badge 
+                          badgeContent={Object.values(service.stats)[0]} 
+                          color={index === 0 ? 'success' : 'info'}
+                          sx={{ position: 'absolute', top: '45%', right: 24 }}
+                        />
+                        <Typography variant="h4" component="h2" gutterBottom sx={{ fontWeight: 700, mb: 2 }}>
+                          {service.title}
+                        </Typography>
+                        <Typography variant="body1" color="text.secondary" paragraph sx={{ mb: 3 }}>
+                          {service.description}
+                        </Typography>
+                        
+                        <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1, mb: 3 }}>
+                          {service.features.map((feature, idx) => (
+                            <Chip 
+                              key={idx} 
+                              label={feature} 
+                              size="small" 
+                              sx={{ 
+                                bgcolor: alpha(service.color, 0.1), 
+                                color: service.color,
+                                fontWeight: 500 
+                              }} 
+                            />
+                          ))}
+                        </Box>
+                        
+                        <Divider sx={{ mb: 2 }} />
+                        
+                        <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 1 }}>
+                          <Typography variant="subtitle2" color="text.secondary">
+                            {Object.keys(service.stats)[0] === 'courses' ? 'Available courses' : 
+                             Object.keys(service.stats)[0] === 'providers' ? 'Healthcare providers' :
+                             Object.keys(service.stats)[0] === 'jobs' ? 'Open positions' : 'Active groups'}: 
+                            <Box component="span" sx={{ fontWeight: 600, color: service.color }}>
+                              {Object.values(service.stats)[0]}
+                            </Box>
+                          </Typography>
+                          
+                          <Typography variant="subtitle2" color="text.secondary">
+                            {Object.keys(service.stats)[1] === 'languages' ? 'Languages' : 
+                             Object.keys(service.stats)[1] === 'services' ? 'Services' :
+                             Object.keys(service.stats)[1] === 'employers' ? 'Employers' : 'Events'}: 
+                            <Box component="span" sx={{ fontWeight: 600, color: service.color }}>
+                              {Object.values(service.stats)[1]}
+                            </Box>
+                          </Typography>
+                        </Box>
+                      </Box>
+                      
+                      <Box sx={{ mt: 'auto', p: 3, pt: 0 }}>
+                        <Button 
+                          variant="contained" 
+                          fullWidth 
+                          component={Link} 
+                          to={service.route}
+                          endIcon={<KeyboardArrowRight />}
+                          sx={{ 
+                            bgcolor: service.color, 
+                            py: 1.5,
+                            '&:hover': { bgcolor: alpha(service.color, 0.9) }
+                          }}
+                        >
+                          Explore {service.title}
+                        </Button>
+                      </Box>
+                    </Card>
+                  </Zoom>
+                </Grid>
+              );
+            })}
+          </Grid>
+        </Container>
+      </Box>
+
+      {/* AI Learning Hub */}
+      <Box>
+        <Container maxWidth="lg" sx={{ mt: 10, mb: 10 }}>
+          <Grid container spacing={4} alignItems="center">
+            <Grid item xs={12} md={6}>
+              <Typography variant="h4" gutterBottom sx={{ fontWeight: 700 }}>
+                AI Learning Hub
+                <Chip 
+                  label="New" 
+                  size="small" 
+                  color="primary" 
+                  sx={{ ml: 2, backgroundColor: '#2A7D6F', height: 24 }} 
+                />
+              </Typography>
+              <Typography paragraph>
+                Our new AI Learning Hub provides cutting-edge tools and resources to help refugees 
+                develop technology skills for the future job market.
+              </Typography>
+              <Typography paragraph>
+                Learn to use AI tools, develop digital literacy, and access online courses in multiple languages.
+              </Typography>
+              <Button 
+                variant="contained" 
+                size="large" 
+                component={Link} 
+                to="/ai-hub" 
+                sx={{ 
+                  backgroundColor: '#2A7D6F', 
+                  mt: 2,
+                  '&:hover': { backgroundColor: '#236256' }
+                }}
+              >
+                Explore AI Hub
+              </Button>
+            </Grid>
+            <Grid item xs={12} md={6}>
+              <Fade in={true} timeout={1000}>
+                <Box>
+                  <Grid container spacing={2}>
+                    <Grid item xs={12} sm={6}>
+                      <Card sx={{ mb: 2, borderRadius: 2 }}>
+                        <CardActionArea>
+                          <Box sx={{ height: 120, position: 'relative', backgroundColor: '#e8f5f3', overflow: 'hidden' }}>
+                            <Box sx={{ 
+                              position: 'absolute', 
+                              top: 0, 
+                              left: 0, 
+                              width: '100%', 
+                              height: '100%',
+                              backgroundImage: patterns[0],
+                              backgroundSize: '30px 30px',
+                              opacity: 0.4
+                            }} />
+                            <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%' }}>
+                              <Code sx={{ fontSize: 70, color: '#2A7D6F' }} />
+                            </Box>
+                          </Box>
+                          <CardContent>
+                            <Typography variant="h6" gutterBottom>
+                              AI Learning Resources
+                            </Typography>
+                            <Typography variant="body2" color="text.secondary">
+                              Learn to use AI tools and develop tech skills for the future.
+                            </Typography>
+                          </CardContent>
+                        </CardActionArea>
+                        <Box sx={{ p: 2, pt: 0, mt: 'auto' }}>
+                          <Button variant="outlined" color="primary" fullWidth component={Link} to="/ai-hub/learning">
+                            Start Learning
+                          </Button>
+                        </Box>
+                      </Card>
+                    </Grid>
+                    <Grid item xs={12} sm={6}>
+                      <Card sx={{ mb: 2, borderRadius: 2 }}>
+                        <CardActionArea>
+                          <Box sx={{ height: 120, position: 'relative', backgroundColor: '#f9f1ed', overflow: 'hidden' }}>
+                            <Box sx={{ 
+                              position: 'absolute', 
+                              top: 0, 
+                              left: 0, 
+                              width: '100%', 
+                              height: '100%',
+                              backgroundImage: patterns[1],
+                              backgroundSize: '30px 30px',
+                              opacity: 0.4
+                            }} />
+                            <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%' }}>
+                              <SmartToy sx={{ fontSize: 70, color: '#D36135' }} />
+                            </Box>
+                          </Box>
+                          <CardContent>
+                            <Typography variant="h6" gutterBottom>
+                              AI Career Assistant
+                            </Typography>
+                            <Typography variant="body2" color="text.secondary">
+                              Get personalized career advice and resume feedback.
+                            </Typography>
+                          </CardContent>
+                        </CardActionArea>
+                        <Box sx={{ p: 2, pt: 0, mt: 'auto' }}>
+                          <Button variant="outlined" color="secondary" fullWidth component={Link} to="/ai-hub/career">
+                            Try Now
+                          </Button>
+                        </Box>
+                      </Card>
+                    </Grid>
+                  </Grid>
+                </Box>
+              </Fade>
+            </Grid>
+          </Grid>
+        </Container>
+      </Box>
+
+      {/* Testimonials Section */}
+      <Box sx={{ backgroundColor: '#F9F4EF', py: 10 }}>
+        <Container maxWidth="lg">
+          <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 6 }}>
+            <Typography 
+              variant="h4" 
+              align={isMobile ? 'center' : 'left'}
+              sx={{ 
+                fontWeight: 700, 
+                position: 'relative',
+                '&::after': {
+                  content: '""',
+                  position: 'absolute',
+                  bottom: -16,
+                  left: isMobile ? '50%' : '0',
+                  transform: isMobile ? 'translateX(-50%)' : 'none',
+                  width: 80,
+                  height: 4,
+                  backgroundColor: '#D36135', // Terracotta
+                  borderRadius: 2
+                }
+              }}
+            >
+              Community Voices
+            </Typography>
+            
+            {!isMobile && (
+              <Box>
+                <Button 
+                  variant="outlined" 
+                  color="secondary"
+                  endIcon={<KeyboardArrowRight />}
+                  sx={{ 
+                    borderColor: '#D36135', 
+                    color: '#D36135',
+                    '&:hover': { borderColor: '#D36135', bgcolor: 'rgba(211, 97, 53, 0.04)' }
+                  }}
+                  component={Link}
+                  to="/testimonials"
+                >
+                  View All Testimonials
+                </Button>
+              </Box>
+            )}
+          </Box>
+          
+          <Grid container spacing={4}>
+            {testimonials.map((testimonial, index) => {
+              const cardColor = index === 0 ? '#2A7D6F' : index === 1 ? '#79854E' : '#D36135';
+              return (
+                <Grid item xs={12} sm={6} md={4} key={index}>
+                  <Zoom in={showAnimation} style={{ transitionDelay: `${index * 200}ms` }}>
+                    <Paper 
+                      elevation={3}
+                      sx={{
+                        p: 4,
+                        borderRadius: 3,
+                        height: '100%',
+                        position: 'relative',
+                        overflow: 'hidden',
+                        transition: 'all 0.3s ease',
+                        transform: hoveredCard === `testimonial-${index}` ? 'scale(1.02)' : 'scale(1)',
+                        boxShadow: hoveredCard === `testimonial-${index}` ? '0 8px 24px rgba(0,0,0,0.12)' : '0 4px 12px rgba(0,0,0,0.08)',
+                        '&::before': {
+                          content: '""',
+                          position: 'absolute',
+                          top: 0,
+                          left: 0,
+                          width: '100%',
+                          height: '100%',
+                          backgroundImage: patterns[index % patterns.length],
+                          backgroundSize: '30px 30px',
+                          opacity: 0.15,
+                          zIndex: 0
+                        }
+                      }}
+                      onMouseEnter={() => setHoveredCard(`testimonial-${index}`)}
+                      onMouseLeave={() => setHoveredCard(null)}
+                    >
+                      <Box sx={{ 
+                        position: 'absolute', 
+                        top: 0, 
+                        left: 0, 
+                        width: '100%', 
+                        height: '8px', 
+                        bgcolor: cardColor 
+                      }} />
+                      
+                      <Box sx={{ display: 'flex', mb: 3, position: 'relative', zIndex: 1 }}>
+                        <Avatar 
+                          src={testimonial.avatar}
+                          alt={testimonial.name}
+                          sx={{
+                            width: 70,
+                            height: 70,
+                            border: `3px solid ${cardColor}`,
+                            boxShadow: '0 4px 10px rgba(0,0,0,0.1)',
+                            transition: 'all 0.3s ease',
+                            transform: hoveredCard === `testimonial-${index}` ? 'scale(1.05)' : 'scale(1)',
+                          }}
+                        />
+                        <Box sx={{ ml: 2 }}>
+                          <Typography variant="h6" sx={{ fontWeight: 700, color: cardColor }}>
+                            {testimonial.name}
+                          </Typography>
+                          <Typography variant="body2" color="text.secondary">
+                            From {testimonial.origin}
+                          </Typography>
+                          <Typography variant="caption" color="text.secondary" sx={{ display: 'flex', alignItems: 'center', mt: 0.5 }}>
+                            <AccessTime sx={{ fontSize: 14, mr: 0.5, opacity: 0.7 }} /> Joined {testimonial.joinedDate}
+                          </Typography>
+                        </Box>
+                      </Box>
+                      
+                      <Box sx={{ 
+                        position: 'relative', 
+                        mx: -2, 
+                        px: 2, 
+                        py: 1, 
+                        bgcolor: alpha(cardColor, 0.04),
+                        borderLeft: `3px solid ${cardColor}`,
+                        mb: 2
+                      }}>
+                        <Typography 
+                          variant="body1" 
+                          sx={{ 
+                            fontStyle: 'italic', 
+                            position: 'relative', 
+                            zIndex: 1,
+                            color: 'text.primary',
+                            lineHeight: 1.6,
+                            '&::before': {
+                              content: '"\""',
+                              position: 'absolute',
+                              left: -5,
+                              top: -10,
+                              fontSize: '2.5rem',
+                              color: alpha(cardColor, 0.2),
+                              lineHeight: 1,
+                            }
+                          }}
+                        >
+                          {testimonial.text}
+                        </Typography>
+                      </Box>
+                      
+                      <Divider sx={{ my: 2 }} />
+                      
+                      <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1 }}>
+                        <Typography variant="body2" color="text.secondary" sx={{ mr: 1 }}>
+                          Services used:
+                        </Typography>
+                        {testimonial.services.map((service, idx) => {
+                          const serviceObj = serviceData.find(s => s.id === service);
+                          if (!serviceObj) return null; // Skip if service not found
+                          
+                          return (
+                            <Chip 
+                              key={idx} 
+                              label={serviceObj.title.split(' ')[0]} 
+                              size="small"
+                              icon={<serviceObj.icon sx={{ fontSize: 16 }} />}
+                              sx={{ 
+                                bgcolor: alpha(serviceObj.color, 0.1), 
+                                color: serviceObj.color,
+                                '& .MuiChip-icon': { color: serviceObj.color }
+                              }} 
+                            />
+                          );
+                        })}
+                      </Box>
+                    </Paper>
+                  </Zoom>
+                </Grid>
+              );
+            })}
+            
+            {isMobile && (
+              <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'center', mt: 2 }}>
+                <Button 
+                  variant="outlined" 
+                  color="secondary"
+                  endIcon={<KeyboardArrowRight />}
+                  sx={{ 
+                    borderColor: '#D36135', 
+                    color: '#D36135',
+                    '&:hover': { borderColor: '#D36135', bgcolor: 'rgba(211, 97, 53, 0.04)' }
+                  }}
+                  component={Link}
+                  to="/testimonials"
+                >
+                  View All Testimonials
+                </Button>
+              </Grid>
+            )}
+          </Grid>
+        </Container>
+      </Box>
+
+      {/* Upcoming Events Section */}
+      <Box sx={{ py: 10 }}>
+        <Container maxWidth="lg">
+          <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 6 }}>
+            <Typography 
+              variant="h4" 
+              align={isMobile ? 'center' : 'left'}
+              sx={{ 
+                fontWeight: 700, 
+                position: 'relative',
+                '&::after': {
+                  content: '""',
+                  position: 'absolute',
+                  bottom: -16,
+                  left: isMobile ? '50%' : '0',
+                  transform: isMobile ? 'translateX(-50%)' : 'none',
+                  width: 80,
+                  height: 4,
+                  backgroundColor: '#79854E', // Olive green
+                  borderRadius: 2
+                }
+              }}
+            >
+              Upcoming Events
+            </Typography>
+            
+            {!isMobile && (
+              <Box>
+                <Button 
+                  variant="outlined" 
+                  endIcon={<Event />}
+                  sx={{ 
+                    borderColor: '#79854E', 
+                    color: '#79854E',
+                    '&:hover': { borderColor: '#79854E', bgcolor: 'rgba(121, 133, 78, 0.04)' }
+                  }}
+                  component={Link}
+                  to="/events"
+                >
+                  View All Events
+                </Button>
+              </Box>
+            )}
+          </Box>
+          
+          <Grid container spacing={4}>
+            {upcomingEvents.map((event, index) => (
+              <Grid item xs={12} md={4} key={event.id}>
+                <Slide direction={index === 0 ? "right" : index === 1 ? "up" : "left"} in={showAnimation} style={{ transitionDelay: `${index * 200}ms` }}>
+                  <Card 
+                    sx={{ 
+                      height: '100%', 
+                      display: 'flex', 
+                      flexDirection: 'column',
+                      borderRadius: 3,
+                      overflow: 'hidden',
+                      transition: 'all 0.3s ease',
+                      transform: hoveredCard === `event-${index}` ? 'translateY(-8px)' : 'none',
+                      boxShadow: hoveredCard === `event-${index}` ? '0 12px 24px rgba(0,0,0,0.15)' : '0 4px 12px rgba(0,0,0,0.08)',
+                    }}
+                    onMouseEnter={() => setHoveredCard(`event-${index}`)}
+                    onMouseLeave={() => setHoveredCard(null)}
+                  >
+                    <Box sx={{ position: 'relative', height: 200, overflow: 'hidden' }}>
+                      <img 
+                        src={event.image} 
+                        alt={event.title}
+                        style={{ 
+                          width: '100%', 
+                          height: '100%', 
+                          objectFit: 'cover',
+                          transition: 'all 0.5s ease',
+                          transform: hoveredCard === `event-${index}` ? 'scale(1.05)' : 'scale(1)'
+                        }} 
+                      />
+                      <Box sx={{ 
+                        position: 'absolute', 
+                        top: 16, 
+                        right: 16, 
+                        bgcolor: 'rgba(255,255,255,0.9)', 
+                        p: 1.5,
+                        borderRadius: 2,
+                        boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        alignItems: 'center',
+                        minWidth: 65
+                      }}>
+                        <Typography variant="subtitle1" sx={{ fontWeight: 700, color: '#D36135', lineHeight: 1 }}>
+                          {event.date.split(', ')[0].split(' ')[1]}
+                        </Typography>
+                        <Typography variant="caption" sx={{ color: '#2A7D6F', fontWeight: 600, lineHeight: 1 }}>
+                          {event.date.split(', ')[0].split(' ')[0]}
+                        </Typography>
+                      </Box>
+                      
+                      <Box sx={{ 
+                        position: 'absolute', 
+                        bottom: 0, 
+                        left: 0, 
+                        width: '100%',
+                        bgcolor: 'rgba(0,0,0,0.6)',
+                        color: '#fff',
+                        p: 1.5,
+                        backdropFilter: 'blur(4px)'
+                      }}>
+                        <Typography variant="h6" sx={{ fontWeight: 600, mb: 0.5 }}>
+                          {event.title}
+                        </Typography>
+                      </Box>
+                    </Box>
+                    
+                    <CardContent sx={{ flexGrow: 1, p: 3 }}>
+                      <Box sx={{ display: 'flex', alignItems: 'center', mb: 2, color: 'text.secondary' }}>
+                        <Place sx={{ fontSize: 20, mr: 1, color: '#D36135' }} />
+                        <Typography variant="body2">{event.location}</Typography>
+                      </Box>
+                      
+                      <Typography variant="body2" color="text.secondary" paragraph>
+                        {event.description}
+                      </Typography>
+                      
+                      <Box sx={{ display: 'flex', alignItems: 'center', mb: 1 }}>
+                        <Group sx={{ fontSize: 20, mr: 1, color: '#79854E' }} />
+                        <Typography variant="body2" color="text.secondary">
+                          <Box component="span" sx={{ fontWeight: 600, color: '#79854E' }}>{event.attendees}</Box> people attending
+                        </Typography>
+                      </Box>
+                    </CardContent>
+                    
+                    <Box sx={{ p: 2, pt: 0, mt: 'auto' }}>
+                      <Button 
+                        variant="contained" 
+                        fullWidth
+                        sx={{ 
+                          bgcolor: index === 0 ? '#2A7D6F' : index === 1 ? '#79854E' : '#D36135',
+                          '&:hover': { bgcolor: index === 0 ? '#236256' : index === 1 ? '#677244' : '#b8512e' }
+                        }}
+                      >
+                        Register for Event
+                      </Button>
+                    </Box>
+                  </Card>
+                </Slide>
+              </Grid>
+            ))}
+          </Grid>
+          
+          {isMobile && (
+            <Box sx={{ display: 'flex', justifyContent: 'center', mt: 4 }}>
+              <Button 
+                variant="outlined" 
+                endIcon={<Event />}
+                sx={{ 
+                  borderColor: '#79854E', 
+                  color: '#79854E',
+                  '&:hover': { borderColor: '#79854E', bgcolor: 'rgba(121, 133, 78, 0.04)' }
+                }}
+                component={Link}
+                to="/events"
+              >
+                View All Events
+              </Button>
+            </Box>
+          )}
+        </Container>
+      </Box>
+
+      {/* Call to Action */}
+      <Box 
+        sx={{
+          background: `linear-gradient(135deg, #2A7D6F 0%, #1a4d44 100%)`,
+          color: '#fff',
+          py: 10,
+          textAlign: 'center',
+          position: 'relative',
+          overflow: 'hidden',
+          '&::before': {
+            content: '""',
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            width: '100%',
+            height: '100%',
+            backgroundImage: patterns[2],
+              px: 6,
+              py: 1.5,
+              fontWeight: 600,
+              fontSize: '1.1rem',
+              boxShadow: '0 4px 14px rgba(211, 97, 53, 0.4)',
+              mb: 2,
+              backgroundColor: '#D36135'
+            }}
+            component={Link}
+            to="/register"
+          >
+            Create Your Account
+          </Button>
+        </Container>
+      </Box>
+    </Box>
+  );
+};
+
+export default Home;

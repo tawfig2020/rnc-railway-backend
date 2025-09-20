@@ -1,0 +1,356 @@
+import React, { useState } from 'react';
+import {
+Grid, Typography, TextField, Box, Paper, Divider,
+FormControlLabel, Checkbox, Radio, RadioGroup, FormControl,
+FormLabel, Chip
+} from '@mui/material';
+import { useTheme } from '@mui/material/styles';
+import {
+Event, AccessTime, Accessibility, Restaurant, ContactPhone
+} from '@mui/icons-material';
+import ErrorBoundary from '../common/ErrorBoundary';
+
+// Career Fair date options (for the demo)
+const FAIR_DATES = [
+'2025-07-15',
+'2025-07-16',
+'2025-07-17',
+];
+
+// Time slots
+const TIME_SLOTS = [
+'09:00 - 11:00',
+'11:00 - 13:00',
+'14:00 - 16:00',
+'16:00 - 18:00'
+];
+
+// Interview preferences
+const INTERVIEW_PREFERENCES = [
+'In-person at the career fair',
+'Video call after the fair',
+'Phone call after the fair',
+'No preference'
+];
+
+const AvailabilityForm = ({ formData, handleChange }) => {
+const theme = useTheme();
+
+// Handle form field changes
+const handleInputChange = (e) => {
+const { name, value } = e.target;
+handleChange(null, name, value);
+};
+
+// Handle date selection
+const handleDateToggle = (date) => {
+const currentDates = [...formData.availableDates];
+if (currentDates.includes(date)) {
+handleChange(null, 'availableDates', currentDates.filter(d => d !== date));
+} else {
+handleChange(null, 'availableDates', [...currentDates, date]);
+}
+};
+
+// Handle time slot selection
+const handleTimeSlotToggle = (timeSlot) => {
+const currentSlots = [...formData.preferredTimeSlots];
+if (currentSlots.includes(timeSlot)) {
+handleChange(null, 'preferredTimeSlots', currentSlots.filter(t => t !== timeSlot));
+} else {
+handleChange(null, 'preferredTimeSlots', [...currentSlots, timeSlot]);
+}
+};
+
+// Handle emergency contact field changes
+const handleEmergencyContactChange = (field, value) => {
+handleChange('emergencyContact', field, value);
+};
+
+return (
+<ErrorBoundary fallbackMessage="There was an error loading the availability form. Please try again later.">
+  <Box className="availability-form" data-testid="availability-form">
+    <Typography variant="h5" gutterBottom sx={{ color: theme.palette.primary.main, fontWeight: 600 }}>
+      Availability & Preferences
+    </Typography>
+    <Typography variant="body2" sx={{ mb: 3, color: 'text.secondary' }}>
+      Please indicate your availability for the Career Fair and any specific needs or preferences you may have.
+    </Typography>
+
+    {/* Date Availability Section */}
+    <Box sx={{ mb: 4 }}>
+      <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
+        <Event sx={{ color: theme.palette.primary.main, mr: 1 }} />
+        <Typography variant="h6" sx={{ fontWeight: 600 }}>
+          Date Availability
+        </Typography>
+      </Box>
+
+      <Paper
+      elevation={2}
+      sx={{
+      p: 3,
+      borderRadius: '4px'
+      }}
+      >
+      <Typography variant="subtitle1" gutterBottom>
+        Select the dates you are available to attend the Career Fair:
+      </Typography>
+      <Typography variant="body2" color="text.secondary" gutterBottom>
+        The fair will run from July 15-17, 2025. You can attend on multiple days.
+      </Typography>
+
+      <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 2, mt: 2 }}>
+        {FAIR_DATES.map((date) => {
+        const isSelected = formData.availableDates.includes(date);
+        const dateObj = new Date(date);
+        const formattedDate = dateObj.toLocaleDateString('en-US', {
+        weekday: 'long',
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+        });
+
+        return (
+        <Chip
+        key={date}
+        label={formattedDate}
+        onClick={() => handleDateToggle(date)}
+        color={isSelected ? 'primary' : 'default'}
+        variant={isSelected ? 'filled' : 'outlined'}
+        sx={{
+        px: 2,
+        py: 3,
+        borderRadius: 2,
+        '& .MuiChip-label': {
+        fontSize: '0.9rem'
+        }
+        }}
+        />
+        );
+        })}
+      </Box>
+
+      {formData.availableDates.length === 0 && (
+      <Typography variant="body2" color="error" sx={{ mt: 1 }}>
+        Please select at least one date.
+      </Typography>
+      )}
+  </Box>
+
+  <Divider sx={{ my: 4 }} />
+
+  {/* Time Preference Section */}
+  <Box sx={{ mb: 4 }}>
+    <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
+      <AccessTime sx={{ color: theme.palette.secondary.main, mr: 1 }} />
+      <Typography variant="h6" sx={{ fontWeight: 600 }}>
+        Time Preferences
+      </Typography>
+    </Box>
+
+    <Paper
+    elevation={2}
+    sx={{
+    p: 3,
+    borderRadius: '4px'
+    }}
+    >
+    <Typography variant="subtitle1" gutterBottom>
+      Select your preferred time slots:
+    </Typography>
+
+    <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 2, mt: 2 }}>
+      {TIME_SLOTS.map((timeSlot) => {
+      const isSelected = formData.preferredTimeSlots.includes(timeSlot);
+
+      return (
+      <Chip
+      key={timeSlot}
+      label={timeSlot}
+      onClick={() => handleTimeSlotToggle(timeSlot)}
+      color={isSelected ? 'secondary' : 'default'}
+      variant={isSelected ? 'filled' : 'outlined'}
+      sx={{
+      px: 1,
+      borderRadius: 2,
+      '& .MuiChip-label': {
+      fontSize: '0.9rem'
+      }
+      }}
+      />
+      );
+      })}
+    </Box>
+
+    {formData.preferredTimeSlots.length === 0 && (
+    <Typography variant="body2" color="error" sx={{ mt: 1 }}>
+      Please select at least one time slot.
+    </Typography>
+    )}
+</Box>
+
+<Divider sx={{ my: 4 }} />
+
+{/* Interview Preferences Section */}
+<Box sx={{ mb: 4 }}>
+  <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
+    <ContactPhone sx={{ color: theme.palette.success.main, mr: 1 }} />
+    <Typography variant="h6" sx={{ fontWeight: 600 }}>
+      Interview Preferences
+    </Typography>
+  </Box>
+
+  <Paper
+  elevation={2}
+  sx={{
+  p: 3,
+  borderRadius: '4px'
+  }}
+  >
+  <FormControl component="fieldset">
+    <FormLabel component="legend" sx={{ color: 'text.primary', fontWeight: 500 }}>
+      How would you prefer to conduct interviews with employers?
+    </FormLabel>
+    <RadioGroup
+    name="interviewPreference"
+    value={formData.interviewPreference}
+    onChange={handleInputChange}
+    >
+    {INTERVIEW_PREFERENCES.map((preference) => (
+    <FormControlLabel
+    key={preference}
+    value={preference}
+    control={<Radio color="primary" />}
+      label={preference}
+      />
+      ))}
+  </FormControl>
+</Box>
+
+<Divider sx={{ my: 4 }} />
+
+{/* Special Needs Section */}
+<Box sx={{ mb: 4 }}>
+  <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
+    <Accessibility sx={{ color: theme.palette.primary.main, mr: 1 }} />
+    <Typography variant="h6" sx={{ fontWeight: 600 }}>
+      Special Accommodations
+    </Typography>
+  </Box>
+
+  <Typography variant="body2" sx={{ mb: 2, color: 'text.secondary' }}>
+    Please let us know about any special accommodations or assistance you may need during the Career Fair.
+  </Typography>
+
+  <Paper
+  elevation={2}
+  sx={{
+  p: 3,
+  borderRadius: '4px'
+  }}
+  >
+  <Grid container spacing={3}>
+    <Grid item xs={12}>
+      <TextField
+      fullWidth
+      multiline
+      rows={3}
+      name="specialAssistance"
+      label="Special Assistance Needs"
+      value={formData.specialAssistance}
+      onChange={handleInputChange}
+      placeholder="E.g., wheelchair accessibility, sign language interpreter, etc."
+      variant="outlined"
+      />
+    </Grid>
+
+    <Grid item xs={12}>
+      <TextField
+      fullWidth
+      name="dietaryRestrictions"
+      label="Dietary Restrictions"
+      value={formData.dietaryRestrictions}
+      onChange={handleInputChange}
+      placeholder="E.g., vegetarian, halal, allergies, etc."
+      variant="outlined"
+      InputProps={{
+      startAdornment: (
+      <Restaurant sx={{ color: 'text.secondary', mr: 1 }} />
+      )
+      }}
+      />
+    </Grid>
+  </Grid>
+</Box>
+
+<Divider sx={{ my: 4 }} />
+
+{/* Emergency Contact Section */}
+<Box sx={{ mb: 4 }}>
+  <Typography variant="h6" gutterBottom sx={{ fontWeight: 600 }}>
+    Emergency Contact
+  </Typography>
+
+  <Typography variant="body2" sx={{ mb: 2, color: 'text.secondary' }}>
+    Please provide an emergency contact in case of unexpected situations during the event.
+  </Typography>
+
+  <Paper
+  elevation={2}
+  className="availability-paper"
+  data-testid="availability-date-section"
+  sx={{
+  p: 3,
+  borderRadius: '4px'
+  }}
+  >
+  <Grid container spacing={3}>
+    <Grid item xs={12} md={6}>
+      <TextField
+      fullWidth
+      required
+      label="Contact Name"
+      value={formData.emergencyContact.name}
+      onChange={(e) => handleEmergencyContactChange('name', e.target.value)}
+      placeholder="Full name of emergency contact"
+      variant="outlined"
+      />
+    </Grid>
+
+    <Grid item xs={12} md={6}>
+      <TextField
+      fullWidth
+      required
+      label="Relationship"
+      value={formData.emergencyContact.relationship}
+      onChange={(e) => handleEmergencyContactChange('relationship', e.target.value)}
+      placeholder="E.g., spouse, parent, friend, etc."
+      variant="outlined"
+      />
+    </Grid>
+
+    <Grid item xs={12}>
+      <TextField
+      fullWidth
+      required
+      label="Phone Number"
+      value={formData.emergencyContact.phone}
+      onChange={(e) => handleEmergencyContactChange('phone', e.target.value)}
+      placeholder="Emergency contact's phone number"
+      variant="outlined"
+      />
+    </Grid>
+  </Grid>
+
+<Box sx={{ mt: 4, p: 2, bgcolor: 'rgba(211, 97, 53, 0.1)', borderRadius: 2 }}>
+  <Typography variant="body2" color="text.secondary">
+  <strong>Note:</strong> We&apos;ll do our best to accommodate your availability preferences, but please understand that employer schedules may vary. We&apos;ll confirm your schedule before the event.
+  </Typography>
+</Box>
+    </ErrorBoundary>
+  );
+
+};
+
+export default AvailabilityForm;

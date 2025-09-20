@@ -1,0 +1,492 @@
+import React, { useState, useEffect } from 'react';
+import { 
+  Container, Grid, Card, CardContent, Typography, Button, List, ListItem, 
+  ListItemText, ListItemIcon, Box, Paper, Breadcrumbs, Link, Tooltip, 
+  Chip, Divider, CircularProgress, useMediaQuery, Menu, MenuItem, Fade, 
+  Zoom, Grow, IconButton, Avatar, TextField, InputAdornment, Tab, Tabs,
+  Dialog, DialogTitle, DialogContent, DialogActions
+} from '@mui/material';
+import { alpha, useTheme } from '@mui/material/styles';
+import { 
+  People, Group, Event, LocationOn, Chat, Home, ChevronRight, Translate,
+  Search, NotificationsNone, VolunteerActivism, ArrowForward, CheckCircle,
+  PersonAdd, Place, AccessTime, Language, SupportAgent, Psychology, School,
+  LocalLibrary, Healing, Forum, CelebrationOutlined, DateRange, SupervisedUserCircle,
+  Public, Phone, DevicesOutlined
+} from '@mui/icons-material';
+
+const Social = () => {
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+  const isMedium = useMediaQuery(theme.breakpoints.down('md'));
+  
+  // State for interactive elements
+  const [loading, setLoading] = useState(false);
+  const [hoveredCard, setHoveredCard] = useState(null);
+  const [activeTab, setActiveTab] = useState(0);
+  const [showAnimation, setShowAnimation] = useState(false);
+  const [language, setLanguage] = useState('en'); // For multilingual support
+  const [openDialog, setOpenDialog] = useState(null);
+  
+  // Display animations after initial render
+  useEffect(() => {
+    setShowAnimation(true);
+  }, []);
+  
+  // Simulate loading when buttons are clicked
+  const handleButtonClick = (action) => {
+    setLoading(action);
+    setTimeout(() => setLoading(false), 1500);
+  };
+  
+  // Handle dialog open/close
+  const handleOpenDialog = (dialogType) => {
+    setOpenDialog(dialogType);
+  };
+  
+  const handleCloseDialog = () => {
+    setOpenDialog(null);
+  };
+  
+  // Background pattern for visual interest
+  const backgroundPattern = `radial-gradient(circle at 50% 0, rgba(121, 133, 78, 0.1), rgba(121, 133, 78, 0.05) 70%, transparent 1.5rem),
+                            radial-gradient(circle at 6.7% 75%, rgba(211, 97, 53, 0.05), transparent 1.5rem)`;
+  
+  return (
+    <Box 
+      sx={{
+        minHeight: '100vh',
+        background: `linear-gradient(to bottom, #F9F4EF, rgba(249, 244, 239, 0.7))`,
+        pt: 4, 
+        pb: 8,
+        position: 'relative',
+        '&::before': {
+          content: '""',
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          backgroundImage: backgroundPattern,
+          backgroundSize: '100% 100%',
+          opacity: 0.8,
+          pointerEvents: 'none',
+          zIndex: 0
+        }
+      }}
+    >
+      <Container maxWidth="lg" sx={{ position: 'relative', zIndex: 1 }}>
+        {/* Breadcrumb Navigation */}
+        <Breadcrumbs separator={<ChevronRight fontSize="small" />} aria-label="breadcrumb" sx={{ mb: 2 }}>
+          <Link underline="hover" color="inherit" href="/" sx={{ display: 'flex', alignItems: 'center' }}>
+            <Home sx={{ mr: 0.5 }} fontSize="inherit" />
+            Home
+          </Link>
+          <Typography color="text.primary" sx={{ display: 'flex', alignItems: 'center' }}>
+            <Group sx={{ mr: 0.5 }} fontSize="inherit" />
+            Community & Social Support
+          </Typography>
+        </Breadcrumbs>
+        
+        {/* Language Selection */}
+        <Box sx={{ display: 'flex', justifyContent: 'flex-end', mb: 2 }}>
+          <Tooltip title="Change language">
+            <Button
+              size="small"
+              startIcon={<Translate />}
+              variant="outlined"
+              sx={{ 
+                borderColor: '#2A7D6F',
+                color: '#2A7D6F',
+                '&:hover': { borderColor: '#2A7D6F', bgcolor: 'rgba(42, 125, 111, 0.04)' }
+              }}
+            >
+              {language === 'en' ? 'English' : language === 'ar' ? 'العربية' : language === 'fr' ? 'Français' : 'English'}
+            </Button>
+          </Tooltip>
+        </Box>
+        
+        {/* Header Section */}
+        <Box sx={{ textAlign: 'center', position: 'relative', mb: 6 }}>
+          <Typography 
+            variant="h3" 
+            component="h1" 
+            sx={{
+              fontWeight: 700,
+              color: '#2A7D6F',
+              mb: 2,
+              position: 'relative',
+              display: 'inline-block',
+              '&::after': {
+                content: '""',
+                position: 'absolute',
+                bottom: -10,
+                left: '50%',
+                transform: 'translateX(-50%)',
+                width: 100,
+                height: 4,
+                backgroundColor: '#D36135',
+                borderRadius: 2
+              }
+            }}
+          >
+            Community & Social Support
+          </Typography>
+          
+          <Typography variant="h6" color="text.secondary" sx={{ maxWidth: 800, mx: 'auto', mb: 4 }}>
+            Connect with others who understand your journey, access support services, and participate in community events.
+          </Typography>
+          
+          {/* Search & Filter Bar */}
+          <Paper 
+            elevation={2} 
+            sx={{ 
+              p: 1, 
+              display: 'flex', 
+              alignItems: 'center', 
+              borderRadius: 3,
+              maxWidth: 700,
+              mx: 'auto',
+              mb: 3
+            }}
+          >
+            <TextField
+              placeholder="Search communities, events or services..."
+              variant="outlined"
+              fullWidth
+              size="small"
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <Search color="action" />
+                  </InputAdornment>
+                ),
+                sx: { borderRadius: 3 }
+              }}
+              sx={{ mr: 1 }}
+            />
+            <Button 
+              variant="contained" 
+              sx={{ 
+                bgcolor: '#2A7D6F', 
+                borderRadius: 2,
+                '&:hover': { bgcolor: '#236256' }
+              }}
+            >
+              Search
+            </Button>
+          </Paper>
+        </Box>
+      
+        {/* Main Feature Cards */}
+        <Grid container spacing={6} sx={{ mt: 2, mb: 6 }}>
+          {/* Community Groups Card */}
+          <Grid item xs={12} sm={6} lg={4}>
+            <Zoom in={showAnimation} style={{ transitionDelay: '100ms' }}>
+              <Card 
+                elevation={4}
+                sx={{
+                  borderRadius: '24px',
+                  overflow: 'hidden',
+                  height: '100%',
+                  transition: 'all 0.3s ease',
+                  transform: hoveredCard === 'groups' ? 'scale(1.05)' : 'scale(1)',
+                  boxShadow: hoveredCard === 'groups' 
+                    ? '0 12px 28px rgba(0,0,0,0.15)' 
+                    : '0 6px 16px rgba(0,0,0,0.08)',
+                  position: 'relative',
+                  background: 'linear-gradient(to bottom right, white, #f9f9f9)'
+                }}
+                onMouseEnter={() => setHoveredCard('groups')}
+                onMouseLeave={() => setHoveredCard(null)}
+              >
+                <Box sx={{ 
+                  position: 'absolute', 
+                  top: 0, 
+                  left: 0, 
+                  width: '100%', 
+                  height: '8px', 
+                  bgcolor: '#2A7D6F'
+                }} />
+                
+                <CardContent sx={{ p: 4, pb: 2 }}>
+                  <Box sx={{ mb: 2, display: 'flex', alignItems: 'center' }}>
+                    <Avatar 
+                      sx={{ 
+                        bgcolor: alpha('#2A7D6F', 0.1), 
+                        color: '#2A7D6F',
+                        width: 64, 
+                        height: 64,
+                        mr: 2,
+                        transition: 'all 0.3s ease',
+                        transform: hoveredCard === 'groups' ? 'rotate(5deg)' : 'rotate(0deg)',
+                      }}
+                    >
+                      <SupervisedUserCircle sx={{ fontSize: 36 }} />
+                    </Avatar>
+                    <Typography variant="h5" sx={{ fontWeight: 700, color: '#2A7D6F' }}>
+                      👥 Community Groups
+                    </Typography>
+                  </Box>
+                  
+                  <Typography variant="subtitle1" sx={{ fontWeight: 500, mb: 1 }}>
+                    Join support groups that understand your journey.
+                  </Typography>
+                  
+                  <Typography variant="body2" color="text.secondary" sx={{ mb: 3 }}>
+                    Find and connect with local and online groups that share your background, interests, language, or challenges. Build friendships, exchange ideas, and grow together.
+                  </Typography>
+                  
+                  <Divider sx={{ my: 2 }} />
+                  
+                  <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1, mb: 2 }}>
+                    <Chip 
+                      size="small" 
+                      label="Cultural" 
+                      sx={{ bgcolor: alpha('#2A7D6F', 0.1), color: '#2A7D6F' }} 
+                    />
+                    <Chip 
+                      size="small" 
+                      label="Educational" 
+                      sx={{ bgcolor: alpha('#D36135', 0.1), color: '#D36135' }} 
+                    />
+                    <Chip 
+                      size="small" 
+                      label="Mental Health" 
+                      sx={{ bgcolor: alpha('#79854E', 0.1), color: '#79854E' }} 
+                    />
+                  </Box>
+                </CardContent>
+                
+                <Box sx={{ p: 3, pt: 0, mt: 'auto' }}>
+                  <Button 
+                    variant="contained" 
+                    fullWidth
+                    size="large"
+                    endIcon={loading === 'groups' ? <CircularProgress size={20} color="inherit" /> : <ArrowForward />}
+                    onClick={() => handleButtonClick('groups')}
+                    disabled={loading === 'groups'}
+                    sx={{ 
+                      bgcolor: '#2A7D6F',
+                      '&:hover': { bgcolor: '#236256' },
+                      py: 1.5,
+                      borderRadius: 2
+                    }}
+                  >
+                    🔎 Find Groups
+                  </Button>
+                </Box>
+              </Card>
+            </Zoom>
+          </Grid>
+
+          {/* Community Events Card */}
+          <Grid item xs={12} sm={6} lg={4}>
+            <Zoom in={showAnimation} style={{ transitionDelay: '200ms' }}>
+              <Card 
+                elevation={4}
+                sx={{
+                  borderRadius: '24px',
+                  overflow: 'hidden',
+                  height: '100%',
+                  transition: 'all 0.3s ease',
+                  transform: hoveredCard === 'events' ? 'scale(1.05)' : 'scale(1)',
+                  boxShadow: hoveredCard === 'events' 
+                    ? '0 12px 28px rgba(0,0,0,0.15)' 
+                    : '0 6px 16px rgba(0,0,0,0.08)',
+                  position: 'relative',
+                  background: 'linear-gradient(to bottom right, white, #f9f9f9)'
+                }}
+                onMouseEnter={() => setHoveredCard('events')}
+                onMouseLeave={() => setHoveredCard(null)}
+              >
+                <Box sx={{ 
+                  position: 'absolute', 
+                  top: 0, 
+                  left: 0, 
+                  width: '100%', 
+                  height: '8px', 
+                  bgcolor: '#D36135'
+                }} />
+                
+                <CardContent sx={{ p: 4, pb: 2 }}>
+                  <Box sx={{ mb: 2, display: 'flex', alignItems: 'center' }}>
+                    <Avatar 
+                      sx={{ 
+                        bgcolor: alpha('#D36135', 0.1), 
+                        color: '#D36135',
+                        width: 64, 
+                        height: 64,
+                        mr: 2,
+                        transition: 'all 0.3s ease',
+                        transform: hoveredCard === 'events' ? 'rotate(5deg)' : 'rotate(0deg)',
+                      }}
+                    >
+                      <CelebrationOutlined sx={{ fontSize: 36 }} />
+                    </Avatar>
+                    <Typography variant="h5" sx={{ fontWeight: 700, color: '#D36135' }}>
+                      📅 Community Events
+                    </Typography>
+                  </Box>
+                  
+                  <Typography variant="subtitle1" sx={{ fontWeight: 500, mb: 1 }}>
+                    Celebrate, learn, and participate in meaningful gatherings.
+                  </Typography>
+                  
+                  <Typography variant="body2" color="text.secondary" sx={{ mb: 3 }}>
+                    Discover upcoming events, workshops, festivals, and support circles happening near you or online. Stay engaged and feel at home.
+                  </Typography>
+                  
+                  <Divider sx={{ my: 2 }} />
+                  
+                  <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 1 }}>
+                    <Tooltip title="New this week">
+                      <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                        <DateRange sx={{ fontSize: 16, mr: 0.5, color: '#D36135' }} />
+                        <Typography variant="caption" color="text.secondary">
+                          12 upcoming events
+                        </Typography>
+                      </Box>
+                    </Tooltip>
+                    
+                    <Tooltip title="Available online">
+                      <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                        <DevicesOutlined sx={{ fontSize: 16, mr: 0.5, color: '#D36135' }} />
+                        <Typography variant="caption" color="text.secondary">
+                          8 virtual events
+                        </Typography>
+                      </Box>
+                    </Tooltip>
+                  </Box>
+                </CardContent>
+                
+                <Box sx={{ p: 3, pt: 0, mt: 'auto' }}>
+                  <Button 
+                    variant="contained" 
+                    fullWidth
+                    size="large"
+                    endIcon={loading === 'events' ? <CircularProgress size={20} color="inherit" /> : <ArrowForward />}
+                    onClick={() => handleButtonClick('events')}
+                    disabled={loading === 'events'}
+                    sx={{ 
+                      bgcolor: '#D36135',
+                      '&:hover': { bgcolor: '#b8512e' },
+                      py: 1.5,
+                      borderRadius: 2
+                    }}
+                  >
+                    🎉 View Events
+                  </Button>
+                  <Typography variant="caption" color="text.secondary" align="center" sx={{ display: 'block', mt: 1 }}>
+                    Events updated weekly — check back often!
+                  </Typography>
+                </Box>
+              </Card>
+            </Zoom>
+          </Grid>
+
+          {/* Support Services Card */}
+          <Grid item xs={12} sm={6} lg={4}>
+            <Zoom in={showAnimation} style={{ transitionDelay: '300ms' }}>
+              <Card 
+                elevation={4}
+                sx={{
+                  borderRadius: '24px',
+                  overflow: 'hidden',
+                  height: '100%',
+                  transition: 'all 0.3s ease',
+                  transform: hoveredCard === 'support' ? 'scale(1.05)' : 'scale(1)',
+                  boxShadow: hoveredCard === 'support' 
+                    ? '0 12px 28px rgba(0,0,0,0.15)' 
+                    : '0 6px 16px rgba(0,0,0,0.08)',
+                  position: 'relative',
+                  background: 'linear-gradient(to bottom right, white, #f9f9f9)'
+                }}
+                onMouseEnter={() => setHoveredCard('support')}
+                onMouseLeave={() => setHoveredCard(null)}
+              >
+                <Box sx={{ 
+                  position: 'absolute', 
+                  top: 0, 
+                  left: 0, 
+                  width: '100%', 
+                  height: '8px', 
+                  bgcolor: '#79854E'
+                }} />
+                
+                <CardContent sx={{ p: 4, pb: 2 }}>
+                  <Box sx={{ mb: 2, display: 'flex', alignItems: 'center' }}>
+                    <Avatar 
+                      sx={{ 
+                        bgcolor: alpha('#79854E', 0.1), 
+                        color: '#79854E',
+                        width: 64, 
+                        height: 64,
+                        mr: 2,
+                        transition: 'all 0.3s ease',
+                        transform: hoveredCard === 'support' ? 'rotate(5deg)' : 'rotate(0deg)',
+                      }}
+                    >
+                      <SupportAgent sx={{ fontSize: 36 }} />
+                    </Avatar>
+                    <Typography variant="h5" sx={{ fontWeight: 700, color: '#79854E' }}>
+                      🧑‍⚕️ Support Services
+                    </Typography>
+                  </Box>
+                  
+                  <Typography variant="subtitle1" sx={{ fontWeight: 500, mb: 1 }}>
+                    Access free, confidential help when you need it most.
+                  </Typography>
+                  
+                  <Typography variant="body2" color="text.secondary" sx={{ mb: 3 }}>
+                    Browse mental health, legal, housing, education, and counseling services — tailored for refugees and migrants. Available in multiple languages.
+                  </Typography>
+                  
+                  <Divider sx={{ my: 2 }} />
+                  
+                  <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 1 }}>
+                    <Tooltip title="Available languages">
+                      <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                        <Language sx={{ fontSize: 16, mr: 0.5, color: '#79854E' }} />
+                        <Typography variant="caption" color="text.secondary">
+                          6 languages
+                        </Typography>
+                      </Box>
+                    </Tooltip>
+                    
+                    <Tooltip title="24/7 Support">
+                      <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                        <Phone sx={{ fontSize: 16, mr: 0.5, color: '#79854E' }} />
+                        <Typography variant="caption" color="text.secondary">
+                          Always available
+                        </Typography>
+                      </Box>
+                    </Tooltip>
+                  </Box>
+                </CardContent>
+                
+                <Box sx={{ p: 3, pt: 0, mt: 'auto' }}>
+                  <Button 
+                    variant="contained" 
+                    fullWidth
+                    size="large"
+                    endIcon={loading === 'support' ? <CircularProgress size={20} color="inherit" /> : <ArrowForward />}
+                    onClick={() => handleButtonClick('support')}
+                    disabled={loading === 'support'}
+                    sx={{ 
+                      bgcolor: '#79854E',
+                      '&:hover': { bgcolor: '#677244' },
+                      py: 1.5,
+                      borderRadius: 2
+                    }}
+                  >
+                    🤝 Get Support
+                  </Button>
+                  <Typography variant="caption" color="text.secondary" align="center" sx={{ display: 'block', mt: 1 }}>
+                    Trained professionals ready to assist you
+                  </Typography>
+                </Box>
+              </Card>
+            </Zoom>
+          </Grid>
+        </Grid>

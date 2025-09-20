@@ -44,7 +44,10 @@ const allowedOrigins = [
   'https://rncplatform.netlify.app',
   'http://rnc.malaysia.org',
   'https://rnc.malaysia.org',
-  'https://www.rnc.malaysia.org'
+  'https://www.rnc.malaysia.org',
+  'http://rncmalaysia.net',
+  'https://rncmalaysia.net',
+  'https://www.rncmalaysia.net'
 ];
 
 // Add environment-specific origins
