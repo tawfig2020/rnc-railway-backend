@@ -43,14 +43,36 @@ const config = require('./config/config');
 
 let isDbConnected = false;
 
+console.log('🔗 Attempting MongoDB connection...');
+console.log('📍 MongoDB URI:', config.mongoURI ? 'Set' : 'Not set');
+
 mongoose.connect(config.mongoURI, {
   useNewUrlParser: true,
-  useUnifiedTopology: true
+  useUnifiedTopology: true,
+  serverSelectionTimeoutMS: 10000, // 10 second timeout
+  socketTimeoutMS: 45000, // 45 second socket timeout
 }).then(() => {
   console.log('✅ MongoDB Connected to Atlas');
   isDbConnected = true;
 }).catch(err => {
-  console.error('❌ MongoDB connection error:', err);
+  console.error('❌ MongoDB connection error:', err.message);
+  console.error('🔍 Full error:', err);
+  isDbConnected = false;
+});
+
+// Monitor connection status
+mongoose.connection.on('connected', () => {
+  console.log('🟢 Mongoose connected to MongoDB Atlas');
+  isDbConnected = true;
+});
+
+mongoose.connection.on('error', (err) => {
+  console.error('🔴 Mongoose connection error:', err);
+  isDbConnected = false;
+});
+
+mongoose.connection.on('disconnected', () => {
+  console.log('🟡 Mongoose disconnected from MongoDB Atlas');
   isDbConnected = false;
 });
 
@@ -62,6 +84,8 @@ app.get('/health', (req, res) => {
     timestamp: new Date().toISOString(),
     environment: process.env.NODE_ENV || 'production',
     database: isDbConnected ? 'Connected' : 'Disconnected',
+    mongoUri: process.env.MONGODB_URI ? 'Set' : 'Not set',
+    mongoState: mongoose.connection.readyState, // 0=disconnected, 1=connected, 2=connecting, 3=disconnecting
     cors: allowedOrigins
   });
 });
