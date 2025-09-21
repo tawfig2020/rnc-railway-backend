@@ -1,0 +1,124 @@
+[
+  {
+    "supportType": "housing",
+
+    "description": "We are a family of 3 currently in temporary housing. Looking for a 2-bedroom apartment near public transportation.",
+    "status": "pending",
+    "urgency": "medium",
+    "documents": [
+      {
+        "name": "Housing application form",
+        "fileUrl": "https://example.com/docs/housing-form-123.pdf",
+        "uploadDate": "2023-05-14T10:30:00.000Z"
+      }
+    ],
+    "updates": [
+      {
+        "note": "Application received and under review",
+        "date": "2023-05-15T10:30:00.000Z"
+      }
+    ]
+  },
+  {
+    "supportType": "employment",
+
+    "description": "I have 3+ years experience as a web developer with skills in JavaScript, React, and Node.js. Need help finding job opportunities in the tech industry.",
+    "status": "in-progress",
+    "urgency": "medium",
+    "assignedTo": "635a8daebc2bab1a4c7e1234",
+    "documents": [
+      {
+        "name": "Resume",
+        "fileUrl": "https://example.com/docs/resume-ahmad.pdf",
+        "uploadDate": "2023-05-08T10:30:00.000Z"
+      },
+      {
+        "name": "Skills certificate",
+        "fileUrl": "https://example.com/docs/cert-web-dev.pdf",
+        "uploadDate": "2023-05-08T10:35:00.000Z"
+      }
+    ],
+    "updates": [
+      {
+        "note": "Initial assessment completed",
+        "date": "2023-05-10T14:20:00.000Z"
+      },
+      {
+        "note": "Connected with 2 potential employers",
+        "date": "2023-05-17T11:15:00.000Z"
+      }
+    ]
+  },
+  {
+    "supportType": "medical",
+
+    "description": "Looking for an endocrinologist who can help manage my diabetes. Need regular check-ups and medication adjustment.",
+    "status": "completed",
+    "urgency": "high",
+    "assignedTo": "635a8daebc2bab1a4c7e5678",
+    "documents": [],
+    "updates": [
+      {
+        "note": "Referred to Dr. Chen at Diabetes Care Clinic",
+        "date": "2023-04-05T09:45:00.000Z"
+      },
+      {
+        "note": "Appointment scheduled for April 12",
+        "date": "2023-04-07T13:30:00.000Z"
+      },
+      {
+        "note": "Initial consultation completed",
+        "date": "2023-04-12T16:00:00.000Z"
+      }
+    ],
+    "completionDate": "2023-04-12T16:30:00.000Z",
+    "feedback": {
+      "rating": 5,
+      "comment": "Very helpful service. Dr. Chen is excellent and understood my needs.",
+      "date": "2023-04-15T10:00:00.000Z"
+    }
+  },
+  {
+    "supportType": "education",
+
+    "description": "Looking for English language classes for myself and my spouse. Beginner to intermediate level needed.",
+    "status": "pending",
+    "urgency": "low",
+    "documents": [],
+    "updates": [
+      {
+        "note": "Gathering information about available language programs",
+        "date": "2023-05-20T10:00:00.000Z"
+      }
+    ]
+  },
+  {
+    "supportType": "legal",
+
+    "description": "Need help with asylum application process and documentation preparation. Looking for legal advice.",
+    "status": "in-progress",
+    "urgency": "high",
+    "assignedTo": "635a8daebc2bab1a4c7e9012",
+    "documents": [
+      {
+        "name": "Initial application draft",
+        "fileUrl": "https://example.com/docs/asylum-draft.pdf",
+        "uploadDate": "2023-05-01T11:20:00.000Z"
+      }
+    ],
+    "updates": [
+      {
+        "note": "Assigned to legal volunteer",
+        "date": "2023-05-02T11:20:00.000Z"
+      },
+      {
+        "note": "Initial consultation completed",
+        "date": "2023-05-05T14:30:00.000Z"
+      },
+      {
+        "note": "Document review in progress",
+        "date": "2023-05-18T16:15:00.000Z"
+      }
+    ]
+  }
+]

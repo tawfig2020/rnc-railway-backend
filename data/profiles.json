@@ -1,0 +1,122 @@
+[
+  {
+    "status": "refugee",
+    "arrivalDate": "2023-01-15",
+    "countryOfOrigin": "Syria",
+    "education": [
+      {
+        "institution": "University of Damascus",
+        "degree": "Bachelor's",
+        "fieldOfStudy": "Computer Science",
+        "from": "2015-09-01",
+        "to": "2019-06-01"
+      }
+    ],
+    "workExperience": [
+      {
+        "company": "Tech Solutions",
+        "position": "Junior Developer",
+        "from": "2019-09-01",
+        "to": "2022-10-01",
+        "description": "Worked on web applications"
+      }
+    ],
+    "familyMembers": [
+      {
+        "name": "Sarah Ahmed",
+        "relationship": "spouse",
+        "age": 28,
+        "status": "with user"
+      },
+      {
+        "name": "Yusuf Ahmed",
+        "relationship": "child",
+        "age": 5,
+        "status": "with user"
+      }
+    ],
+    "housingStatus": "government housing",
+    "medicalConditions": ["asthma"],
+    "servicesNeeded": ["education", "employment", "language"],
+    "currentLocation": {
+      "type": "Point",
+      "coordinates": [101.6869, 3.1390]
+    }
+  },
+  {
+    "status": "asylum seeker",
+    "arrivalDate": "2023-03-20",
+    "countryOfOrigin": "Afghanistan",
+    "education": [
+      {
+        "institution": "Kabul University",
+        "degree": "Associate's",
+        "fieldOfStudy": "Business Administration",
+        "from": "2018-09-01",
+        "to": "2020-06-01"
+      }
+    ],
+    "workExperience": [
+      {
+        "company": "Family Business",
+        "position": "Manager",
+        "from": "2020-07-01",
+        "to": "2023-02-01",
+        "description": "Managed small family retail business"
+      }
+    ],
+    "familyMembers": [
+      {
+        "name": "Fatima Ahmadi",
+        "relationship": "spouse",
+        "age": 26,
+        "status": "with user"
+      }
+    ],
+    "housingStatus": "temporary shelter",
+    "medicalConditions": [],
+    "servicesNeeded": ["housing", "education", "employment"],
+    "currentLocation": {
+      "type": "Point",
+      "coordinates": [101.7124, 3.1570]
+    }
+  },
+  {
+    "status": "refugee",
+    "arrivalDate": "2022-11-05",
+    "countryOfOrigin": "Myanmar",
+    "education": [
+      {
+        "institution": "Yangon University",
+        "degree": "Bachelor's",
+        "fieldOfStudy": "Education",
+        "from": "2014-09-01",
+        "to": "2018-06-01"
+      }
+    ],
+    "workExperience": [
+      {
+        "company": "Primary School",
+        "position": "Teacher",
+        "from": "2018-08-01",
+        "to": "2022-09-01",
+        "description": "Taught primary school children"
+      }
+    ],
+    "familyMembers": [
+      {
+        "name": "Aung Min",
+        "relationship": "brother",
+        "age": 32,
+        "status": "other country"
+      }
+    ],
+    "housingStatus": "private rental",
+    "medicalConditions": ["diabetes"],
+    "servicesNeeded": ["medical", "employment"],
+    "currentLocation": {
+      "type": "Point",
+      "coordinates": [101.6842, 3.2081]
+    }
+  }
+]

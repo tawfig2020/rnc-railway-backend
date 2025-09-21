@@ -1,0 +1,50 @@
+[
+  {
+
+    "name": "Fatima Al-Hariri",
+    "email": "fatima@example.com",
+    "role": "refugee",
+    "password": "123456",
+    "location": "Berlin, Germany",
+    "languages": ["Arabic", "English", "German"],
+    "bio": "Former teacher from Syria, now building a new life in Germany while helping others through community organizing.",
+    "skills": ["Teaching", "Languages", "Cooking"],
+    "interests": ["Education", "Entrepreneurship", "Arts"]
+  },
+  {
+
+    "name": "Mohammed Khan",
+    "email": "mohammed@example.com",
+    "role": "refugee",
+    "password": "123456",
+    "location": "Paris, France",
+    "languages": ["Pashto", "English", "Urdu", "French"],
+    "bio": "Software developer from Afghanistan working to build digital tools for refugee communities.",
+    "skills": ["Programming", "Web Development", "Translation"],
+    "interests": ["Technology", "Education", "Community"]
+  },
+  {
+
+    "name": "Sarah Williams",
+    "email": "sarah@example.com",
+    "role": "volunteer",
+    "password": "123456",
+    "location": "Toronto, Canada",
+    "languages": ["English", "French"],
+    "bio": "ESL teacher volunteering to help refugees improve their language skills for better job opportunities.",
+    "skills": ["Teaching", "Counseling", "Event Planning"],
+    "interests": ["Languages", "Cultural Exchange", "Education"]
+  },
+  {
+
+    "name": "Dr. Emily Chen",
+    "email": "emily@example.com",
+    "role": "staff",
+    "password": "123456",
+    "location": "New York, USA",
+    "languages": ["English", "Mandarin", "Spanish"],
+    "bio": "Healthcare professional specializing in refugee mental health and trauma support.",
+    "skills": ["Healthcare", "Counseling", "Research"],
+    "interests": ["Mental Health", "Public Health", "Education"]
+  }
+]

@@ -1,0 +1,101 @@
+[
+  {
+    "_id": "610b36f43c5df811fc839d01",
+    "title": "Career Workshop: Resume Building and Interview Skills",
+    "description": "Join us for a practical workshop focused on developing effective resumes and preparing for job interviews. Our experienced career counselors will provide personalized feedback on your resume and conduct mock interviews to help build your confidence.",
+    "type": "workshop",
+    "startDate": "2023-06-10T14:00:00.000Z",
+    "endDate": "2023-06-10T17:00:00.000Z",
+    "location": "in-person",
+    "address": {
+      "streetAddress": "125 Community Center Avenue",
+      "city": "New York",
+      "country": "USA",
+      "postalCode": "10001"
+    },
+    "organizer": "60d0fe4f5311236168a109ca",
+    "coverImage": "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4",
+    "capacity": 30,
+    "attendees": [
+      {
+        "user": "60d0fe4f5311236168a109cb",
+        "status": "registered",
+        "registrationDate": "2023-05-15T09:30:00.000Z"
+      },
+      {
+        "user": "60d0fe4f5311236168a109cc",
+        "status": "registered",
+        "registrationDate": "2023-05-16T14:20:00.000Z"
+      }
+    ],
+    "languages": ["English", "Arabic"],
+    "isFeatured": true,
+    "status": "upcoming",
+    "createdAt": "2023-05-10T11:30:00.000Z"
+  },
+  {
+    "_id": "610b36f43c5df811fc839d02",
+    "title": "Language Exchange: Practice Makes Perfect",
+    "description": "Improve your language skills through conversation with native speakers and fellow learners. This virtual meetup provides a supportive environment to practice multiple languages including English, Arabic, French, and Spanish. All levels welcome!",
+    "type": "networking",
+    "startDate": "2023-06-15T18:00:00.000Z",
+    "endDate": "2023-06-15T19:30:00.000Z",
+    "location": "online",
+    "address": {
+      "onlineMeetingLink": "https://zoom.us/j/languageexchange"
+    },
+    "organizer": "60d0fe4f5311236168a109cd",
+    "coverImage": "https://images.unsplash.com/photo-1522202176988-66273c2fd55f",
+    "capacity": 50,
+    "attendees": [
+      {
+        "user": "60d0fe4f5311236168a109cb",
+        "status": "registered",
+        "registrationDate": "2023-05-18T10:15:00.000Z"
+      },
+      {
+        "user": "60d0fe4f5311236168a109cc",
+        "status": "registered",
+        "registrationDate": "2023-05-18T16:40:00.000Z"
+      },
+      {
+        "user": "60d0fe4f5311236168a109ce",
+        "status": "registered",
+        "registrationDate": "2023-05-19T09:25:00.000Z"
+      }
+    ],
+    "languages": ["English", "Arabic", "French", "Spanish"],
+    "isFeatured": true,
+    "status": "upcoming",
+    "createdAt": "2023-05-12T14:45:00.000Z"
+  },
+  {
+    "_id": "610b36f43c5df811fc839d03",
+    "title": "Health Clinic: Free Checkups and Consultations",
+    "description": "Access free healthcare services including general checkups, vaccinations, and consultations with healthcare professionals. Translators will be available for multiple languages. No appointment necessary - just drop in during the event hours.",
+    "type": "health",
+    "startDate": "2023-06-18T10:00:00.000Z",
+    "endDate": "2023-06-18T16:00:00.000Z",
+    "location": "in-person",
+    "address": {
+      "streetAddress": "45 Downtown Hub Road",
+      "city": "Toronto",
+      "country": "Canada",
+      "postalCode": "M5V 2H1"
+    },
+    "organizer": "60d0fe4f5311236168a109ce",
+    "coverImage": "https://images.unsplash.com/photo-1579684385127-1ef15d508118",
+    "capacity": 100,
+    "attendees": [
+      {
+        "user": "60d0fe4f5311236168a109cb",
+        "status": "registered",
+        "registrationDate": "2023-05-20T11:30:00.000Z"
+      }
+    ],
+    "languages": ["English", "Arabic", "Farsi", "French"],
+    "isFeatured": true,
+    "status": "upcoming",
+    "createdAt": "2023-05-14T16:20:00.000Z"
+  }
+]

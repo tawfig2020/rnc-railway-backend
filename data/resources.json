@@ -1,0 +1,156 @@
+[
+  {
+    "_id": "610c48e53c5df811fc839e01",
+    "title": "Healthcare Access Guide for Refugees",
+    "description": "A comprehensive guide to accessing healthcare services, understanding insurance options, and finding refugee-friendly medical providers in your area.",
+    "category": "health",
+    "type": "pdf",
+    "fileUpload": "healthcare-guide.pdf",
+    "organization": "Global Health Access",
+    "contactInfo": {
+      "name": "Healthcare Support Team",
+      "email": "support@globalhealthaccess.org",
+      "phone": "+1-800-555-0123",
+      "website": "https://www.globalhealthaccess.org"
+    },
+    "languages": ["English", "Arabic", "French", "Spanish"],
+    "tags": ["healthcare", "insurance", "medical", "primary care"],
+    "addedBy": "60d0fe4f5311236168a109ce",
+    "verifiedBy": "60d0fe4f5311236168a109ca",
+    "isVerified": true,
+    "ratings": [
+      {
+        "user": "60d0fe4f5311236168a109cb",
+        "rating": 5,
+        "comment": "This guide helped me find a doctor who speaks my language. Very useful!",
+        "date": "2023-05-05T10:15:00.000Z"
+      },
+      {
+        "user": "60d0fe4f5311236168a109cc",
+        "rating": 4,
+        "comment": "Good information but would be better with more visual elements.",
+        "date": "2023-05-08T14:30:00.000Z"
+      }
+    ],
+    "averageRating": 4.5,
+    "isFeatured": true,
+    "createdAt": "2023-04-15T09:20:00.000Z"
+  },
+  {
+    "_id": "610c48e53c5df811fc839e02",
+    "title": "Legal Rights Information Center",
+    "description": "Understand your legal rights as a refugee or asylum seeker, including immigration procedures, work authorization, and access to public services.",
+    "category": "legal",
+    "type": "link",
+    "contentUrl": "https://www.refugeerights.org/legal-resources",
+    "organization": "Refugee Rights Coalition",
+    "contactInfo": {
+      "name": "Legal Support Hotline",
+      "email": "legal@refugeerights.org",
+      "phone": "+1-800-555-0199",
+      "website": "https://www.refugeerights.org"
+    },
+    "languages": ["English", "Arabic", "French", "Spanish", "Farsi"],
+    "tags": ["legal", "immigration", "asylum", "rights"],
+    "addedBy": "60d0fe4f5311236168a109ca",
+    "verifiedBy": "60d0fe4f5311236168a109ca",
+    "isVerified": true,
+    "ratings": [
+      {
+        "user": "60d0fe4f5311236168a109cc",
+        "rating": 5,
+        "comment": "Very clear information that helped me understand my status and options.",
+        "date": "2023-05-12T16:45:00.000Z"
+      }
+    ],
+    "averageRating": 5,
+    "isFeatured": true,
+    "createdAt": "2023-04-20T11:30:00.000Z"
+  },
+  {
+    "_id": "610c48e53c5df811fc839e03",
+    "title": "Affordable Housing Directory",
+    "description": "A comprehensive directory of affordable housing options, temporary shelters, and housing assistance programs for refugees and newcomers.",
+    "category": "housing",
+    "type": "pdf",
+    "fileUpload": "housing-directory.pdf",
+    "organization": "Community Housing Alliance",
+    "contactInfo": {
+      "name": "Housing Support Team",
+      "email": "housing@communityalliance.org",
+      "phone": "+1-800-555-0145",
+      "website": "https://www.communityhousingalliance.org"
+    },
+    "address": {
+      "streetAddress": "350 Community Plaza",
+      "city": "Chicago",
+      "country": "USA",
+      "postalCode": "60601"
+    },
+    "languages": ["English", "Arabic", "Spanish"],
+    "tags": ["housing", "shelter", "rental assistance", "affordable"],
+    "addedBy": "60d0fe4f5311236168a109cd",
+    "verifiedBy": "60d0fe4f5311236168a109ca",
+    "isVerified": true,
+    "ratings": [
+      {
+        "user": "60d0fe4f5311236168a109cb",
+        "rating": 4,
+        "comment": "Helpful resource but some listings were already filled when I contacted them.",
+        "date": "2023-05-16T09:20:00.000Z"
+      },
+      {
+        "user": "60d0fe4f5311236168a109cc",
+        "rating": 5,
+        "comment": "This directory helped me find safe, affordable housing for my family. Thank you!",
+        "date": "2023-05-18T14:10:00.000Z"
+      }
+    ],
+    "averageRating": 4.5,
+    "isFeatured": false,
+    "createdAt": "2023-04-25T13:45:00.000Z"
+  },
+  {
+    "_id": "610c48e53c5df811fc839e04",
+    "title": "Job Skills Assessment Tool",
+    "description": "An interactive tool to assess your job skills, identify transferable skills from your previous experience, and find appropriate career paths in your new country.",
+    "category": "employment",
+    "type": "link",
+    "contentUrl": "https://www.refugeeworkforce.org/skills-assessment",
+    "organization": "Refugee Workforce Initiative",
+    "contactInfo": {
+      "name": "Career Counseling Team",
+      "email": "careers@refugeeworkforce.org",
+      "phone": "+1-800-555-0178",
+      "website": "https://www.refugeeworkforce.org"
+    },
+    "languages": ["English", "Arabic", "French", "Spanish", "Swahili"],
+    "tags": ["employment", "skills", "career", "assessment"],
+    "addedBy": "60d0fe4f5311236168a109ca",
+    "verifiedBy": "60d0fe4f5311236168a109ca",
+    "isVerified": true,
+    "ratings": [
+      {
+        "user": "60d0fe4f5311236168a109cb",
+        "rating": 5,
+        "comment": "This tool helped me realize how my previous experience as a teacher could translate to other roles.",
+        "date": "2023-05-10T11:30:00.000Z"
+      },
+      {
+        "user": "60d0fe4f5311236168a109cc",
+        "rating": 5,
+        "comment": "Excellent resource that helped me understand what jobs to apply for.",
+        "date": "2023-05-15T16:20:00.000Z"
+      },
+      {
+        "user": "60d0fe4f5311236168a109cd",
+        "rating": 4,
+        "comment": "Very useful assessment but would benefit from more industry-specific options.",
+        "date": "2023-05-17T09:45:00.000Z"
+      }
+    ],
+    "averageRating": 4.7,
+    "isFeatured": true,
+    "createdAt": "2023-04-30T10:15:00.000Z"
+  }
+]

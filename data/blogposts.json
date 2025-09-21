@@ -1,0 +1,61 @@
+[
+  {
+    "_id": "61098c0f3c5df811fc839b01",
+    "title": "My Journey from Survival to Start-up",
+    "content": "When I fled Syria in 2018, I never imagined that three years later I would be running my own catering business. The journey was difficult - from living in a refugee camp to finding temporary housing in Berlin. Everything was uncertain.\n\nThe turning point came when I joined a local cooking class. I started sharing traditional Syrian recipes and quickly found that people loved the food I prepared. With support from a local business incubator for refugees, I was able to start a small catering service.\n\nToday, my business employs three other refugees and serves events across the city. The most important lesson I've learned is that our skills and cultural knowledge have value in our new homes, even when we feel we've lost everything.\n\nIf you're on a similar journey, don't be afraid to share your talents with your new community. What seems ordinary to you might be extraordinary to others.",
+    "excerpt": "When I fled Syria in 2018, I never imagined that three years later I would be running my own catering business.",
+    "featuredImage": "https://images.unsplash.com/photo-1607748851687-ba9a10438621",
+    "author": "60d0fe4f5311236168a109cb",
+    "tags": ["Entrepreneurship", "Success Stories", "Food"],
+    "readTime": 8,
+    "status": "published",
+    "likes": ["60d0fe4f5311236168a109cd", "60d0fe4f5311236168a109ce"],
+    "comments": [
+      {
+        "user": "60d0fe4f5311236168a109cd",
+        "text": "Your story is truly inspiring! I'd love to feature your business in our community newsletter.",
+        "date": "2023-05-16T09:30:00.000Z"
+      }
+    ],
+    "createdAt": "2023-05-15T14:23:00.000Z"
+  },
+  {
+    "_id": "61098c0f3c5df811fc839b02",
+    "title": "Education Without Borders: Learning in Transit",
+    "content": "Education is often one of the first casualties of displacement. When families are forced to flee, schooling becomes a luxury that many cannot afford. Yet education remains a critical need for refugee children, providing not just knowledge but also stability and hope.\n\nIn our work across refugee camps in several countries, we've seen innovative approaches to continuing education despite extremely challenging circumstances. From mobile classrooms to digital learning programs that work offline, educators are finding ways to reach children on the move.\n\nOne success story comes from a camp in Jordan, where teachers use solar-powered tablets to continue lessons even when electricity is unavailable. Another inspiring example is a peer-teaching program where older students help younger ones, creating a sustainable learning community.\n\nThese models show that with creativity and commitment, education can continue even in the most difficult situations. The key is flexibility and an understanding that learning can happen anywhere.",
+    "excerpt": "How refugee children are continuing their education despite displacement and uncertainty.",
+    "featuredImage": "https://images.unsplash.com/photo-1577896851231-70ef18881754",
+    "author": "60d0fe4f5311236168a109cc",
+    "tags": ["Education", "Children", "Technology"],
+    "readTime": 5,
+    "status": "published",
+    "likes": ["60d0fe4f5311236168a109cb", "60d0fe4f5311236168a109ce"],
+    "comments": [],
+    "createdAt": "2023-05-02T10:15:00.000Z"
+  },
+  {
+    "_id": "61098c0f3c5df811fc839b03",
+    "title": "The Art of Resilience: Creative Expression in Refugee Camps",
+    "content": "Art has always been a powerful medium for processing trauma and preserving cultural identity. In refugee camps around the world, creative expression is helping people cope with displacement and maintain connections to their heritage.\n\nI recently spent time documenting art programs in three different camps, where participants ranged from young children to elderly community members. What struck me most was how these creative spaces became sanctuaries - places where people could temporarily escape their difficult circumstances and connect with something deeper.\n\nIn one program, a group of women created traditional textiles, passing down techniques that might otherwise be lost. In another, teenagers produced remarkable paintings that depicted both their past homes and their hopes for the future. Many of these artworks have been exhibited internationally, allowing the artists to share their stories with the world.\n\nThese programs demonstrate that supporting artistic expression is not a luxury but an essential part of psychological wellbeing and cultural preservation for displaced communities.",
+    "excerpt": "How art programs in refugee camps are helping people process trauma and preserve cultural identity.",
+    "featuredImage": "https://images.unsplash.com/photo-1518398046578-8cca57782e17",
+    "author": "60d0fe4f5311236168a109ce",
+    "tags": ["Art", "Culture", "Mental Health"],
+    "readTime": 6,
+    "status": "published",
+    "likes": ["60d0fe4f5311236168a109cb"],
+    "comments": [
+      {
+        "user": "60d0fe4f5311236168a109cd",
+        "text": "This is beautiful. Are there ways for people to donate art supplies to these programs?",
+        "date": "2023-04-29T15:45:00.000Z"
+      },
+      {
+        "user": "60d0fe4f5311236168a109cc",
+        "text": "I participated in a similar program and it was truly transformative. Art helps when words aren't enough.",
+        "date": "2023-04-30T08:20:00.000Z"
+      }
+    ],
+    "createdAt": "2023-04-28T16:40:00.000Z"
+  }
+]

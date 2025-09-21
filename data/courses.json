@@ -1,0 +1,245 @@
+[
+  {
+    "_id": "610a240e3c5df811fc839c01",
+    "title": "English for Beginners: Essential Communication",
+    "description": "A foundational English course designed specifically for refugees with little to no prior knowledge of English. This course focuses on practical, everyday communication skills that will help you navigate your new environment with confidence.",
+    "level": "beginner",
+    "category": "language",
+    "instructor": "60d0fe4f5311236168a109cd",
+    "duration": 1800,
+    "lessons": [
+      {
+        "title": "Introduction and Basic Greetings",
+        "content": "Learn how to introduce yourself and greet others in English. Practice basic conversation starters and essential phrases for making a good first impression.",
+        "resources": [
+          {
+            "title": "Greetings Vocabulary List",
+            "type": "document",
+            "url": "/resources/english-greetings.pdf"
+          },
+          {
+            "title": "Pronunciation Practice",
+            "type": "video",
+            "url": "/resources/pronunciation-basics.mp4"
+          }
+        ],
+        "duration": 60
+      },
+      {
+        "title": "Asking for Help and Directions",
+        "content": "Learn essential phrases for asking for assistance, finding locations, and navigating public transportation. This lesson includes role-playing scenarios to build confidence in real-world situations.",
+        "resources": [
+          {
+            "title": "Common Questions and Phrases",
+            "type": "document",
+            "url": "/resources/asking-for-help.pdf"
+          },
+          {
+            "title": "Interactive Map Exercise",
+            "type": "quiz",
+            "url": "/resources/directions-quiz.html"
+          }
+        ],
+        "duration": 60
+      },
+      {
+        "title": "Shopping and Numbers",
+        "content": "Learn vocabulary related to shopping, understanding prices, and basic numeracy in English. This lesson will help you navigate stores, markets, and understand basic transactions.",
+        "resources": [
+          {
+            "title": "Shopping Vocabulary",
+            "type": "document",
+            "url": "/resources/shopping-terms.pdf"
+          },
+          {
+            "title": "Numbers and Currency Practice",
+            "type": "quiz",
+            "url": "/resources/numbers-quiz.html"
+          }
+        ],
+        "duration": 60
+      }
+    ],
+    "coverImage": "https://images.unsplash.com/photo-1503676260728-1c00da094a0b",
+    "language": "English",
+    "enrolledUsers": ["60d0fe4f5311236168a109cb", "60d0fe4f5311236168a109cc"],
+    "ratings": [
+      {
+        "user": "60d0fe4f5311236168a109cb",
+        "rating": 5,
+        "review": "This course helped me gain confidence in speaking English in everyday situations. The practical focus was exactly what I needed.",
+        "date": "2023-04-15T09:30:00.000Z"
+      },
+      {
+        "user": "60d0fe4f5311236168a109cc",
+        "rating": 4,
+        "review": "Great beginner course with useful resources. Would recommend to anyone starting to learn English.",
+        "date": "2023-05-02T14:45:00.000Z"
+      }
+    ],
+    "averageRating": 4.5,
+    "isPublished": true,
+    "isFeatured": true,
+    "createdAt": "2023-03-10T08:00:00.000Z"
+  },
+  {
+    "_id": "610a240e3c5df811fc839c02",
+    "title": "Digital Skills for Employment",
+    "description": "Develop essential digital skills needed for today's job market. This course covers computer basics, internet navigation, email communication, and introduction to productivity software like word processing and spreadsheets.",
+    "level": "beginner",
+    "category": "technology",
+    "instructor": "60d0fe4f5311236168a109cc",
+    "duration": 1200,
+    "lessons": [
+      {
+        "title": "Computer Basics and Internet Navigation",
+        "content": "Learn the fundamentals of using a computer, understanding different devices, and safely navigating the internet. This lesson includes hands-on practice with web browsers and search engines.",
+        "resources": [
+          {
+            "title": "Computer Parts Glossary",
+            "type": "document",
+            "url": "/resources/computer-basics.pdf"
+          },
+          {
+            "title": "Internet Safety Guide",
+            "type": "document",
+            "url": "/resources/internet-safety.pdf"
+          }
+        ],
+        "duration": 90
+      },
+      {
+        "title": "Email and Professional Communication",
+        "content": "Set up an email account and learn best practices for professional communication. This lesson covers composing emails, managing your inbox, and email etiquette for job applications and workplace communication.",
+        "resources": [
+          {
+            "title": "Email Setup Tutorial",
+            "type": "video",
+            "url": "/resources/email-setup.mp4"
+          },
+          {
+            "title": "Professional Email Templates",
+            "type": "document",
+            "url": "/resources/email-templates.pdf"
+          }
+        ],
+        "duration": 60
+      },
+      {
+        "title": "Introduction to Word Processing",
+        "content": "Learn the basics of creating and formatting documents using word processing software. This lesson covers creating resumes, cover letters, and other essential documents for job searching.",
+        "resources": [
+          {
+            "title": "Word Processing Basics",
+            "type": "video",
+            "url": "/resources/word-basics.mp4"
+          },
+          {
+            "title": "Resume Template",
+            "type": "document",
+            "url": "/resources/resume-template.docx"
+          }
+        ],
+        "duration": 90
+      }
+    ],
+    "coverImage": "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d",
+    "language": "English",
+    "enrolledUsers": ["60d0fe4f5311236168a109cb"],
+    "ratings": [
+      {
+        "user": "60d0fe4f5311236168a109cb",
+        "rating": 5,
+        "review": "This course was incredibly helpful for my job search. I can now create professional documents and communicate effectively via email.",
+        "date": "2023-05-10T11:20:00.000Z"
+      }
+    ],
+    "averageRating": 5,
+    "isPublished": true,
+    "isFeatured": false,
+    "createdAt": "2023-04-05T09:15:00.000Z"
+  },
+  {
+    "_id": "610a240e3c5df811fc839c03",
+    "title": "Mental Health and Wellbeing",
+    "description": "A supportive course focused on understanding trauma, building resilience, and developing coping strategies for mental wellbeing. This course provides practical tools for managing stress and anxiety while adapting to a new environment.",
+    "level": "beginner",
+    "category": "life-skills",
+    "instructor": "60d0fe4f5311236168a109ce",
+    "duration": 900,
+    "lessons": [
+      {
+        "title": "Understanding Trauma and Stress",
+        "content": "Learn about how trauma and stress affect the mind and body, with a focus on the specific challenges faced during displacement and resettlement. This lesson provides a framework for understanding your experiences and reactions.",
+        "resources": [
+          {
+            "title": "Trauma Response Guide",
+            "type": "document",
+            "url": "/resources/trauma-guide.pdf"
+          },
+          {
+            "title": "Stress Recognition Exercise",
+            "type": "quiz",
+            "url": "/resources/stress-quiz.html"
+          }
+        ],
+        "duration": 60
+      },
+      {
+        "title": "Building Resilience",
+        "content": "Explore practical strategies for building resilience and developing a growth mindset. This lesson includes exercises to identify personal strengths and support networks.",
+        "resources": [
+          {
+            "title": "Resilience Building Techniques",
+            "type": "video",
+            "url": "/resources/resilience-techniques.mp4"
+          },
+          {
+            "title": "Personal Strengths Worksheet",
+            "type": "document",
+            "url": "/resources/strengths-worksheet.pdf"
+          }
+        ],
+        "duration": 60
+      },
+      {
+        "title": "Daily Wellness Practices",
+        "content": "Learn practical techniques for managing stress and anxiety in daily life, including mindfulness exercises, breathing techniques, and establishing healthy routines.",
+        "resources": [
+          {
+            "title": "Guided Meditation",
+            "type": "video",
+            "url": "/resources/guided-meditation.mp4"
+          },
+          {
+            "title": "Wellness Journal Template",
+            "type": "document",
+            "url": "/resources/wellness-journal.pdf"
+          }
+        ],
+        "duration": 45
+      }
+    ],
+    "coverImage": "https://images.unsplash.com/photo-1507413245164-6160d8298b31",
+    "language": "English",
+    "enrolledUsers": ["60d0fe4f5311236168a109cb", "60d0fe4f5311236168a109cc", "60d0fe4f5311236168a109cd"],
+    "ratings": [
+      {
+        "user": "60d0fe4f5311236168a109cb",
+        "rating": 5,
+        "review": "This course helped me understand my own reactions to stress and gave me practical tools to feel more grounded.",
+        "date": "2023-05-18T16:45:00.000Z"
+      },
+      {
+        "user": "60d0fe4f5311236168a109cc",
+        "rating": 5,
+        "review": "Extremely valuable content presented in a sensitive and supportive way.",
+        "date": "2023-05-20T10:30:00.000Z"
+      }
+    ],
+    "averageRating": 5,
+    "isPublished": true,
+    "isFeatured": true,
+    "createdAt": "2023-04-12T14:30:00.000Z"
+  }
+]
