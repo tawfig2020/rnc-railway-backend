@@ -90,18 +90,8 @@ app.get('/health', (req, res) => {
   });
 });
 
-// API root endpoint
-app.get('/api', (req, res) => {
-  res.json({
-    message: 'RNC Malaysia API - Railway Backend',
-    status: 'active',
-    version: '1.0.0',
-    database: isDbConnected ? 'Connected' : 'Disconnected'
-  });
-});
-
-// API Routes - Only serve real routes when DB is connected
-app.use('/api', (req, res, next) => {
+// API Routes - Database connection check middleware (for specific routes only)
+const dbCheckMiddleware = (req, res, next) => {
   if (!isDbConnected) {
     return res.status(503).json({
       error: 'Service temporarily unavailable',
@@ -109,18 +99,29 @@ app.use('/api', (req, res, next) => {
     });
   }
   next();
+};
+
+// API root endpoint (always available)
+app.get('/api', (req, res) => {
+  res.json({
+    message: 'RNC Malaysia API - Railway Backend',
+    status: 'active',
+    version: '1.0.0',
+    database: isDbConnected ? 'Connected' : 'Disconnected',
+    timestamp: new Date().toISOString()
+  });
 });
 
-// Load API routes
-app.use('/api/auth', require('./routes/auth'));
-app.use('/api/users', require('./routes/profiles'));
-app.use('/api/profile', require('./routes/profiles'));
-app.use('/api/blog', require('./routes/blogs'));
-app.use('/api/courses', require('./routes/courses'));
-app.use('/api/events', require('./routes/events'));
-app.use('/api/resources', require('./routes/resources'));
-app.use('/api/health', require('./routes/health'));
-app.use('/api/support', require('./routes/support'));
+// Load API routes with database check
+app.use('/api/auth', dbCheckMiddleware, require('./routes/auth'));
+app.use('/api/users', dbCheckMiddleware, require('./routes/profiles'));
+app.use('/api/profile', dbCheckMiddleware, require('./routes/profiles'));
+app.use('/api/blog', dbCheckMiddleware, require('./routes/blogs'));
+app.use('/api/courses', dbCheckMiddleware, require('./routes/courses'));
+app.use('/api/events', dbCheckMiddleware, require('./routes/events'));
+app.use('/api/resources', dbCheckMiddleware, require('./routes/resources'));
+app.use('/api/health', dbCheckMiddleware, require('./routes/health'));
+app.use('/api/support', dbCheckMiddleware, require('./routes/support'));
 
 // Catch-all for undefined routes
 app.get('*', (req, res) => {
