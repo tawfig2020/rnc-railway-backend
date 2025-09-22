@@ -113,7 +113,8 @@ app.get('/api', (req, res) => {
 });
 
 // Load API routes with database check
-app.use('/api/auth', dbCheckMiddleware, require('./routes/auth'));
+// Temporarily remove dbCheckMiddleware from auth for debugging
+app.use('/api/auth', require('./routes/auth'));
 app.use('/api/users', dbCheckMiddleware, require('./routes/profiles'));
 app.use('/api/profile', dbCheckMiddleware, require('./routes/profiles'));
 app.use('/api/blog', dbCheckMiddleware, require('./routes/blogs'));
