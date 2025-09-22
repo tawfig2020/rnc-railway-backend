@@ -127,6 +127,18 @@ app.use('/api/resources', dbCheckMiddleware, require('./routes/resources'));
 app.use('/api/health', dbCheckMiddleware, require('./routes/health'));
 app.use('/api/support', dbCheckMiddleware, require('./routes/support'));
 
+// Marketplace routes
+app.use('/api/products', dbCheckMiddleware, require('./routes/products'));
+app.use('/api/categories', dbCheckMiddleware, require('./routes/categories'));
+app.use('/api/discounts', dbCheckMiddleware, require('./routes/discounts'));
+app.use('/api/vendors', dbCheckMiddleware, require('./routes/vendors'));
+app.use('/api/orders', dbCheckMiddleware, require('./routes/orders'));
+
+// Additional routes
+app.use('/api/campaigns', dbCheckMiddleware, require('./routes/campaigns'));
+app.use('/api/donations', dbCheckMiddleware, require('./routes/donations'));
+app.use('/api/services', dbCheckMiddleware, require('./routes/services'));
+
 // Catch-all for undefined routes
 app.get('*', (req, res) => {
   res.status(404).json({
