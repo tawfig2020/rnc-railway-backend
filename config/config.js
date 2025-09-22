@@ -83,8 +83,10 @@ const config = {
     port: process.env.PORT || 5000,
     // In production, require env-provided URI (validated in server startup)
     mongoURI: process.env.MONGODB_URI || process.env.MONGODB_URI_PRODUCTION,
-    jwtSecret: process.env.JWT_SECRET,
-    jwtExpire: process.env.JWT_EXPIRE || '30d',
+    jwtSecret: process.env.JWT_SECRET || '9f72b9d6c4b14e34a2c1d7f80cdd1a8f5d01a38f94247689b3d7e5c6a1f09e44',
+    jwtExpire: process.env.JWT_EXPIRE || '1h',
+    jwtRefreshSecret: process.env.JWT_REFRESH_SECRET || 'refresh_9f72b9d6c4b14e34a2c1d7f80cdd1a8f5d01a38f94247689b3d7e5c6a1f09e44',
+    jwtRefreshExpire: process.env.JWT_REFRESH_EXPIRE || '7d',
     frontendUrl: process.env.FRONTEND_URL || 'https://refugeenetwork.com',
     fromName: process.env.FROM_NAME || 'Refugee Network Centre',
     fromEmail: process.env.FROM_EMAIL || 'noreply@refugeenetwork.com',

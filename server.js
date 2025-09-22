@@ -37,6 +37,9 @@ app.use(cors({
 
 app.use(express.json());
 
+// Trust proxy for rate limiting (required for Render)
+app.set('trust proxy', 1);
+
 // MongoDB Connection
 const mongoose = require('mongoose');
 const config = require('./config/config');
