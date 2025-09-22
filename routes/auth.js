@@ -13,8 +13,22 @@ const User = require('../models/User');
 const RefreshToken = require('../models/RefreshToken');
 const { authLimiter } = require('../middleware/rateLimiter');
 
-
-
+// @route   GET /api/auth
+// @desc    Test auth route
+// @access  Public
+router.get('/', (req, res) => {
+  res.json({
+    message: 'Auth routes are working',
+    routes: [
+      'POST /api/auth/register',
+      'POST /api/auth/login',
+      'POST /api/auth/refresh-token',
+      'POST /api/auth/logout',
+      'POST /api/auth/forgot-password',
+      'POST /api/auth/reset-password'
+    ]
+  });
+});
 
 // @route   POST /api/auth/register
 // @desc    Register a user
