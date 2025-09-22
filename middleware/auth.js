@@ -1,7 +1,9 @@
 const jwt = require('jsonwebtoken');
 const mongoose = require('mongoose');
-const User = mongoose.model('User');
 const config = require('../config/config');
+
+// Import User model directly instead of using mongoose.model()
+const User = require('../models/User');
 
 // Error messages
 const ERROR_MESSAGES = {

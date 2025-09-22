@@ -1,12 +1,16 @@
 const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
-const Donation = mongoose.model('Donation');
-const Campaign = mongoose.model('Campaign');
-const User = mongoose.model('User');
+
+
+
 const auth = require('../middleware/auth');
 const adminAuth = require('../middleware/adminAuth');
 
+
+const Donation = require('../models/Donation');
+const Campaign = require('../models/Campaign');
+const User = require('../models/User');
 // @route   POST /api/donations
 // @desc    Create a new donation
 // @access  Public (can be anonymous)

@@ -3,10 +3,13 @@ const router = express.Router();
 const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
 const config = require('../config/config');
+
+const User = require('../models/User');
+const RefreshToken = require('../models/RefreshToken');
 const { authLimiter } = require('../middleware/rateLimiter');
 
-const User = mongoose.model('User');
-const RefreshToken = mongoose.model('RefreshToken');
+
+
 
 /**
  * @route   POST /api/refresh-token

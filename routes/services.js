@@ -6,8 +6,10 @@ const auth = require('../middleware/auth');
 const adminAuth = require('../middleware/adminAuth');
 const staffAuth = require('../middleware/staffAuth');
 
-const Service = mongoose.model('Service');
 
+
+
+const Service = require('../models/Service');
 /**
  * @route   GET /api/services
  * @desc    Get all services with filtering options

@@ -8,10 +8,13 @@ const { check, validationResult } = require('express-validator');
 const config = require('../config/config');
 const auth = require('../middleware/auth');
 const sendEmail = require('../utils/sendEmail');
+
+const User = require('../models/User');
+const RefreshToken = require('../models/RefreshToken');
 const { authLimiter } = require('../middleware/rateLimiter');
 
-const User = mongoose.model('User');
-const RefreshToken = mongoose.model('RefreshToken');
+
+
 
 // @route   POST /api/auth/register
 // @desc    Register a user

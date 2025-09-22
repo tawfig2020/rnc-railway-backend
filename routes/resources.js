@@ -1,9 +1,11 @@
 const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
+
+const Resource = require('../models/Resource');
 const { check, validationResult } = require('express-validator');
 
-const Resource = mongoose.model('Resource');
+
 
 // @route   GET /api/resources
 // @desc    Get all resources

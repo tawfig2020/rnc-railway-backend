@@ -1,15 +1,19 @@
 const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
-const Vendor = mongoose.model('Vendor');
-const User = mongoose.model('User');
-const Product = mongoose.model('Product');
+
+
+
 const auth = require('../middleware/auth');
 const adminAuth = require('../middleware/adminAuth');
 const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
 
+
+const Vendor = require('../models/Vendor');
+const User = require('../models/User');
+const Product = require('../models/Product');
 // Configure multer for file uploads
 const storage = multer.diskStorage({
   destination: function(req, file, cb) {

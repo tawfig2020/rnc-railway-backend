@@ -1,9 +1,11 @@
 const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
+
+const BlogPost = require('../models/BlogPost');
 const { check, validationResult } = require('express-validator');
 
-const BlogPost = mongoose.model('BlogPost');
+
 
 // @route   GET /api/blogs
 // @desc    Get all blog posts

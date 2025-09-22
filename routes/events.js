@@ -1,9 +1,11 @@
 const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
+
+const Event = require('../models/Event');
 const { check, validationResult } = require('express-validator');
 
-const Event = mongoose.model('Event');
+
 
 // @route   GET /api/events
 // @desc    Get all events

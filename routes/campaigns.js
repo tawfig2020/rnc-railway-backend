@@ -1,14 +1,17 @@
 const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
-const Campaign = mongoose.model('Campaign');
-const Donation = mongoose.model('Donation');
+
+
 const auth = require('../middleware/auth');
 const adminAuth = require('../middleware/adminAuth');
 const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
 
+
+const Campaign = require('../models/Campaign');
+const Donation = require('../models/Donation');
 // Configure multer for file uploads
 const storage = multer.diskStorage({
   destination: function(req, file, cb) {

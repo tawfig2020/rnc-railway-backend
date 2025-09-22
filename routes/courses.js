@@ -1,9 +1,11 @@
 const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
+
+const Course = require('../models/Course');
 const { check, validationResult } = require('express-validator');
 
-const Course = mongoose.model('Course');
+
 
 // @route   GET /api/courses
 // @desc    Get all courses

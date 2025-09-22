@@ -1,5 +1,7 @@
 const mongoose = require('mongoose');
-const User = mongoose.model('User');
+
+// Import User model directly
+const User = require('../models/User');
 
 /**
  * Staff Authentication Middleware

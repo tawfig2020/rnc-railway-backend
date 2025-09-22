@@ -1,12 +1,16 @@
 const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
-const Order = mongoose.model('Order');
-const Product = mongoose.model('Product');
-const Vendor = mongoose.model('Vendor');
+
+
+
 const auth = require('../middleware/auth');
 const adminAuth = require('../middleware/adminAuth');
 
+
+const Order = require('../models/Order');
+const Product = require('../models/Product');
+const Vendor = require('../models/Vendor');
 // @route   POST /api/orders
 // @desc    Create new order
 // @access  Private
