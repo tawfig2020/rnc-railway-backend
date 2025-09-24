@@ -139,6 +139,9 @@ app.use('/api/campaigns', dbCheckMiddleware, require('./routes/campaigns'));
 app.use('/api/donations', dbCheckMiddleware, require('./routes/donations'));
 app.use('/api/services', dbCheckMiddleware, require('./routes/services'));
 
+// Admin routes (users, courses, services CRUD used by admin panel)
+app.use('/api/admin', dbCheckMiddleware, require('./routes/admin'));
+
 // Catch-all for undefined routes
 app.get('*', (req, res) => {
   res.status(404).json({
