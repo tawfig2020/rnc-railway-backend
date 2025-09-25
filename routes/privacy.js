@@ -49,15 +49,32 @@ router.get('/policy', async (req, res) => {
 });
 
 // @route   POST /api/privacy/consent
-// @desc    Update user consent preferences
-// @access  Private
-router.post('/consent', auth, async (req, res) => {
+// @desc    Update user consent preferences (anonymous or authenticated)
+// @access  Public/Private
+router.post('/consent', async (req, res) => {
   try {
     const { analytics, marketing, dataProcessing, thirdParty, consentMethod } = req.body;
-    const userId = req.user.id;
     const ipAddress = req.ip || req.connection.remoteAddress;
     const userAgent = req.get('User-Agent');
 
+    // For anonymous users, just log the consent and return success
+    if (!req.user) {
+      logger.info('Anonymous consent recorded', {
+        analytics,
+        marketing,
+        dataProcessing,
+        thirdParty,
+        ip: ipAddress,
+        userAgent
+      });
+
+      return res.json({
+        success: true,
+        message: 'Consent preferences recorded successfully'
+      });
+    }
+
+    const userId = req.user.id;
     // Find or create user consent record
     let userConsent = await UserConsent.findOne({ userId });
     

@@ -142,6 +142,9 @@ app.use('/api/services', dbCheckMiddleware, require('./routes/services'));
 // Admin routes (users, courses, services CRUD used by admin panel)
 app.use('/api/admin', dbCheckMiddleware, require('./routes/admin'));
 
+// Privacy and consent routes
+app.use('/api/privacy', dbCheckMiddleware, require('./routes/privacy'));
+
 // Catch-all for undefined routes
 app.get('*', (req, res) => {
   res.status(404).json({
