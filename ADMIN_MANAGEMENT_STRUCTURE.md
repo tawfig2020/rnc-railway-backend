@@ -127,17 +127,21 @@
 ---
 
 ### **LEVEL 3: SPECIALIZED ADMINS (5 People)**
+
 **Salary Range**: $40,000 - $55,000/year  
 **Time Commitment**: Full-time (40 hours/week)
 
 #### **A. CONTENT ADMIN (2 People)**
+
 **Core Responsibilities:**
+
 - **Content Curation**: Blog posts, educational materials, course content
 - **Quality Control**: Content accuracy, cultural sensitivity
 - **SEO Management**: Search optimization, content discoverability
 - **Translation Coordination**: Multilingual content management
 
 **Daily Tasks:**
+
 - Review and approve blog post submissions
 - Update course catalogs and educational resources
 - Monitor content engagement and performance
@@ -145,19 +149,23 @@
 - Ensure content quality and accuracy standards
 
 **Weekly Tasks:**
+
 - Content performance analysis
 - SEO optimization reviews
 - Editorial calendar planning
 - Content creator coordination
 
 #### **B. MARKETPLACE ADMIN (2 People)**
+
 **Core Responsibilities:**
+
 - **Vendor Management**: Onboarding, verification, support
 - **Product Oversight**: Listings, quality control, pricing
 - **Transaction Monitoring**: Payments, disputes, refunds
 - **Analytics Tracking**: Sales performance, vendor metrics
 
 **Daily Tasks:**
+
 - Review new vendor applications and product listings
 - Monitor marketplace transactions and resolve disputes
 - Update product categories and featured items
@@ -165,19 +173,23 @@
 - Track marketplace performance metrics
 
 **Weekly Tasks:**
+
 - Vendor performance reviews
 - Marketplace analytics reporting
 - Product category optimization
 - Payment and transaction analysis
 
 #### **C. USER SUPPORT ADMIN (1 Person)**
+
 **Core Responsibilities:**
+
 - **Customer Service**: User inquiries, technical support
 - **Account Management**: User account issues, password resets
 - **Documentation**: Support guides, FAQ updates
 - **Escalation Management**: Complex issue resolution
 
 **Daily Tasks:**
+
 - Respond to user support tickets (target: <24 hours)
 - Assist with account-related issues
 - Update support documentation and FAQs
@@ -185,6 +197,7 @@
 - Track support metrics and user satisfaction
 
 **Weekly Tasks:**
+
 - Support performance analysis
 - Documentation updates and improvements
 - User satisfaction surveys
@@ -193,10 +206,12 @@
 ---
 
 ### **LEVEL 4: MODERATORS (4 People)**
+
 **Salary Range**: $25,000 - $35,000/year (or part-time $15-20/hour)  
 **Time Commitment**: Part-time (20-30 hours/week) or Full-time
 
 #### **Core Responsibilities:**
+
 - **Content Moderation**: Forum posts, comments, user-generated content
 - **Community Guidelines**: Enforcement, user behavior monitoring
 - **Basic Support**: Level 1 user assistance
