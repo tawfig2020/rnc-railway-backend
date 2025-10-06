@@ -49,10 +49,29 @@ const campaignUpload = upload.fields([
   { name: 'organizationLogo', maxCount: 1 }
 ]);
 
+// Middleware to optionally authenticate (doesn't fail if no token)
+const optionalAuth = (req, res, next) => {
+  const token = req.header('x-auth-token') || req.header('Authorization')?.replace('Bearer ', '');
+  
+  if (!token) {
+    return next();
+  }
+  
+  try {
+    const jwt = require('jsonwebtoken');
+    const decoded = jwt.verify(token, process.env.JWT_SECRET || 'your_jwt_secret_key_here');
+    req.user = decoded.user;
+    next();
+  } catch (err) {
+    // Invalid token, but continue as unauthenticated
+    next();
+  }
+};
+
 // @route   GET /api/campaigns
 // @desc    Get all campaigns
-// @access  Public
-router.get('/', async (req, res) => {
+// @access  Public (with optional auth for admin features)
+router.get('/', optionalAuth, async (req, res) => {
   try {
     const { 
       search, category, featured, status,
@@ -80,18 +99,23 @@ router.get('/', async (req, res) => {
     }
     
     // Only admins can see non-active campaigns or filter by status
-    if (req.user && req.user.role === 'admin' && status) {
-      query.status = status;
+    if (req.user && req.user.role === 'admin') {
+      // Admin can filter by status or see all campaigns
+      if (status) {
+        query.status = status;
+      }
+      // If no status filter, show all campaigns for admin
     } else {
+      // Non-admin users only see active campaigns
       query.status = 'active';
+      
+      // Filter out expired campaigns that don't allow donations after end
+      const now = new Date();
+      query.$or = [
+        { endDate: { $gte: now } },
+        { allowDonationsAfterEnd: true }
+      ];
     }
-    
-    // Filter out expired campaigns that don't allow donations after end
-    const now = new Date();
-    query.$or = [
-      { endDate: { $gte: now } },
-      { allowDonationsAfterEnd: true }
-    ];
     
     // Pagination
     const currentPage = parseInt(page) || 1;

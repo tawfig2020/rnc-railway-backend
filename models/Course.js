@@ -92,6 +92,34 @@ const CourseSchema = new mongoose.Schema({
     type: Boolean,
     default: false
   },
+  // Additional fields for admin management
+  instructorName: {
+    type: String
+  },
+  startDate: {
+    type: Date
+  },
+  endDate: {
+    type: Date
+  },
+  schedule: {
+    type: String
+  },
+  location: {
+    type: String
+  },
+  capacity: {
+    type: Number
+  },
+  enrolled: {
+    type: Number,
+    default: 0
+  },
+  status: {
+    type: String,
+    enum: ['upcoming', 'active', 'completed', 'cancelled'],
+    default: 'upcoming'
+  },
   createdAt: {
     type: Date,
     default: Date.now

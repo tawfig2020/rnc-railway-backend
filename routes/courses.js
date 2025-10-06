@@ -95,10 +95,7 @@ router.post(
   [
     check('title', 'Title is required').not().isEmpty(),
     check('description', 'Description is required').not().isEmpty(),
-    check('category', 'Category is required').not().isEmpty(),
-    check('level', 'Level is required').not().isEmpty(),
-    check('language', 'Language is required').not().isEmpty(),
-    check('duration', 'Duration is required').isNumeric()
+    check('category', 'Category is required').not().isEmpty()
   ],
   async (req, res) => {
     const errors = validationResult(req);
@@ -107,35 +104,69 @@ router.post(
     }
 
     try {
-      // This will be replaced with actual auth middleware
-      // For now, we'll use a placeholder instructor ID
-      const instructor = '60d0fe4f5311236168a109cd'; // This should come from auth middleware
+      // Get instructor from auth middleware or use a default
+      let instructorId;
+      if (req.user && req.user.id) {
+        instructorId = req.user.id;
+      } else {
+        // Create or get a default instructor user
+        const User = mongoose.model('User');
+        let defaultInstructor = await User.findOne({ email: 'instructor@rnc.org' });
+        
+        if (!defaultInstructor) {
+          // Create default instructor if doesn't exist
+          defaultInstructor = new User({
+            name: 'RNC Instructor',
+            email: 'instructor@rnc.org',
+            password: 'tempPassword123',
+            role: 'staff'
+          });
+          await defaultInstructor.save();
+        }
+        instructorId = defaultInstructor._id;
+      }
 
       const { 
         title, description, category, level, duration, coverImage, 
-        language, lessons, isPublished, isFeatured 
+        language, lessons, isPublished, isFeatured,
+        instructor, startDate, endDate, schedule, location, capacity, status
       } = req.body;
 
       const newCourse = new Course({
         title,
         description,
         category,
-        level,
-        instructor,
-        duration,
-        coverImage,
-        language,
+        level: level || 'beginner',
+        instructor: instructorId,
+        duration: duration || 60,
+        coverImage: coverImage || 'default-course.jpg',
+        language: language || 'English',
         lessons: lessons || [],
-        isPublished: isPublished !== undefined ? isPublished : false,
+        isPublished: isPublished !== undefined ? isPublished : true,
         isFeatured: isFeatured !== undefined ? isFeatured : false
       });
+
+      // Add custom fields for admin management
+      if (startDate) newCourse.startDate = startDate;
+      if (endDate) newCourse.endDate = endDate;
+      if (schedule) newCourse.schedule = schedule;
+      if (location) newCourse.location = location;
+      if (capacity) newCourse.capacity = capacity;
+      if (status) newCourse.status = status;
+      if (instructor && typeof instructor === 'string') {
+        newCourse.instructorName = instructor;
+      }
 
       const course = await newCourse.save();
 
       res.json({ success: true, data: course });
     } catch (err) {
-      console.error(err.message);
-      res.status(500).send('Server Error');
+      console.error('Error creating course:', err);
+      res.status(500).json({ 
+        success: false, 
+        message: 'Server Error', 
+        error: err.message 
+      });
     }
   }
 );
@@ -158,7 +189,9 @@ router.put('/:id', async (req, res) => {
     const updateFields = {};
     const allowedFields = [
       'title', 'description', 'category', 'level', 'duration', 
-      'coverImage', 'language', 'lessons', 'isPublished', 'isFeatured'
+      'coverImage', 'language', 'lessons', 'isPublished', 'isFeatured',
+      'startDate', 'endDate', 'schedule', 'location', 'capacity', 
+      'status', 'instructorName'
     ];
 
     // Only update fields that are explicitly provided
@@ -168,11 +201,16 @@ router.put('/:id', async (req, res) => {
       }
     });
 
+    // Handle instructor field
+    if (req.body.instructor && typeof req.body.instructor === 'string') {
+      updateFields.instructorName = req.body.instructor;
+    }
+
     // Update the course with the new data
     const updatedCourse = await Course.findByIdAndUpdate(
       req.params.id,
       { $set: updateFields },
-      { new: true }
+      { new: true, runValidators: false }
     );
 
     res.json({ success: true, data: updatedCourse });
@@ -181,7 +219,7 @@ router.put('/:id', async (req, res) => {
     if (err.kind === 'ObjectId') {
       return res.status(404).json({ msg: 'Course not found' });
     }
-    res.status(500).send('Server Error');
+    res.status(500).json({ success: false, message: 'Server Error', error: err.message });
   }
 });
 
