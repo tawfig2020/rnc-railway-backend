@@ -29,6 +29,7 @@ require('./models/Address');
 require('./models/ForumQuestion');
 require('./models/AIResource');
 require('./models/UserConsent');
+require('./models/CommunityProject');
 
 const app = express();
 
@@ -165,12 +166,17 @@ realApiRouter.use('/donations', require('./routes/donations'));
 realApiRouter.use('/profiles', require('./routes/profiles'));
 realApiRouter.use('/health', require('./routes/health'));
 realApiRouter.use('/support', require('./routes/support'));
-realApiRouter.use('/services', require('./routes/services'));
+realApiRouter.use('/services', require('./routes/services')); // Legacy endpoint
+realApiRouter.use('/programs', require('./routes/programs')); // New endpoint (uses same Service model)
+realApiRouter.use('/roles', require('./routes/roles')); // Role applications (volunteer, intern, vendor)
+realApiRouter.use('/partners', require('./routes/partners')); // Partner applications and job matching
+realApiRouter.use('/analytics', require('./routes/analytics')); // Analytics and reporting
 realApiRouter.use('/categories', require('./routes/categories'));
 realApiRouter.use('/discounts', require('./routes/discounts'));
 realApiRouter.use('/addresses', require('./routes/addresses'));
 realApiRouter.use('/partnerships', require('./routes/partnerships'));
 realApiRouter.use('/privacy', require('./routes/privacy'));
+realApiRouter.use('/community-projects', require('./routes/communityProjects'));
 
 // --- Mock API Routes ---
 const mockApiRouter = express.Router();
