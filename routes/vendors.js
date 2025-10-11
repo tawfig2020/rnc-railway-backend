@@ -124,7 +124,8 @@ router.get('/', async (req, res) => {
       .populate('user', 'name email');
     
     res.json({
-      vendors,
+      success: true,
+      data: vendors,
       pagination: {
         total: totalVendors,
         page: currentPage,
@@ -133,8 +134,12 @@ router.get('/', async (req, res) => {
       }
     });
   } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: 'Server error' });
+    console.error('Error fetching vendors:', err);
+    res.status(500).json({ 
+      success: false,
+      error: 'Server error',
+      message: err.message 
+    });
   }
 });
 

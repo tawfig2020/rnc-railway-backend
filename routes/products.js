@@ -118,7 +118,8 @@ router.get('/', async (req, res) => {
       .populate('vendor', 'businessName logo averageRating');
     
     res.json({
-      products,
+      success: true,
+      data: products,
       pagination: {
         total: totalProducts,
         page: currentPage,
@@ -127,8 +128,12 @@ router.get('/', async (req, res) => {
       }
     });
   } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: 'Server error' });
+    console.error('Error fetching products:', err);
+    res.status(500).json({ 
+      success: false,
+      error: 'Server error',
+      message: err.message 
+    });
   }
 });
 
