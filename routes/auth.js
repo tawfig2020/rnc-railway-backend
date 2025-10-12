@@ -189,8 +189,13 @@ router.post(
         }
       });
     } catch (err) {
-      console.error(err.message);
-      res.status(500).send('Server error');
+      console.error('Login error:', err);
+      res.status(500).json({ 
+        success: false,
+        error: 'Server error',
+        message: err.message,
+        details: process.env.NODE_ENV === 'development' ? err.stack : undefined
+      });
     }
   }
 );
