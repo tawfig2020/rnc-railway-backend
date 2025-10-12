@@ -36,7 +36,7 @@ const UserSchema = new mongoose.Schema({
   },
   location: {
     type: String,
-    required: [true, 'Please add your current location']
+    default: 'Not specified'
   },
   languages: [{
     type: String

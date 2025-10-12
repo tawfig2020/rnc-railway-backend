@@ -119,7 +119,8 @@ router.post(
             name: 'RNC Instructor',
             email: 'instructor@rnc.org',
             password: 'tempPassword123',
-            role: 'staff'
+            role: 'staff',
+            location: 'Kuala Lumpur, Malaysia'
           });
           await defaultInstructor.save();
         }
