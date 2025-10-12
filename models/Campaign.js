@@ -20,12 +20,12 @@ const CampaignSchema = new mongoose.Schema({
   },
   summary: {
     type: String,
-    required: [true, 'Please add a summary'],
+    required: false, // Made optional
     maxlength: [300, 'Summary cannot be more than 300 characters']
   },
   coverImage: {
     type: String,
-    required: [true, 'Please add a cover image']
+    required: false // Made optional
   },
   images: [{
     type: String
@@ -54,17 +54,31 @@ const CampaignSchema = new mongoose.Schema({
     type: String,
     required: [true, 'Please add a category'],
     enum: [
-      'education', 
-      'healthcare', 
-      'emergency_relief', 
+      'education',
+      'Education',
+      'Education Program', // Added for frontend compatibility
+      'healthcare',
+      'Healthcare',
+      'emergency_relief',
+      'Emergency Relief',
       'community_development',
+      'Community Development',
       'legal_assistance',
+      'Legal Assistance',
       'family_support',
+      'Family Support',
       'housing',
+      'Housing',
       'food_security',
+      'Food Security',
       'mental_health',
+      'Mental Health',
       'employment',
-      'other'
+      'Employment',
+      'technology',
+      'Technology',
+      'other',
+      'Other'
     ]
   },
   tags: [{
@@ -72,7 +86,7 @@ const CampaignSchema = new mongoose.Schema({
   }],
   status: {
     type: String,
-    enum: ['draft', 'active', 'paused', 'completed', 'cancelled'],
+    enum: ['draft', 'Draft', 'active', 'Active', 'paused', 'Paused', 'completed', 'Completed', 'cancelled', 'Cancelled'],
     default: 'draft'
   },
   featured: {
@@ -85,11 +99,11 @@ const CampaignSchema = new mongoose.Schema({
   },
   startDate: {
     type: Date,
-    required: [true, 'Please add a start date']
+    required: false // Made optional
   },
   endDate: {
     type: Date,
-    required: [true, 'Please add an end date']
+    required: false // Made optional
   },
   allowDonationsAfterEnd: {
     type: Boolean,
@@ -110,7 +124,7 @@ const CampaignSchema = new mongoose.Schema({
   },
   organizationName: {
     type: String,
-    required: [true, 'Please add the organization name']
+    required: false // Made optional
   },
   organizationLogo: {
     type: String
@@ -121,7 +135,7 @@ const CampaignSchema = new mongoose.Schema({
   },
   contactEmail: {
     type: String,
-    required: [true, 'Please add a contact email'],
+    required: false, // Made optional
     match: [
       /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
       'Please add a valid email'
@@ -132,7 +146,7 @@ const CampaignSchema = new mongoose.Schema({
   },
   beneficiaries: {
     type: String,
-    required: [true, 'Please describe the beneficiaries']
+    required: false // Made optional
   },
   impactMetrics: [{
     metric: String,
