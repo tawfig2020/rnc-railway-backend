@@ -6,7 +6,6 @@
 
 require('dotenv').config();
 const mongoose = require('mongoose');
-const bcrypt = require('bcryptjs');
 
 // Connect to MongoDB
 const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/rnc-platform';
@@ -134,11 +133,8 @@ async function seedDatabase() {
     console.log('👥 Creating users...');
     const createdUsers = [];
     for (const userData of users) {
-      const hashedPassword = await bcrypt.hash(userData.password, 10);
-      const user = await User.create({
-        ...userData,
-        password: hashedPassword
-      });
+      // Don't hash password here - the User model's pre-save hook will do it
+      const user = await User.create(userData);
       createdUsers.push(user);
       console.log(`   ✓ Created user: ${user.name} (${user.role})`);
     }
