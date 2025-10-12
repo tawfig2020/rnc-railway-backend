@@ -16,43 +16,17 @@ const Events = () => {
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const [tabValue, setTabValue] = useState(0);
   const [page, setPage] = useState(1);
-  const [savedEvents, setSavedEvents] = useState(['event2', 'event5']);
+  const [savedEvents, setSavedEvents] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [filtersOpen, setFiltersOpen] = useState(false);
 
   // Sample event data - in a real app this would come from an API
   const events = [
     {
-      id: 'event1',
-      title: 'Career Fair & Networking Event',
-      category: 'career',
-      date: 'July 15-17, 2025',
-      time: '10:00 AM - 5:00 PM',
-      location: 'Refugee Network Centre, Ampang',
-      description: 'Connect directly with employers who value refugee talent. Meet with companies looking to hire, participate in on-the-spot interviews, and expand your professional network.',
-      image: '/assets/events/career-fair.jpg',
-      featured: true,
-      attendance: '120 attending',
-      tags: ['Career', 'Networking', 'Employment']
-    },
-    {
-      id: 'event2',
-      title: 'Cultural Celebration Day',
-      category: 'community',
-      date: 'July 22, 2025',
-      time: '12:00 PM - 8:00 PM',
-      location: 'Central Park, Kuala Lumpur',
-      description: 'Celebrate the rich diversity of cultures in our community with traditional performances, food, art, and music from around the world.',
-      image: '/assets/events/cultural-celebration.jpg',
-      featured: true,
-      attendance: '250 attending',
-      tags: ['Culture', 'Community', 'Celebration']
-    },
-    {
       id: 'event3',
       title: 'Digital Skills Workshop',
       category: 'education',
-      date: 'July 30, 2025',
+      date: 'November 15, 2025',
       time: '2:00 PM - 5:00 PM',
       location: 'Learning Center, RNC',
       description: 'Learn essential digital skills including basic computer use, internet safety, and introduction to productivity tools.',
@@ -65,7 +39,7 @@ const Events = () => {
       id: 'event4',
       title: 'Entrepreneurship Seminar',
       category: 'career',
-      date: 'August 5, 2025',
+      date: 'December 10, 2025',
       time: '10:00 AM - 2:00 PM',
       location: 'Conference Hall, RNC',
       description: 'Discover how to start and grow your own business with expert guidance on business planning, funding opportunities, and marketing strategies.',
@@ -75,23 +49,10 @@ const Events = () => {
       tags: ['Career', 'Business', 'Education']
     },
     {
-      id: 'event5',
-      title: 'Community Health Fair',
-      category: 'health',
-      date: 'August 12, 2025',
-      time: '9:00 AM - 4:00 PM',
-      location: 'Community Center, Ampang',
-      description: 'Free health screenings, consultations with healthcare professionals, and information about accessing healthcare services in Malaysia.',
-      image: '/assets/events/health-fair.jpg',
-      featured: true,
-      attendance: '180 attending',
-      tags: ['Health', 'Wellness', 'Community']
-    },
-    {
       id: 'event6',
       title: 'Language Exchange Meetup',
       category: 'education',
-      date: 'August 18, 2025',
+      date: 'December 28, 2025',
       time: '6:00 PM - 8:00 PM',
       location: 'Cafe Area, RNC',
       description: 'Practice language skills in a casual setting. Participants can practice Malay, English, Arabic, and other languages with native speakers.',
@@ -99,32 +60,6 @@ const Events = () => {
       featured: false,
       attendance: '35 attending',
       tags: ['Education', 'Languages', 'Social']
-    },
-    {
-      id: 'event7',
-      title: "Children's Art Workshop",
-      category: 'youth',
-      date: 'August 24, 2025',
-      time: '10:00 AM - 12:00 PM',
-      location: 'Creative Space, RNC',
-      description: 'A fun workshop for children ages 5-12 to explore creativity through various art forms and express themselves in a supportive environment.',
-      image: '/assets/events/art-workshop.jpg',
-      featured: false,
-      attendance: '30 attending',
-      tags: ['Youth', 'Art', 'Education']
-    },
-    {
-      id: 'event8',
-      title: 'Legal Rights Information Session',
-      category: 'support',
-      date: 'September 2, 2025',
-      time: '1:00 PM - 3:00 PM',
-      location: 'Conference Room B, RNC',
-      description: 'Learn about legal rights and resources available to refugees and migrants in Malaysia. Includes Q&A with legal experts.',
-      image: '/assets/events/legal-session.jpg',
-      featured: false,
-      attendance: '60 attending',
-      tags: ['Legal', 'Support', 'Information']
     }
   ];
 

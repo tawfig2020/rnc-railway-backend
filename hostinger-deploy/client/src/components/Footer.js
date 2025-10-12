@@ -81,7 +81,7 @@ const Footer = () => {
         { text: 'AI Hub', path: '/ai-hub' },
         { text: 'Community Projects', path: '/community-projects' },
         { text: 'Events', path: '/events' },
-        { text: 'Career Fair', path: '/career/fair-registration' },
+        { text: 'Refugee Talents Pool', path: '/career/fair-registration' },
       ]
     }
   ];

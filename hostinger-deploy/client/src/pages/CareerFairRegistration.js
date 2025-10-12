@@ -216,7 +216,7 @@ const CareerFairRegistration = () => {
       // For demonstration, we'll just simulate a successful submission
       await new Promise(resolve => setTimeout(resolve, 2000));
       setCompleted(true);
-      setSuccessMessage('Registration submitted successfully! We will contact you shortly with more details about the Career Fair.');
+      setSuccessMessage('Registration submitted successfully! Your profile has been added to our Refugee Talents Pool. We will contact you when matching job opportunities become available.');
       // In a real implementation, we would navigate to a success page or show a confirmation
     } catch (error) {
       setErrorMessage('There was an error submitting your registration. Please try again later.');
@@ -349,7 +349,7 @@ const CareerFairRegistration = () => {
           <ChevronRight sx={{ mx: 1, fontSize: 18, color: 'text.secondary' }} />
           <Typography color="primary" sx={{ display: 'flex', alignItems: 'center', fontWeight: 500 }}>
             <Event sx={{ mr: 0.5, fontSize: 18 }} />
-            Career Fair Registration
+            Refugee Talents Pool
           </Typography>
         </Box>
 
@@ -377,10 +377,10 @@ const CareerFairRegistration = () => {
               }
             }}
           >
-            Career Fair Registration
+            Refugee Talents Pool
           </Typography>
           <Typography variant="h6" color="text.secondary" sx={{ maxWidth: 800, mx: 'auto' }}>
-            Register for our upcoming Career Fair and Networking event to connect with potential employers and explore new opportunities.
+            Register your skills and experience to join our talent database. We connect refugees with job opportunities through our partner network for local, regional, and remote positions.
           </Typography>
         </Box>
 
@@ -418,7 +418,7 @@ const CareerFairRegistration = () => {
                 Registration Complete!
               </Typography>
               <Typography variant="body1" paragraph sx={{ maxWidth: 600, mx: 'auto', mb: 4 }}>
-                Thank you for registering for our Career Fair! We&apos;ve received your information and will be in touch with further details about the event. You&apos;ll receive a confirmation email shortly.
+                Thank you for joining our Refugee Talents Pool! We&apos;ve received your information and will match your skills with suitable job opportunities from our partners. You&apos;ll receive a confirmation email shortly.
               </Typography>
               <Button 
                 variant="contained" 
@@ -509,13 +509,13 @@ const CareerFairRegistration = () => {
           }}
         >
           <Typography variant="h6" gutterBottom sx={{ color: '#2A7D6F', fontWeight: 600 }}>
-            Important Information
+            About the Refugee Talents Pool
           </Typography>
           <Typography variant="body2" paragraph>
-            The Career Fair will be held on <strong>July 15, 2025</strong> at the Refugee Network Centre&apos;s main location in Ampang, Selangor. Registration is required to participate.
+            The Refugee Talents Pool is a comprehensive database that enables RNC to match refugee skills and qualifications with job opportunities from our partner organizations. We receive regular inquiries from employers seeking talented individuals for various positions.
           </Typography>
           <Typography variant="body2" paragraph>
-            Please complete all sections of this form to help us match you with appropriate employers and opportunities. Your information will be kept confidential and only shared with participating employers with your consent.
+            By registering, you join a network that connects refugees with employment opportunities locally in Malaysia, regionally across Southeast Asia, and internationally through remote work arrangements. Your information will be kept confidential and only shared with potential employers with your explicit consent.
           </Typography>
           <Typography variant="body2">
             If you need assistance completing this form, please contact us at <strong>careers@refugeenetworkcentre.org</strong> or call <strong>+60 18-203 5784</strong>.

@@ -108,6 +108,125 @@ const UserSchema = new mongoose.Schema({
     scheduledDeletionDate: Date,
     reason: String
   },
+  // Profile Completion Fields
+  profileCompleted: {
+    type: Boolean,
+    default: false
+  },
+  // Data Consent Fields
+  dataConsent: {
+    dataCollection: {
+      type: Boolean,
+      default: false,
+      required: true
+    },
+    dataStorage: {
+      type: Boolean,
+      default: false,
+      required: true
+    },
+    dataSharing: {
+      type: Boolean,
+      default: false,
+      required: true
+    },
+    partnerSharing: {
+      type: Boolean,
+      default: false,
+      required: true
+    },
+    consentDate: {
+      type: Date
+    },
+    consentVersion: {
+      type: String,
+      default: '1.0'
+    }
+  },
+  // Role Status Fields
+  roles: {
+    member: {
+      type: Boolean,
+      default: true // Everyone starts as member
+    },
+    volunteer: {
+      status: {
+        type: String,
+        enum: ['none', 'pending', 'approved', 'rejected'],
+        default: 'none'
+      },
+      appliedDate: Date,
+      approvedDate: Date,
+      rejectedDate: Date,
+      rejectionReason: String
+    },
+    intern: {
+      status: {
+        type: String,
+        enum: ['none', 'pending', 'approved', 'rejected'],
+        default: 'none'
+      },
+      appliedDate: Date,
+      approvedDate: Date,
+      rejectedDate: Date,
+      rejectionReason: String
+    },
+    vendor: {
+      status: {
+        type: String,
+        enum: ['none', 'pending', 'approved', 'rejected'],
+        default: 'none'
+      },
+      appliedDate: Date,
+      approvedDate: Date,
+      rejectedDate: Date,
+      rejectionReason: String,
+      businessName: String,
+      businessType: String
+    }
+  },
+  idType: {
+    type: String,
+    enum: ['passport', 'unhcr', ''],
+    default: ''
+  },
+  idNumber: {
+    type: String,
+    default: ''
+  },
+  locationType: {
+    type: String,
+    enum: ['malaysia', 'overseas', ''],
+    default: ''
+  },
+  state: {
+    type: String,
+    default: ''
+  },
+  country: {
+    type: String,
+    default: ''
+  },
+  city: {
+    type: String,
+    default: ''
+  },
+  phoneNumber: {
+    type: String,
+    default: ''
+  },
+  dateOfBirth: {
+    type: Date
+  },
+  gender: {
+    type: String,
+    enum: ['male', 'female', 'other', 'prefer-not-to-say', ''],
+    default: ''
+  },
+  nationality: {
+    type: String,
+    default: ''
+  },
   createdAt: {
     type: Date,
     default: Date.now

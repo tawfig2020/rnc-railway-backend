@@ -289,7 +289,7 @@ const PersonalInfoForm = ({ formData, handleChange, handleFileUpload }) => {
 
       <Box sx={{ mt: 4, p: 2, bgcolor: 'rgba(211, 97, 53, 0.1)', borderRadius: 2 }}>
         <Typography variant="body2" color="text.secondary">
-          <strong>Privacy Note:</strong> Your personal information will be kept confidential and only shared with employers at the Career Fair with your explicit consent. For more information, please refer to our Privacy Policy.
+          <strong>Privacy Note:</strong> Your personal information will be kept confidential and only shared with potential employers through the Refugee Talents Pool with your explicit consent. For more information, please refer to our Privacy Policy.
         </Typography>
       </Box>
     </Box>

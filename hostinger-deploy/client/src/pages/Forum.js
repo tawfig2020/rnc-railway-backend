@@ -139,7 +139,6 @@ const ForumPage = () => {
 
   // Categories
   const categories = [
-    { id: 'legal', name: 'Legal Help', icon: <Gavel />, color: theme.palette.secondary.main },
     { id: 'digital', name: 'Digital Tools', icon: <Devices />, color: theme.palette.primary.main },
     { id: 'life', name: 'Life Tips', icon: <EmojiObjects />, color: '#79854E' },
     { id: 'mentorship', name: 'Peer-to-peer Mentorship', icon: <People />, color: '#D36135' },
@@ -174,20 +173,6 @@ const ForumPage = () => {
       views: 146,
       solved: false,
       tags: ["Language Learning", "Apps", "English"]
-    },
-    {
-      id: 3,
-      title: "Can I build a business as a refugee? What legal advice do I need?",
-      body: "I used to run a small bakery in my home country. I'd like to start a similar business here, but I'm unsure about the legal requirements. What permits do I need? Are there any restrictions for refugees starting businesses?",
-      author: "Ibrahim M.",
-      authorAvatar: "https://randomuser.me/api/portraits/men/67.jpg",
-      date: "1 day ago",
-      category: "legal",
-      upvotes: 34,
-      answers: 5,
-      views: 212,
-      solved: true,
-      tags: ["Business", "Legal Requirements", "Entrepreneurship"]
     },
     {
       id: 4,
@@ -232,20 +217,6 @@ const ForumPage = () => {
       tags: ["Coding", "Learning", "Web Development"]
     },
     {
-      id: 7,
-      title: "How to apply for family reunification?",
-      body: "I have been granted refugee status, and now I want to apply for family reunification to bring my spouse and children. What is the process and what documentation do I need to prepare?",
-      author: "Mohammed A.",
-      authorAvatar: "https://randomuser.me/api/portraits/men/78.jpg",
-      date: "5 days ago",
-      category: "legal",
-      upvotes: 47,
-      answers: 6,
-      views: 298,
-      solved: true,
-      tags: ["Family Reunification", "Legal Process", "Documentation"]
-    },
-    {
       id: 8,
       title: "Advice for dealing with cultural adjustment challenges?",
       body: "I've been in my host country for 6 months now and still struggling with cultural adjustment. Would appreciate advice from others who have gone through this process successfully.",
@@ -263,13 +234,6 @@ const ForumPage = () => {
 
   // Expert profiles
   const experts = [
-    {
-      name: "Dr. Yasmin Rahman",
-      expertise: "Immigration Law",
-      avatar: "https://randomuser.me/api/portraits/women/28.jpg",
-      background: "Immigration attorney with 10+ years experience",
-      category: "legal",
-    },
     {
       name: "Ahmed Khalid",
       expertise: "Digital Skills Trainer",
