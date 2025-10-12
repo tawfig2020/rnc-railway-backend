@@ -183,6 +183,7 @@ realApiRouter.use('/addresses', require('./routes/addresses'));
 realApiRouter.use('/partnerships', require('./routes/partnerships'));
 realApiRouter.use('/privacy', require('./routes/privacy'));
 realApiRouter.use('/community-projects', require('./routes/communityProjects'));
+realApiRouter.use('/migration', require('./routes/migration'));
 
 // --- Mock API Routes ---
 const mockApiRouter = express.Router();
