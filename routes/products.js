@@ -63,7 +63,33 @@ router.get('/', async (req, res) => {
       ];
     }
     
-    if (category) query.category = category;
+    // Handle category filter - support both slug and ObjectId
+    if (category) {
+      // Check if it's a valid ObjectId
+      if (mongoose.Types.ObjectId.isValid(category) && category.length === 24) {
+        query.category = category;
+      } else {
+        // It's a slug, find the category first
+        const Category = mongoose.model('Category');
+        const categoryDoc = await Category.findOne({ slug: category });
+        if (categoryDoc) {
+          query.category = categoryDoc._id;
+        } else {
+          // Category not found, return empty results
+          return res.json({
+            success: true,
+            data: [],
+            pagination: {
+              total: 0,
+              page: currentPage,
+              pages: 0,
+              perPage
+            }
+          });
+        }
+      }
+    }
+    
     if (vendor) query.vendor = vendor;
     if (featured) query.featured = featured === 'true';
     
