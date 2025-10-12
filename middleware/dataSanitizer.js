@@ -108,7 +108,7 @@ const sanitizeData = (req, res, next) => {
 
   // 6. Handle Nested Objects - Parse JSON strings
   const objectFields = [
-    'founder', 'location', 'address', 'metadata',
+    'founder', 'address', 'metadata',
     'socialSharing', 'suggestedDonations', 'impactMetrics'
   ];
 
@@ -117,8 +117,10 @@ const sanitizeData = (req, res, next) => {
       try {
         body[field] = JSON.parse(body[field]);
       } catch (e) {
-        // Not valid JSON, leave as is or set to undefined
-        console.warn(`Failed to parse ${field} as JSON:`, e.message);
+        // Not valid JSON, leave as is (don't log warning for expected strings)
+        if (field !== 'location') {
+          console.warn(`Failed to parse ${field} as JSON:`, e.message);
+        }
       }
     }
   });
@@ -127,7 +129,7 @@ const sanitizeData = (req, res, next) => {
   const stringFields = [
     'title', 'name', 'description', 'summary', 'slug',
     'email', 'phone', 'organizationName', 'contactEmail',
-    'beneficiaries', 'category', 'status'
+    'beneficiaries', 'category', 'status', 'location' // Added location
   ];
 
   stringFields.forEach(field => {
