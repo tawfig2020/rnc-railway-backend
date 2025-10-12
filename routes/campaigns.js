@@ -316,6 +316,34 @@ router.post('/', auth, campaignUpload, async (req, res) => {
       }
     }
     
+    // Validate and parse goal
+    const parsedGoal = parseFloat(goal);
+    if (!goal || isNaN(parsedGoal)) {
+      return res.status(400).json({
+        success: false,
+        error: 'Invalid goal amount',
+        message: 'Please provide a valid funding goal (number)'
+      });
+    }
+    
+    // Validate and parse dates (optional fields)
+    let parsedStartDate = undefined;
+    let parsedEndDate = undefined;
+    
+    if (startDate) {
+      parsedStartDate = new Date(startDate);
+      if (isNaN(parsedStartDate.getTime())) {
+        parsedStartDate = undefined; // Invalid date, set to undefined
+      }
+    }
+    
+    if (endDate) {
+      parsedEndDate = new Date(endDate);
+      if (isNaN(parsedEndDate.getTime())) {
+        parsedEndDate = undefined; // Invalid date, set to undefined
+      }
+    }
+    
     // Create campaign
     const campaign = new Campaign({
       title,
@@ -324,14 +352,14 @@ router.post('/', auth, campaignUpload, async (req, res) => {
       summary,
       coverImage,
       images,
-      goal: parseFloat(goal),
+      goal: parsedGoal,
       currency: currency || 'USD',
       category,
       tags,
       status: req.user.role === 'admin' ? (status || 'draft') : 'draft',
       featured: req.user.role === 'admin' ? (featured === 'true') : false,
-      startDate: new Date(startDate),
-      endDate: new Date(endDate),
+      startDate: parsedStartDate,
+      endDate: parsedEndDate,
       allowDonationsAfterEnd: allowDonationsAfterEnd === 'true',
       minimumDonation: parseFloat(minimumDonation) || 5,
       suggestedDonations,
