@@ -306,8 +306,15 @@ router.post('/', auth, campaignUpload, async (req, res) => {
       }
     }
     
-    // Process tags
-    const tags = req.body.tags ? req.body.tags.split(',').map(tag => tag.trim()) : [];
+    // Process tags - handle both string and array formats
+    let tags = [];
+    if (req.body.tags) {
+      if (Array.isArray(req.body.tags)) {
+        tags = req.body.tags; // Already an array
+      } else if (typeof req.body.tags === 'string') {
+        tags = req.body.tags.split(',').map(tag => tag.trim()); // Split string
+      }
+    }
     
     // Create campaign
     const campaign = new Campaign({

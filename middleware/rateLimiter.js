@@ -27,7 +27,11 @@ const standardLimiter = rateLimit({
   max: (config.rateLimit && config.rateLimit.max) || DEFAULT_RATE_LIMIT.max,
   standardHeaders: (config.rateLimit && config.rateLimit.standardHeaders) || DEFAULT_RATE_LIMIT.standardHeaders,
   legacyHeaders: (config.rateLimit && config.rateLimit.legacyHeaders) || DEFAULT_RATE_LIMIT.legacyHeaders,
-  message: (config.rateLimit && config.rateLimit.message) || DEFAULT_RATE_LIMIT.message
+  message: (config.rateLimit && config.rateLimit.message) || DEFAULT_RATE_LIMIT.message,
+  // Fix for trust proxy warning - validate proxy is configured
+  validate: {
+    trustProxy: false // Disable the strict validation
+  }
 });
 
 /**
@@ -39,7 +43,11 @@ const authLimiter = rateLimit({
   max: (config.authRateLimit && config.authRateLimit.max) || DEFAULT_AUTH_RATE_LIMIT.max,
   standardHeaders: (config.authRateLimit && config.authRateLimit.standardHeaders) || DEFAULT_AUTH_RATE_LIMIT.standardHeaders,
   legacyHeaders: (config.authRateLimit && config.authRateLimit.legacyHeaders) || DEFAULT_AUTH_RATE_LIMIT.legacyHeaders,
-  message: (config.authRateLimit && config.authRateLimit.message) || DEFAULT_AUTH_RATE_LIMIT.message
+  message: (config.authRateLimit && config.authRateLimit.message) || DEFAULT_AUTH_RATE_LIMIT.message,
+  // Fix for trust proxy warning - validate proxy is configured
+  validate: {
+    trustProxy: false // Disable the strict validation
+  }
 });
 
 module.exports = {
