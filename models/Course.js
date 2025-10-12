@@ -13,13 +13,25 @@ const CourseSchema = new mongoose.Schema({
   },
   level: {
     type: String,
-    enum: ['beginner', 'intermediate', 'advanced'],
+    enum: ['beginner', 'Beginner', 'intermediate', 'Intermediate', 'advanced', 'Advanced'], // Added capitalized versions
     default: 'beginner'
   },
   category: {
     type: String,
     required: [true, 'Please add a category'],
-    enum: ['language', 'professional', 'academic', 'vocational', 'life-skills', 'technology']
+    enum: [
+      'language', 'Language',
+      'professional', 'Professional',
+      'academic', 'Academic',
+      'vocational', 'Vocational',
+      'life-skills', 'Life Skills',
+      'technology', 'Technology',
+      'education', 'Education',
+      'health', 'Health',
+      'business', 'Business',
+      'arts', 'Arts',
+      'other', 'Other'
+    ] // Added more categories and capitalized versions
   },
   instructor: {
     type: mongoose.Schema.ObjectId,
@@ -117,7 +129,7 @@ const CourseSchema = new mongoose.Schema({
   },
   status: {
     type: String,
-    enum: ['upcoming', 'active', 'completed', 'cancelled'],
+    enum: ['upcoming', 'Upcoming', 'active', 'Active', 'completed', 'Completed', 'cancelled', 'Cancelled'], // Added capitalized versions
     default: 'upcoming'
   },
   createdAt: {

@@ -10,7 +10,19 @@ const CommunityProjectSchema = new mongoose.Schema({
   category: {
     type: String,
     required: [true, 'Please select a category'],
-    enum: ['Social Enterprise', 'Local Initiative', 'Cultural Project', 'Education', 'Health', 'Environment', 'Other']
+    enum: [
+      'Social Enterprise', 
+      'Local Initiative', 
+      'Cultural Project', 
+      'Education',
+      'Education Program', // Added for frontend compatibility
+      'Health', 
+      'Health & Wellness', // Added for frontend compatibility
+      'Environment', 
+      'Technology',
+      'Arts & Culture',
+      'Other'
+    ]
   },
   description: {
     type: String,
@@ -67,7 +79,7 @@ const CommunityProjectSchema = new mongoose.Schema({
   },
   status: {
     type: String,
-    enum: ['draft', 'active', 'completed', 'paused', 'archived'],
+    enum: ['draft', 'active', 'Active', 'completed', 'paused', 'archived'], // Added 'Active' for frontend compatibility
     default: 'active'
   },
   likes: [{
