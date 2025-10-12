@@ -84,7 +84,9 @@ const config = {
     // In production, require env-provided URI (validated in server startup)
     mongoURI: process.env.MONGODB_URI || process.env.MONGODB_URI_PRODUCTION,
     jwtSecret: process.env.JWT_SECRET,
-    jwtExpire: process.env.JWT_EXPIRE || '30d',
+    jwtExpire: process.env.JWT_EXPIRE || '1h',
+    jwtRefreshSecret: process.env.JWT_REFRESH_SECRET || process.env.JWT_SECRET + '_refresh',
+    jwtRefreshExpire: process.env.JWT_REFRESH_EXPIRE || '7d',
     frontendUrl: process.env.FRONTEND_URL || 'https://refugeenetwork.com',
     fromName: process.env.FROM_NAME || 'Refugee Network Centre',
     fromEmail: process.env.FROM_EMAIL || 'noreply@refugeenetwork.com',
