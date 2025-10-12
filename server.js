@@ -43,6 +43,7 @@ const allowedOrigins = [
   'https://rncmalaysia.org',
   'https://www.rncmalaysia.org',
   'https://rncplatform.netlify.app',
+  'https://gentle-horse-f4db86.netlify.app', // Added Netlify deployment
   'http://rnc.malaysia.org',
   'https://rnc.malaysia.org',
   'https://www.rnc.malaysia.org',
@@ -77,6 +78,11 @@ app.use(express.json({ extended: false }));
 
 // Trust proxy for Render deployment (fixes rate limiting)
 app.set('trust proxy', true);
+
+// Data Sanitizer Middleware - Handles data type conversions
+const { sanitizeData, sanitizeQuery } = require('./middleware/dataSanitizer');
+app.use(sanitizeData); // Sanitize request body
+app.use(sanitizeQuery); // Sanitize query parameters
 
 // Note: Avoid setting permissive wildcard CORS headers manually here.
 // The cors() middleware above already handles allowed origins and headers.
