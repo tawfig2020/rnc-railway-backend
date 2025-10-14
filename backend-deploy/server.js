@@ -721,8 +721,8 @@ app.use((err, req, res, next) => {
   });
 });
 
-// Configure server timeouts
-const server = app.listen(PORT, '0.0.0.0', () => {
+// Start server - Remove explicit host binding for Render compatibility
+const server = app.listen(PORT, () => {
   serverHealth.status = 'running';
   console.log(`🚀 RNC Backend API running on port ${PORT}`);
   console.log(`📍 Health check: http://localhost:${PORT}/api/health`);
@@ -733,6 +733,9 @@ const server = app.listen(PORT, '0.0.0.0', () => {
   console.log(`⏱️  Request timeout: ${REQUEST_TIMEOUT}ms`);
   console.log(`💾 Max request size: ${MAX_REQUEST_SIZE}`);
   console.log(`🔄 Token cleanup interval: ${TOKEN_CLEANUP_INTERVAL / 1000}s`);
+}).on('error', (err) => {
+  console.error('❌ Server failed to start:', err);
+  process.exit(1);
 });
 
 // Set server timeouts
@@ -812,4 +815,7 @@ setInterval(() => {
   }
 }, 300000); // Every 5 minutes
 
-module.exports = app;
+// Export for testing purposes only
+if (require.main !== module) {
+  module.exports = app;
+}
