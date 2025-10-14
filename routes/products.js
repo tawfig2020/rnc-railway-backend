@@ -52,6 +52,10 @@ router.get('/', async (req, res) => {
       minPrice, maxPrice, sort, limit, page 
     } = req.query;
 
+    // Pagination - MOVED UP to fix hoisting error
+    const currentPage = parseInt(page) || 1;
+    const perPage = parseInt(limit) || 12;
+
     const query = {};
     
     // Add filters if provided
@@ -104,10 +108,6 @@ router.get('/', async (req, res) => {
     if (!req.user || req.user.role !== 'admin') {
       query.status = 'approved';
     }
-    
-    // Pagination
-    const currentPage = parseInt(page) || 1;
-    const perPage = parseInt(limit) || 12;
     const skip = (currentPage - 1) * perPage;
     
     // Sort options
