@@ -493,7 +493,7 @@ function authenticateToken(req, res, next) {
   });
 }
 
-// Get all users (admin only)
+// Get all users (admin only) - Legacy endpoint
 app.get('/api/users', authenticateToken, (req, res) => {
   if (req.user.role !== 'admin') {
     return res.status(403).json({
@@ -506,6 +506,26 @@ app.get('/api/users', authenticateToken, (req, res) => {
   res.json({
     success: true,
     users: usersWithoutPasswords,
+    total: usersWithoutPasswords.length
+  });
+});
+
+// Get all users (admin only) - New admin endpoint
+app.get('/api/admin/users', authenticateToken, (req, res) => {
+  if (req.user.role !== 'admin') {
+    return res.status(403).json({
+      success: false,
+      message: 'Admin access required'
+    });
+  }
+
+  const usersWithoutPasswords = mockUsers.map(({ password, ...user }) => user);
+  console.log(`[Admin] Fetched ${usersWithoutPasswords.length} users by ${req.user.email}`);
+  
+  res.json({
+    success: true,
+    users: usersWithoutPasswords,
+    data: usersWithoutPasswords,
     total: usersWithoutPasswords.length
   });
 });
