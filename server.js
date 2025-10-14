@@ -193,6 +193,191 @@ mockApiRouter.get('/events', (req, res) => res.json(mockData.events));
 mockApiRouter.get('/resources', (req, res) => res.json(mockData.resources));
 // Add other mock routes here as needed to ensure full test coverage
 
+// --- Admin User Management Endpoints (Direct) ---
+// These endpoints are added directly to handle user management from admin dashboard
+const User = require('./models/User');
+const auth = require('./middleware/auth');
+
+// Get all users (admin only)
+realApiRouter.get('/admin/users', auth, async (req, res) => {
+  try {
+    if (req.user.role !== 'admin') {
+      return res.status(403).json({
+        success: false,
+        message: 'Admin access required'
+      });
+    }
+
+    const users = await User.find().select('-password');
+    console.log(`[Admin] Fetched ${users.length} users by ${req.user.email}`);
+    
+    res.json({
+      success: true,
+      users: users,
+      data: users,
+      total: users.length
+    });
+  } catch (error) {
+    console.error('Error fetching users:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Failed to fetch users',
+      error: error.message
+    });
+  }
+});
+
+// Create new user (admin only)
+realApiRouter.post('/admin/users', auth, async (req, res) => {
+  try {
+    if (req.user.role !== 'admin') {
+      return res.status(403).json({
+        success: false,
+        message: 'Admin access required'
+      });
+    }
+
+    const { name, email, password, role, location } = req.body;
+
+    // Validation
+    if (!name || !email || !password) {
+      return res.status(400).json({
+        success: false,
+        message: 'Name, email, and password are required'
+      });
+    }
+
+    // Check if user already exists
+    const existingUser = await User.findOne({ email });
+    if (existingUser) {
+      return res.status(400).json({
+        success: false,
+        message: 'User with this email already exists'
+      });
+    }
+
+    // Create new user
+    const newUser = new User({
+      name,
+      email,
+      password, // Will be hashed by User model pre-save hook
+      role: role || 'user',
+      location: location || 'Malaysia',
+      isEmailVerified: true
+    });
+
+    await newUser.save();
+
+    // Return user without password
+    const userResponse = newUser.toObject();
+    delete userResponse.password;
+
+    console.log(`[Admin] User created: ${email} by ${req.user.email}`);
+
+    res.status(201).json({
+      success: true,
+      message: 'User created successfully',
+      user: userResponse,
+      data: userResponse
+    });
+  } catch (error) {
+    console.error('Error creating user:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Failed to create user',
+      error: error.message
+    });
+  }
+});
+
+// Update user (admin only)
+realApiRouter.put('/admin/users/:id', auth, async (req, res) => {
+  try {
+    if (req.user.role !== 'admin') {
+      return res.status(403).json({
+        success: false,
+        message: 'Admin access required'
+      });
+    }
+
+    const { id } = req.params;
+    const { name, email, role, location } = req.body;
+
+    const user = await User.findById(id);
+    if (!user) {
+      return res.status(404).json({
+        success: false,
+        message: 'User not found'
+      });
+    }
+
+    // Update user fields
+    if (name) user.name = name;
+    if (email) user.email = email;
+    if (role) user.role = role;
+    if (location) user.location = location;
+
+    await user.save();
+
+    const userResponse = user.toObject();
+    delete userResponse.password;
+
+    console.log(`[Admin] User updated: ${id} by ${req.user.email}`);
+
+    res.json({
+      success: true,
+      message: 'User updated successfully',
+      user: userResponse,
+      data: userResponse
+    });
+  } catch (error) {
+    console.error('Error updating user:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Failed to update user',
+      error: error.message
+    });
+  }
+});
+
+// Delete user (admin only)
+realApiRouter.delete('/admin/users/:id', auth, async (req, res) => {
+  try {
+    if (req.user.role !== 'admin') {
+      return res.status(403).json({
+        success: false,
+        message: 'Admin access required'
+      });
+    }
+
+    const { id } = req.params;
+
+    const user = await User.findById(id);
+    if (!user) {
+      return res.status(404).json({
+        success: false,
+        message: 'User not found'
+      });
+    }
+
+    await user.deleteOne();
+
+    console.log(`[Admin] User deleted: ${user.email} by ${req.user.email}`);
+
+    res.json({
+      success: true,
+      message: 'User deleted successfully'
+    });
+  } catch (error) {
+    console.error('Error deleting user:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Failed to delete user',
+      error: error.message
+    });
+  }
+});
+
 // --- Dynamic API Router ---
 // This middleware dynamically selects the real or mock router based on DB connection status.
 // This ensures that routes are registered immediately on startup.
