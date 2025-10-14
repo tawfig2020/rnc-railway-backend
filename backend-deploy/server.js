@@ -510,6 +510,161 @@ app.get('/api/users', authenticateToken, (req, res) => {
   });
 });
 
+// Create new user (admin only)
+app.post('/api/admin/users', authenticateToken, (req, res) => {
+  if (req.user.role !== 'admin') {
+    return res.status(403).json({
+      success: false,
+      message: 'Admin access required'
+    });
+  }
+
+  try {
+    const { name, email, password, role, location } = req.body;
+
+    // Validation
+    if (!name || !email || !password) {
+      return res.status(400).json({
+        success: false,
+        message: 'Name, email, and password are required'
+      });
+    }
+
+    // Check if user already exists
+    const existingUser = mockUsers.find(u => u.email === email);
+    if (existingUser) {
+      return res.status(400).json({
+        success: false,
+        message: 'User with this email already exists'
+      });
+    }
+
+    // Create new user
+    const newUser = {
+      _id: `user_${Date.now()}`,
+      name,
+      email,
+      password, // In production with real DB, hash this!
+      role: role || 'user',
+      location: location || 'Malaysia',
+      emailVerified: true,
+      createdAt: new Date(),
+      updatedAt: new Date()
+    };
+
+    mockUsers.push(newUser);
+
+    // Return user without password
+    const { password: _, ...userWithoutPassword } = newUser;
+
+    console.log(`[Admin] User created: ${email} by ${req.user.email}`);
+
+    res.status(201).json({
+      success: true,
+      message: 'User created successfully',
+      user: userWithoutPassword,
+      data: userWithoutPassword
+    });
+  } catch (error) {
+    console.error('Error creating user:', error);
+    serverHealth.errorCount++;
+    res.status(500).json({
+      success: false,
+      message: 'Failed to create user'
+    });
+  }
+});
+
+// Update user (admin only)
+app.put('/api/admin/users/:id', authenticateToken, (req, res) => {
+  if (req.user.role !== 'admin') {
+    return res.status(403).json({
+      success: false,
+      message: 'Admin access required'
+    });
+  }
+
+  try {
+    const { id } = req.params;
+    const { name, email, role, location } = req.body;
+
+    const userIndex = mockUsers.findIndex(u => u._id === id);
+    if (userIndex === -1) {
+      return res.status(404).json({
+        success: false,
+        message: 'User not found'
+      });
+    }
+
+    // Update user
+    mockUsers[userIndex] = {
+      ...mockUsers[userIndex],
+      name: name || mockUsers[userIndex].name,
+      email: email || mockUsers[userIndex].email,
+      role: role || mockUsers[userIndex].role,
+      location: location || mockUsers[userIndex].location,
+      updatedAt: new Date()
+    };
+
+    const { password, ...userWithoutPassword } = mockUsers[userIndex];
+
+    console.log(`[Admin] User updated: ${id} by ${req.user.email}`);
+
+    res.json({
+      success: true,
+      message: 'User updated successfully',
+      user: userWithoutPassword,
+      data: userWithoutPassword
+    });
+  } catch (error) {
+    console.error('Error updating user:', error);
+    serverHealth.errorCount++;
+    res.status(500).json({
+      success: false,
+      message: 'Failed to update user'
+    });
+  }
+});
+
+// Delete user (admin only)
+app.delete('/api/admin/users/:id', authenticateToken, (req, res) => {
+  if (req.user.role !== 'admin') {
+    return res.status(403).json({
+      success: false,
+      message: 'Admin access required'
+    });
+  }
+
+  try {
+    const { id } = req.params;
+
+    const userIndex = mockUsers.findIndex(u => u._id === id);
+    if (userIndex === -1) {
+      return res.status(404).json({
+        success: false,
+        message: 'User not found'
+      });
+    }
+
+    const deletedUser = mockUsers[userIndex];
+    mockUsers.splice(userIndex, 1);
+
+    console.log(`[Admin] User deleted: ${deletedUser.email} by ${req.user.email}`);
+
+    res.json({
+      success: true,
+      message: 'User deleted successfully'
+    });
+  } catch (error) {
+    console.error('Error deleting user:', error);
+    serverHealth.errorCount++;
+    res.status(500).json({
+      success: false,
+      message: 'Failed to delete user'
+    });
+  }
+});
+
 // Catch all for undefined API routes
 app.all('/api/*', (req, res) => {
   res.status(404).json({
@@ -521,7 +676,10 @@ app.all('/api/*', (req, res) => {
       'POST /api/auth/register',
       'GET /api/auth/profile',
       'POST /api/auth/refresh',
-      'GET /api/users (admin only)'
+      'GET /api/users (admin only)',
+      'POST /api/admin/users (admin only)',
+      'PUT /api/admin/users/:id (admin only)',
+      'DELETE /api/admin/users/:id (admin only)'
     ]
   });
 });
