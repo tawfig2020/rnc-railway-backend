@@ -43,10 +43,7 @@ const allowedOrigins = [
   'https://rncmalaysia.org',
   'https://www.rncmalaysia.org',
   'https://rncplatform.netlify.app',
-  'https://gentle-horse-f4db86.netlify.app', // Added Netlify deployment
-  'http://rnc.malaysia.org',
-  'https://rnc.malaysia.org',
-  'https://www.rnc.malaysia.org',
+  'https://gentle-horse-f4db86.netlify.app',
   'http://rncmalaysia.net',
   'https://rncmalaysia.net',
   'https://www.rncmalaysia.net'
@@ -170,7 +167,7 @@ realApiRouter.use('/orders', require('./routes/orders'));
 realApiRouter.use('/campaigns', require('./routes/campaigns'));
 realApiRouter.use('/donations', require('./routes/donations'));
 realApiRouter.use('/profiles', require('./routes/profiles'));
-realApiRouter.use('/health', require('./routes/health'));
+realApiRouter.use('/health-records', require('./routes/health')); // Renamed to avoid conflict
 realApiRouter.use('/support', require('./routes/support'));
 realApiRouter.use('/services', require('./routes/services')); // Legacy endpoint
 realApiRouter.use('/programs', require('./routes/programs')); // New endpoint (uses same Service model)
@@ -215,15 +212,21 @@ app.use('/api', (req, res, next) => {
   return mockApiRouter(req, res, next);
 });
 
-// Health check endpoint
-app.get('/health', (req, res) => {
+// Health check endpoints (both /health and /api/health for compatibility)
+const healthCheck = (req, res) => {
   res.json({ 
-    status: 'OK', 
+    success: true,
+    status: 'healthy', 
     message: 'RNC Backend is running',
     timestamp: new Date().toISOString(),
-    environment: process.env.NODE_ENV || 'development'
+    environment: process.env.NODE_ENV || 'development',
+    database: isDbConnected ? 'connected' : 'disconnected',
+    uptime: process.uptime()
   });
-});
+};
+
+app.get('/health', healthCheck);
+app.get('/api/health', healthCheck);
 
 // Ensure API routes are prioritized over static file serving
 // First handle all API routes defined above
