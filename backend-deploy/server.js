@@ -1,6 +1,6 @@
 /**
  * RNC Platform Backend API - Production Ready
- * Optimized for Render.com deployment
+ * Optimized for Render.com deployment with stability enhancements
  */
 
 const express = require('express');
@@ -12,6 +12,37 @@ const app = express();
 const PORT = process.env.PORT || 10000;
 const JWT_SECRET = process.env.JWT_SECRET || 'rnc-super-secret-jwt-key-2025-change-in-production';
 const JWT_REFRESH_SECRET = process.env.JWT_REFRESH_SECRET || 'rnc-refresh-secret-2025-change-in-production';
+
+// Stability Configuration
+const MAX_REFRESH_TOKENS = 1000; // Prevent memory leak
+const TOKEN_CLEANUP_INTERVAL = 3600000; // 1 hour
+const REQUEST_TIMEOUT = 30000; // 30 seconds
+const MAX_REQUEST_SIZE = '10mb';
+
+// Server health tracking
+let serverHealth = {
+  status: 'starting',
+  startTime: Date.now(),
+  requestCount: 0,
+  errorCount: 0,
+  lastError: null
+};
+
+// Trust proxy for Render.com
+app.set('trust proxy', 1);
+
+// Request timeout middleware - prevent hanging requests
+app.use((req, res, next) => {
+  req.setTimeout(REQUEST_TIMEOUT, () => {
+    console.error(`[Timeout] Request timeout: ${req.method} ${req.path}`);
+    serverHealth.errorCount++;
+    res.status(408).json({
+      success: false,
+      message: 'Request timeout'
+    });
+  });
+  next();
+});
 
 // Middleware
 app.use(cors({
@@ -27,12 +58,24 @@ app.use(cors({
   allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With']
 }));
 
-app.use(express.json({ limit: '10mb' }));
-app.use(express.urlencoded({ extended: true, limit: '10mb' }));
+app.use(express.json({ limit: MAX_REQUEST_SIZE }));
+app.use(express.urlencoded({ extended: true, limit: MAX_REQUEST_SIZE }));
 
-// Request logging middleware
+// Request logging and tracking middleware
 app.use((req, res, next) => {
+  serverHealth.requestCount++;
+  const start = Date.now();
+  
   console.log(`${new Date().toISOString()} - ${req.method} ${req.path}`);
+  
+  // Track response time
+  res.on('finish', () => {
+    const duration = Date.now() - start;
+    if (duration > 5000) {
+      console.warn(`[Slow Request] ${req.method} ${req.path} took ${duration}ms`);
+    }
+  });
+  
   next();
 });
 
@@ -75,6 +118,29 @@ const mockUsers = [
 
 let mockRefreshTokens = [];
 
+// Periodic cleanup of expired refresh tokens to prevent memory leak
+setInterval(() => {
+  const now = Date.now();
+  const sevenDaysAgo = now - (7 * 24 * 60 * 60 * 1000);
+  
+  const beforeCount = mockRefreshTokens.length;
+  mockRefreshTokens = mockRefreshTokens.filter(t => {
+    return t.createdAt.getTime() > sevenDaysAgo;
+  });
+  
+  const cleaned = beforeCount - mockRefreshTokens.length;
+  if (cleaned > 0) {
+    console.log(`[Cleanup] Removed ${cleaned} expired refresh tokens. Current: ${mockRefreshTokens.length}`);
+  }
+  
+  // Enforce hard limit to prevent unbounded growth
+  if (mockRefreshTokens.length > MAX_REFRESH_TOKENS) {
+    const excess = mockRefreshTokens.length - MAX_REFRESH_TOKENS;
+    mockRefreshTokens = mockRefreshTokens.slice(excess);
+    console.log(`[Cleanup] Enforced token limit. Removed ${excess} oldest tokens.`);
+  }
+}, TOKEN_CLEANUP_INTERVAL);
+
 // Root endpoint
 app.get('/', (req, res) => {
   res.json({
@@ -94,17 +160,42 @@ app.get('/', (req, res) => {
   });
 });
 
-// Health check endpoint
+// Health check endpoint with detailed metrics
 app.get('/api/health', (req, res) => {
-  res.json({ 
-    status: 'OK',
+  const memUsage = process.memoryUsage();
+  const uptime = process.uptime();
+  
+  // Calculate health score
+  const errorRate = serverHealth.requestCount > 0 
+    ? (serverHealth.errorCount / serverHealth.requestCount) * 100 
+    : 0;
+  
+  const isHealthy = errorRate < 5 && memUsage.heapUsed < memUsage.heapTotal * 0.9;
+  
+  const healthData = { 
+    status: isHealthy ? 'OK' : 'DEGRADED',
     service: 'RNC Backend API',
-    version: '1.0.0',
+    version: '1.0.1',
     timestamp: new Date().toISOString(),
-    uptime: process.uptime(),
-    memory: process.memoryUsage(),
+    uptime: uptime,
+    uptimeHuman: `${Math.floor(uptime / 3600)}h ${Math.floor((uptime % 3600) / 60)}m`,
+    memory: {
+      heapUsed: `${Math.round(memUsage.heapUsed / 1024 / 1024)}MB`,
+      heapTotal: `${Math.round(memUsage.heapTotal / 1024 / 1024)}MB`,
+      rss: `${Math.round(memUsage.rss / 1024 / 1024)}MB`,
+      external: `${Math.round(memUsage.external / 1024 / 1024)}MB`
+    },
+    metrics: {
+      totalRequests: serverHealth.requestCount,
+      totalErrors: serverHealth.errorCount,
+      errorRate: `${errorRate.toFixed(2)}%`,
+      activeTokens: mockRefreshTokens.length,
+      lastError: serverHealth.lastError
+    },
     environment: process.env.NODE_ENV || 'development'
-  });
+  };
+  
+  res.status(isHealthy ? 200 : 503).json(healthData);
 });
 
 // Login endpoint
@@ -176,6 +267,12 @@ app.post('/api/auth/login', async (req, res) => {
 
   } catch (error) {
     console.error('Login error:', error);
+    serverHealth.errorCount++;
+    serverHealth.lastError = {
+      endpoint: '/api/auth/login',
+      message: error.message,
+      timestamp: new Date().toISOString()
+    };
     res.status(500).json({
       success: false,
       message: 'Server error during login'
@@ -267,6 +364,12 @@ app.post('/api/auth/register', async (req, res) => {
 
   } catch (error) {
     console.error('Registration error:', error);
+    serverHealth.errorCount++;
+    serverHealth.lastError = {
+      endpoint: '/api/auth/register',
+      message: error.message,
+      timestamp: new Date().toISOString()
+    };
     res.status(500).json({
       success: false,
       message: 'Server error during registration'
@@ -292,6 +395,12 @@ app.get('/api/auth/profile', authenticateToken, (req, res) => {
     });
   } catch (error) {
     console.error('Profile error:', error);
+    serverHealth.errorCount++;
+    serverHealth.lastError = {
+      endpoint: '/api/auth/profile',
+      message: error.message,
+      timestamp: new Date().toISOString()
+    };
     res.status(500).json({
       success: false,
       message: 'Server error retrieving profile'
@@ -347,6 +456,12 @@ app.post('/api/auth/refresh', (req, res) => {
     });
   } catch (error) {
     console.error('Refresh token error:', error);
+    serverHealth.errorCount++;
+    serverHealth.lastError = {
+      endpoint: '/api/auth/refresh',
+      message: error.message,
+      timestamp: new Date().toISOString()
+    };
     res.status(500).json({
       success: false,
       message: 'Server error during token refresh'
@@ -414,29 +529,109 @@ app.all('/api/*', (req, res) => {
 // Global error handler
 app.use((err, req, res, next) => {
   console.error('Global error:', err);
-  res.status(500).json({
+  serverHealth.errorCount++;
+  serverHealth.lastError = {
+    endpoint: req.path,
+    message: err.message,
+    timestamp: new Date().toISOString()
+  };
+  
+  res.status(err.status || 500).json({
     success: false,
     message: 'Internal server error',
     error: process.env.NODE_ENV === 'development' ? err.message : undefined
   });
 });
 
-// Start server
+// Configure server timeouts
 const server = app.listen(PORT, '0.0.0.0', () => {
+  serverHealth.status = 'running';
   console.log(`🚀 RNC Backend API running on port ${PORT}`);
   console.log(`📍 Health check: http://localhost:${PORT}/api/health`);
   console.log(`🔑 Admin credentials: admin@refugeenetwork.com / 123456`);
   console.log(`👤 Test user: test@example.com / 123456`);
   console.log(`👥 Staff user: staff@refugeenetwork.com / 123456`);
   console.log(`🌍 Environment: ${process.env.NODE_ENV || 'development'}`);
+  console.log(`⏱️  Request timeout: ${REQUEST_TIMEOUT}ms`);
+  console.log(`💾 Max request size: ${MAX_REQUEST_SIZE}`);
+  console.log(`🔄 Token cleanup interval: ${TOKEN_CLEANUP_INTERVAL / 1000}s`);
 });
 
-// Graceful shutdown
-process.on('SIGTERM', () => {
-  console.log('SIGTERM received, shutting down gracefully');
+// Set server timeouts
+server.timeout = REQUEST_TIMEOUT + 5000; // Slightly longer than request timeout
+server.keepAliveTimeout = 65000; // Standard for load balancers
+server.headersTimeout = 66000; // Slightly longer than keepAliveTimeout
+
+// Graceful shutdown handlers
+let isShuttingDown = false;
+
+const gracefulShutdown = (signal) => {
+  if (isShuttingDown) return;
+  isShuttingDown = true;
+  
+  console.log(`\n${signal} received, shutting down gracefully...`);
+  serverHealth.status = 'shutting_down';
+  
+  // Stop accepting new connections
   server.close(() => {
-    console.log('Process terminated');
+    console.log('✅ Server closed. No longer accepting connections.');
+    console.log(`📊 Final stats: ${serverHealth.requestCount} requests, ${serverHealth.errorCount} errors`);
+    process.exit(0);
   });
+  
+  // Force shutdown after 30 seconds
+  setTimeout(() => {
+    console.error('⚠️  Forced shutdown after timeout');
+    process.exit(1);
+  }, 30000);
+};
+
+process.on('SIGTERM', () => gracefulShutdown('SIGTERM'));
+process.on('SIGINT', () => gracefulShutdown('SIGINT'));
+
+// Handle uncaught exceptions
+process.on('uncaughtException', (error) => {
+  console.error('❌ Uncaught Exception:', error);
+  serverHealth.errorCount++;
+  serverHealth.lastError = {
+    type: 'uncaughtException',
+    message: error.message,
+    stack: error.stack,
+    timestamp: new Date().toISOString()
+  };
+  
+  // Don't exit immediately in production, log and continue
+  if (process.env.NODE_ENV === 'production') {
+    console.error('⚠️  Continuing despite uncaught exception (production mode)');
+  } else {
+    gracefulShutdown('UNCAUGHT_EXCEPTION');
+  }
 });
+
+// Handle unhandled promise rejections
+process.on('unhandledRejection', (reason, promise) => {
+  console.error('❌ Unhandled Rejection at:', promise, 'reason:', reason);
+  serverHealth.errorCount++;
+  serverHealth.lastError = {
+    type: 'unhandledRejection',
+    message: reason?.message || String(reason),
+    timestamp: new Date().toISOString()
+  };
+});
+
+// Log memory usage periodically
+setInterval(() => {
+  const memUsage = process.memoryUsage();
+  const heapUsedMB = Math.round(memUsage.heapUsed / 1024 / 1024);
+  const heapTotalMB = Math.round(memUsage.heapTotal / 1024 / 1024);
+  const heapPercent = ((memUsage.heapUsed / memUsage.heapTotal) * 100).toFixed(1);
+  
+  console.log(`[Memory] Heap: ${heapUsedMB}MB / ${heapTotalMB}MB (${heapPercent}%) | Tokens: ${mockRefreshTokens.length}`);
+  
+  // Warn if memory usage is high
+  if (heapPercent > 85) {
+    console.warn(`⚠️  High memory usage: ${heapPercent}%`);
+  }
+}, 300000); // Every 5 minutes
 
 module.exports = app;
